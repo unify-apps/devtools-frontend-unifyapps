@@ -48,6 +48,7 @@ devtools_entrypoint("bundle") {
     "../../../test/unittests/front_end/entrypoints/missing_entrypoints/*",
     "../../../test/unittests/front_end/helpers/*",
     "../devtools_app:*",
+    "../chii_app:*",
     "../js_app:*",
     "../ndb_app:*",
     "../node_app:*",
@@ -65,5 +66,5 @@ devtools_entrypoint("meta") {
     "../../entrypoints/inspector_main:bundle",
   ]
 
-  visibility = [ "../shell/*" ]
+  visibility = [ "../shell/*", "../chii_app/*" ]
 }
