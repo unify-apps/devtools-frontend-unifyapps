@@ -701,11 +701,15 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
           {jslogContext: 'editAttribute'});
     }
     this.populateNodeContextMenu(contextMenu);
-    ElementsTreeElement.populateForcedPseudoStateItems(contextMenu, treeElement.node());
+    if (!(globalThis as any).chii) {
+      ElementsTreeElement.populateForcedPseudoStateItems(contextMenu, treeElement.node());
+    }
     this.populateScrollIntoView(contextMenu);
-    contextMenu.viewSection().appendItem(i18nString(UIStrings.focus), async () => {
-      await this.nodeInternal.focus();
-    }, {jslogContext: 'focus'});
+    if (!(globalThis as any).chii) {
+      contextMenu.viewSection().appendItem(i18nString(UIStrings.focus), async () => {
+        await this.nodeInternal.focus();
+      }, {jslogContext: 'focus'});
+    }
   }
 
   populatePseudoElementContextMenu(contextMenu: UI.ContextMenu.ContextMenu): void {
