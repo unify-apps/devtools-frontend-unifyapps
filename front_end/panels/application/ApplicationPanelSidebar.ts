@@ -310,7 +310,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox implements SDK.Targe
     this.applicationTreeElement.appendChild(manifestTreeElement);
     manifestTreeElement.generateChildren();
     this.serviceWorkersTreeElement = new ServiceWorkersTreeElement(panel);
-    this.applicationTreeElement.appendChild(this.serviceWorkersTreeElement);
+    if (!(globalThis as any).chii) {
+      this.applicationTreeElement.appendChild(this.serviceWorkersTreeElement);
+    }
     const clearStorageTreeElement = new ClearStorageTreeElement(panel);
     this.applicationTreeElement.appendChild(clearStorageTreeElement);
 
@@ -347,7 +349,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox implements SDK.Targe
     const databaseIcon = IconButton.Icon.create('database');
     this.databasesListTreeElement.setLeadingIcons([databaseIcon]);
 
-    storageTreeElement.appendChild(this.databasesListTreeElement);
+    if (!(globalThis as any).chii) {
+      storageTreeElement.appendChild(this.databasesListTreeElement);
+    }
     this.cookieListTreeElement =
         new ExpandableApplicationPanelTreeElement(panel, i18nString(UIStrings.cookies), 'Cookies');
     this.cookieListTreeElement.setLink(
@@ -358,16 +362,24 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox implements SDK.Targe
     storageTreeElement.appendChild(this.cookieListTreeElement);
 
     this.trustTokensTreeElement = new TrustTokensTreeElement(panel);
-    storageTreeElement.appendChild(this.trustTokensTreeElement);
+    if (!(globalThis as any).chii) {
+      storageTreeElement.appendChild(this.trustTokensTreeElement);
+    }
 
     this.interestGroupTreeElement = new InterestGroupTreeElement(panel);
-    storageTreeElement.appendChild(this.interestGroupTreeElement);
+    if (!(globalThis as any).chii) {
+      storageTreeElement.appendChild(this.interestGroupTreeElement);
+    }
 
     this.sharedStorageListTreeElement = new SharedStorageListTreeElement(panel);
-    storageTreeElement.appendChild(this.sharedStorageListTreeElement);
+    if (!(globalThis as any).chii) {
+      storageTreeElement.appendChild(this.sharedStorageListTreeElement);
+    }
 
     this.cacheStorageListTreeElement = new ServiceWorkerCacheTreeElement(panel);
-    storageTreeElement.appendChild(this.cacheStorageListTreeElement);
+    if (!(globalThis as any).chii) {
+      storageTreeElement.appendChild(this.cacheStorageListTreeElement);
+    }
 
     if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE)) {
       this.storageBucketsTreeElement = new StorageBucketsTreeParentElement(panel);
@@ -376,6 +388,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox implements SDK.Targe
 
     const backgroundServiceSectionTitle = i18nString(UIStrings.backgroundServices);
     const backgroundServiceTreeElement = this.addSidebarSection(backgroundServiceSectionTitle);
+    if ((globalThis as any).chii) {
+      this.sidebarTree.removeChild(backgroundServiceTreeElement);
+    }
 
     this.backForwardCacheListTreeElement = new BackForwardCacheTreeElement(panel);
     backgroundServiceTreeElement.appendChild(this.backForwardCacheListTreeElement);
@@ -564,6 +579,10 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox implements SDK.Targe
       interestGroupModel.enable();
     }
 
+    if ((globalThis as any).chii) {
+      return;
+    }
+
     this.cacheStorageListTreeElement.initialize();
     const backgroundServiceModel = this.target && this.target.model(BackgroundServiceModel) || null;
     this.backgroundFetchTreeElement && this.backgroundFetchTreeElement.initialize(backgroundServiceModel);
@@ -648,6 +667,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox implements SDK.Targe
   }
 
   private resetWebSQL(): void {
+    if ((globalThis as any).chii) {
+      return;
+    }
     for (const queryView of this.databaseQueryViews.values()) {
       queryView.removeEventListener(DatabaseQueryViewEvents.SchemaUpdated, event => {
         void this.updateDatabaseTables(event);

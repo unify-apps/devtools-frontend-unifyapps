@@ -256,17 +256,21 @@ export class StorageView extends UI.ThrottledWidget.ThrottledWidget {
     includeThirdPartyCookiesCheckbox.classList.add('include-third-party-cookies');
     clearButtonSection.appendChild(includeThirdPartyCookiesCheckbox);
 
-    const application = this.reportView.appendSection(i18nString(UIStrings.application));
-    application.element.setAttribute('jslog', `${VisualLogging.section().context('application')}`);
-    this.appendItem(
-        application, i18nString(UIStrings.unregisterServiceWorker), Protocol.Storage.StorageType.Service_workers);
-    application.markFieldListAsGroup();
+    if ((!globalThis as any).chii) {
+      const application = this.reportView.appendSection(i18nString(UIStrings.application));
+      application.element.setAttribute('jslog', `${VisualLogging.section().context('application')}`);
+      this.appendItem(
+          application, i18nString(UIStrings.unregisterServiceWorker), Protocol.Storage.StorageType.Service_workers);
+      application.markFieldListAsGroup();
+    }
 
     const storage = this.reportView.appendSection(i18nString(UIStrings.storageTitle));
     storage.element.setAttribute('jslog', `${VisualLogging.section().context('storage')}`);
     this.appendItem(storage, i18nString(UIStrings.localAndSessionStorage), Protocol.Storage.StorageType.Local_storage);
     this.appendItem(storage, i18nString(UIStrings.indexDB), Protocol.Storage.StorageType.Indexeddb);
-    this.appendItem(storage, i18nString(UIStrings.webSql), Protocol.Storage.StorageType.Websql);
+    if (!(globalThis as any).chii) {
+      this.appendItem(storage, i18nString(UIStrings.webSql), Protocol.Storage.StorageType.Websql);
+    }
     this.appendItem(storage, i18nString(UIStrings.cookies), Protocol.Storage.StorageType.Cookies);
     this.appendItem(storage, i18nString(UIStrings.cacheStorage), Protocol.Storage.StorageType.Cache_storage);
     storage.markFieldListAsGroup();
