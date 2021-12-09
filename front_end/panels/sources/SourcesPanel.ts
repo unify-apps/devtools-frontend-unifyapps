@@ -228,6 +228,9 @@ export class SourcesPanel extends UI.Panel.Panel implements
         new UI.SplitWidget.SplitWidget(true, true, 'sourcesPanelSplitViewState', initialDebugSidebarWidth);
     this.splitWidget.enableShowModeSaving();
     this.splitWidget.show(this.element);
+    if ((globalThis as any).chii) {
+      this.splitWidget.hideSidebar(true);
+    }
 
     // Create scripts navigator
     const initialNavigatorWidth = 225;
@@ -336,10 +339,12 @@ export class SourcesPanel extends UI.Panel.Panel implements
     }
     if (!isInWrapper) {
       panel.sourcesViewInternal.leftToolbar().appendToolbarItem(panel.toggleNavigatorSidebarButton);
-      if (panel.splitWidget.isVertical()) {
-        panel.sourcesViewInternal.rightToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
-      } else {
-        panel.sourcesViewInternal.bottomToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
+      if (!(globalThis as any).chii) {
+        if (panel.splitWidget.isVertical()) {
+          panel.sourcesViewInternal.rightToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
+        } else {
+          panel.sourcesViewInternal.bottomToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
+        }
       }
     }
   }
@@ -982,8 +987,10 @@ export class SourcesPanel extends UI.Panel.Panel implements
     }
 
     else if (remoteObject.type === 'function') {
-      contextMenu.debugSection().appendItem(
-          i18nString(UIStrings.showFunctionDefinition), this.showFunctionDefinition.bind(this, remoteObject));
+      if (!(globalThis as any).chii) {
+        contextMenu.debugSection().appendItem(
+            i18nString(UIStrings.showFunctionDefinition), this.showFunctionDefinition.bind(this, remoteObject));
+      }
     }
 
     // TODO(crbug.com/1172300) Ignored during the jsdoc to ts migration)
