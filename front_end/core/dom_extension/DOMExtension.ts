@@ -132,6 +132,11 @@ Node.prototype.getComponentSelection = function(): Selection|null {
   while (parent && parent.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
     parent = parent.parentNode;
   }
+  if ((globalThis as any).chii) {
+    if (parent instanceof ShadowRoot && !parent.getSelection) {
+      return this.window().getSelection();
+    }
+  }
   return parent instanceof ShadowRoot ? parent.getSelection() : this.window().getSelection();
 };
 

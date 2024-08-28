@@ -1,0 +1,10 @@
+import("../../../scripts/build/ninja/devtools_pre_built.gni")
+
+devtools_pre_built("polyfill") {
+  sources_are_release = true
+
+  sources = [
+    "customElement.js",
+    "requestIdleCallback.js",
+  ]
+}

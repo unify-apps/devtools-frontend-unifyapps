@@ -376,6 +376,10 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
   }
 
   hideSearchHighlights(): void {
+    // @ts-expect-error
+    if ((globalThis as any).chii && typeof Highlight === 'undefined') {
+      return;
+    }
     Highlighting.HighlightManager.HighlightManager.instance().removeHighlights(this.#highlights);
     this.#highlights = [];
   }
@@ -2016,6 +2020,10 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
       matchRanges.push(new TextUtils.TextRange.SourceRange(0, text.length));
     }
 
+    // @ts-expect-error
+    if ((globalThis as any).chii && typeof Highlight === 'undefined') {
+      return;
+    }
     this.#highlights = Highlighting.HighlightManager.HighlightManager.instance().highlightOrderedTextRanges(
         this.listItemElement, matchRanges);
   }
