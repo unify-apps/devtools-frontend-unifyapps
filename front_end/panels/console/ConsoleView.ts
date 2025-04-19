@@ -483,6 +483,28 @@ export class ConsoleView
     toolbar.appendToolbarItem(
       UI.Toolbar.Toolbar.createActionButtonForId("console.clear")
     );
+
+    this.issueCounter = new IssueCounter.IssueCounter.IssueCounter();
+    this.issueCounter.id = "console-issues-counter";
+    this.issueCounter.setAttribute(
+      "jslog",
+      `${VisualLogging.action()
+        .track({ click: true })
+        .context(this.issueCounter.id)}`
+    );
+    const issuesToolbarItem = new UI.Toolbar.ToolbarItem(this.issueCounter);
+    this.issueCounter.data = {
+      clickHandler: (): void => {
+        Host.userMetrics.issuesPanelOpenedFrom(
+          Host.UserMetrics.IssueOpener.StatusBarIssuesCounter
+        );
+        void UI.ViewManager.ViewManager.instance().showView("issues-pane");
+      },
+      issuesManager: IssuesManager.IssuesManager.IssuesManager.instance(),
+      accessibleName: i18nString(UIStrings.issueToolbarTooltipGeneral),
+      displayMode: IssueCounter.IssueCounter.DisplayMode.OmitEmpty,
+    };
+
     if (!(globalThis as any).chii) {
       toolbar.appendSeparator();
       toolbar.appendToolbarItem(this.consoleContextSelector.toolbarItem());
@@ -497,26 +519,6 @@ export class ConsoleView
       toolbar.appendToolbarItem(this.filter.levelMenuButton);
       toolbar.appendToolbarItem(this.progressToolbarItem);
       toolbar.appendSeparator();
-      this.issueCounter = new IssueCounter.IssueCounter.IssueCounter();
-      this.issueCounter.id = "console-issues-counter";
-      this.issueCounter.setAttribute(
-        "jslog",
-        `${VisualLogging.action()
-          .track({ click: true })
-          .context(this.issueCounter.id)}`
-      );
-      const issuesToolbarItem = new UI.Toolbar.ToolbarItem(this.issueCounter);
-      this.issueCounter.data = {
-        clickHandler: (): void => {
-          Host.userMetrics.issuesPanelOpenedFrom(
-            Host.UserMetrics.IssueOpener.StatusBarIssuesCounter
-          );
-          void UI.ViewManager.ViewManager.instance().showView("issues-pane");
-        },
-        issuesManager: IssuesManager.IssuesManager.IssuesManager.instance(),
-        accessibleName: i18nString(UIStrings.issueToolbarTooltipGeneral),
-        displayMode: IssueCounter.IssueCounter.DisplayMode.OmitEmpty,
-      };
       toolbar.appendToolbarItem(issuesToolbarItem);
       toolbar.appendSeparator();
       toolbar.appendToolbarItem(this.filterStatusText);
