@@ -91,14 +91,26 @@ const OVERRIDES_FILE_SYSTEM_PATH = '/overrides' as Platform.DevToolsPath.RawPath
  * The native implementations live in devtools_ui_bindings.cc: https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/devtools/devtools_ui_bindings.cc
  */
 export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
-  readonly #urlsBeingSaved: Map<Platform.DevToolsPath.RawPathString|Platform.DevToolsPath.UrlString, string[]>;
+  readonly #urlsBeingSaved: Map<
+    Platform.DevToolsPath.RawPathString | Platform.DevToolsPath.UrlString,
+    string[]
+  >;
   events!: Common.EventTarget.EventTarget<EventTypes>;
-  #fileSystem: FileSystem|null = null;
+  #fileSystem: FileSystem | null = null;
 
-  recordedCountHistograms:
-      {histogramName: string, sample: number, min: number, exclusiveMax: number, bucketSize: number}[] = [];
-  recordedEnumeratedHistograms: {actionName: EnumeratedHistogram, actionCode: number}[] = [];
-  recordedPerformanceHistograms: {histogramName: string, duration: number}[] = [];
+  recordedCountHistograms: {
+    histogramName: string;
+    sample: number;
+    min: number;
+    exclusiveMax: number;
+    bucketSize: number;
+  }[] = [];
+  recordedEnumeratedHistograms: {
+    actionName: EnumeratedHistogram;
+    actionCode: number;
+  }[] = [];
+  recordedPerformanceHistograms: { histogramName: string; duration: number }[] =
+    [];
 
   constructor() {
     this.#urlsBeingSaved = new Map();
@@ -106,77 +118,89 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
     // Guard against errors should this file ever be imported at the top level
     // within a worker - in which case this constructor is run. If there's no
     // document, we can early exit.
-    if (typeof document === 'undefined') {
+    if (typeof document === "undefined") {
       return;
     }
 
-    function stopEventPropagation(this: InspectorFrontendHostAPI, event: KeyboardEvent): void {
+    function stopEventPropagation(
+      this: InspectorFrontendHostAPI,
+      event: KeyboardEvent
+    ): void {
       // Let browser handle Ctrl+/Ctrl- shortcuts in hosted mode.
-      const zoomModifier = this.platform() === 'mac' ? event.metaKey : event.ctrlKey;
-      if (zoomModifier && (event.key === '+' || event.key === '-')) {
+      const zoomModifier =
+        this.platform() === "mac" ? event.metaKey : event.ctrlKey;
+      if (zoomModifier && (event.key === "+" || event.key === "-")) {
         event.stopPropagation();
       }
     }
 
-    document.addEventListener('keydown', event => {
-      stopEventPropagation.call(this, (event as KeyboardEvent));
-    }, true);
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        stopEventPropagation.call(this, event as KeyboardEvent);
+      },
+      true
+    );
   }
 
   platform(): string {
     const userAgent = navigator.userAgent;
-    if (userAgent.includes('Windows NT')) {
-      return 'windows';
+    if (userAgent.includes("Windows NT")) {
+      return "windows";
     }
-    if (userAgent.includes('Mac OS X')) {
-      return 'mac';
+    if (userAgent.includes("Mac OS X")) {
+      return "mac";
     }
-    return 'linux';
+    return "linux";
   }
 
-  loadCompleted(): void {
-  }
+  loadCompleted(): void {}
 
-  bringToFront(): void {
-  }
+  bringToFront(): void {}
 
   closeWindow(): void {
+    window.parent.postMessage('closeWindow', '*');
   }
 
   setIsDocked(isDocked: boolean, callback: () => void): void {
     window.setTimeout(callback, 0);
   }
 
-  showSurvey(trigger: string, callback: (arg0: ShowSurveyResult) => void): void {
-    window.setTimeout(() => callback({surveyShown: false}), 0);
+  showSurvey(
+    trigger: string,
+    callback: (arg0: ShowSurveyResult) => void
+  ): void {
+    window.setTimeout(() => callback({ surveyShown: false }), 0);
   }
 
-  canShowSurvey(trigger: string, callback: (arg0: CanShowSurveyResult) => void): void {
-    window.setTimeout(() => callback({canShowSurvey: false}), 0);
+  canShowSurvey(
+    trigger: string,
+    callback: (arg0: CanShowSurveyResult) => void
+  ): void {
+    window.setTimeout(() => callback({ canShowSurvey: false }), 0);
   }
 
   /**
    * Requests inspected page to be placed atop of the inspector frontend with specified bounds.
    */
   setInspectedPageBounds(bounds: {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-  }): void {
-  }
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }): void {}
 
-  inspectElementCompleted(): void {
-  }
+  inspectElementCompleted(): void {}
 
-  setInjectedScriptForOrigin(origin: string, script: string): void {
-  }
+  setInjectedScriptForOrigin(origin: string, script: string): void {}
 
   inspectedURLChanged(url: Platform.DevToolsPath.UrlString): void {
-    document.title = i18nString(UIStrings.devtoolsS, {PH1: url.replace(/^https?:\/\//, '')});
+    document.title = i18nString(UIStrings.devtoolsS, {
+      PH1: url.replace(/^https?:\/\//, ""),
+    });
   }
 
-  copyText(text: string|null|undefined): void {
+  copyText(text: string | null | undefined): void {
     if (text === undefined || text === null) {
       return;
     }
@@ -184,26 +208,36 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
   }
 
   openInNewTab(url: Platform.DevToolsPath.UrlString): void {
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   }
 
   showItemInFolder(fileSystemPath: Platform.DevToolsPath.RawPathString): void {
     Common.Console.Console.instance().error(
-        'Show item in folder is not enabled in hosted mode. Please inspect using chrome://inspect');
+      "Show item in folder is not enabled in hosted mode. Please inspect using chrome://inspect"
+    );
   }
 
-  save(url: Platform.DevToolsPath.RawPathString|Platform.DevToolsPath.UrlString, content: string, forceSaveAs: boolean):
-      void {
+  save(
+    url: Platform.DevToolsPath.RawPathString | Platform.DevToolsPath.UrlString,
+    content: string,
+    forceSaveAs: boolean
+  ): void {
     let buffer = this.#urlsBeingSaved.get(url);
     if (!buffer) {
       buffer = [];
       this.#urlsBeingSaved.set(url, buffer);
     }
     buffer.push(content);
-    this.events.dispatchEventToListeners(Events.SavedURL, {url, fileSystemPath: url});
+    this.events.dispatchEventToListeners(Events.SavedURL, {
+      url,
+      fileSystemPath: url,
+    });
   }
 
-  append(url: Platform.DevToolsPath.RawPathString|Platform.DevToolsPath.UrlString, content: string): void {
+  append(
+    url: Platform.DevToolsPath.RawPathString | Platform.DevToolsPath.UrlString,
+    content: string
+  ): void {
     const buffer = this.#urlsBeingSaved.get(url);
     if (buffer) {
       buffer.push(content);
@@ -211,10 +245,12 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
     }
   }
 
-  close(url: Platform.DevToolsPath.RawPathString|Platform.DevToolsPath.UrlString): void {
+  close(
+    url: Platform.DevToolsPath.RawPathString | Platform.DevToolsPath.UrlString
+  ): void {
     const buffer = this.#urlsBeingSaved.get(url) || [];
     this.#urlsBeingSaved.delete(url);
-    let fileName = '';
+    let fileName = "";
 
     if (url) {
       try {
@@ -226,42 +262,59 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
       }
     }
 
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.download = fileName;
-    const blob = new Blob([buffer.join('')], {type: 'text/plain'});
+    const blob = new Blob([buffer.join("")], { type: "text/plain" });
     const blobUrl = URL.createObjectURL(blob);
     link.href = blobUrl;
     link.click();
     URL.revokeObjectURL(blobUrl);
   }
 
-  sendMessageToBackend(message: string): void {
-  }
+  sendMessageToBackend(message: string): void {}
 
-  recordCountHistogram(histogramName: string, sample: number, min: number, exclusiveMax: number, bucketSize: number):
-      void {
+  recordCountHistogram(
+    histogramName: string,
+    sample: number,
+    min: number,
+    exclusiveMax: number,
+    bucketSize: number
+  ): void {
     if (this.recordedCountHistograms.length >= MAX_RECORDED_HISTOGRAMS_SIZE) {
       this.recordedCountHistograms.shift();
     }
-    this.recordedCountHistograms.push({histogramName, sample, min, exclusiveMax, bucketSize});
+    this.recordedCountHistograms.push({
+      histogramName,
+      sample,
+      min,
+      exclusiveMax,
+      bucketSize,
+    });
   }
 
-  recordEnumeratedHistogram(actionName: EnumeratedHistogram, actionCode: number, bucketSize: number): void {
-    if (this.recordedEnumeratedHistograms.length >= MAX_RECORDED_HISTOGRAMS_SIZE) {
+  recordEnumeratedHistogram(
+    actionName: EnumeratedHistogram,
+    actionCode: number,
+    bucketSize: number
+  ): void {
+    if (
+      this.recordedEnumeratedHistograms.length >= MAX_RECORDED_HISTOGRAMS_SIZE
+    ) {
       this.recordedEnumeratedHistograms.shift();
     }
-    this.recordedEnumeratedHistograms.push({actionName, actionCode});
+    this.recordedEnumeratedHistograms.push({ actionName, actionCode });
   }
 
   recordPerformanceHistogram(histogramName: string, duration: number): void {
-    if (this.recordedPerformanceHistograms.length >= MAX_RECORDED_HISTOGRAMS_SIZE) {
+    if (
+      this.recordedPerformanceHistograms.length >= MAX_RECORDED_HISTOGRAMS_SIZE
+    ) {
       this.recordedPerformanceHistograms.shift();
     }
-    this.recordedPerformanceHistograms.push({histogramName, duration});
+    this.recordedPerformanceHistograms.push({ histogramName, duration });
   }
 
-  recordUserMetricsAction(umaName: string): void {
-  }
+  recordUserMetricsAction(umaName: string): void {}
 
   requestFileSystems(): void {
     this.events.dispatchEventToListeners(Events.FileSystemsLoaded, []);
@@ -271,19 +324,21 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
     const onFileSystem = (fs: FileSystem): void => {
       this.#fileSystem = fs;
       const fileSystem = {
-        fileSystemName: 'sandboxedRequestedFileSystem',
+        fileSystemName: "sandboxedRequestedFileSystem",
         fileSystemPath: OVERRIDES_FILE_SYSTEM_PATH,
-        rootURL: 'filesystem:devtools://devtools/isolated/',
-        type: 'overrides',
+        rootURL: "filesystem:devtools://devtools/isolated/",
+        type: "overrides",
       };
-      this.events.dispatchEventToListeners(Events.FileSystemAdded, {fileSystem});
+      this.events.dispatchEventToListeners(Events.FileSystemAdded, {
+        fileSystem,
+      });
     };
     window.webkitRequestFileSystem(window.TEMPORARY, 1024 * 1024, onFileSystem);
   }
 
   removeFileSystem(fileSystemPath: Platform.DevToolsPath.RawPathString): void {
     const removalCallback = (entries: Entry[]): void => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isDirectory) {
           (entry as DirectoryEntry).removeRecursively(() => {});
         } else if (entry.isFile) {
@@ -297,15 +352,25 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
     }
 
     this.#fileSystem = null;
-    this.events.dispatchEventToListeners(Events.FileSystemRemoved, OVERRIDES_FILE_SYSTEM_PATH);
+    this.events.dispatchEventToListeners(
+      Events.FileSystemRemoved,
+      OVERRIDES_FILE_SYSTEM_PATH
+    );
   }
 
-  isolatedFileSystem(fileSystemId: string, registeredName: string): FileSystem|null {
+  isolatedFileSystem(
+    fileSystemId: string,
+    registeredName: string
+  ): FileSystem | null {
     return this.#fileSystem;
   }
 
   loadNetworkResource(
-      url: string, headers: string, streamId: number, callback: (arg0: LoadNetworkResourceResult) => void): void {
+    url: string,
+    headers: string,
+    streamId: number,
+    callback: (arg0: LoadNetworkResourceResult) => void
+  ): void {
     // Read the first 3 bytes looking for the gzip signature in the file header
     function isGzip(ab: ArrayBuffer): boolean {
       const buf = new Uint8Array(ab);
@@ -314,53 +379,50 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
       }
 
       // https://www.rfc-editor.org/rfc/rfc1952#page-6
-      return buf[0] === 0x1F && buf[1] === 0x8B && buf[2] === 0x08;
+      return buf[0] === 0x1f && buf[1] === 0x8b && buf[2] === 0x08;
     }
     fetch(url)
-        .then(async result => {
-          const resultArrayBuf = await result.arrayBuffer();
-          let decoded: ReadableStream|ArrayBuffer = resultArrayBuf;
-          if (isGzip(resultArrayBuf)) {
-            const ds = new DecompressionStream('gzip');
-            const writer = ds.writable.getWriter();
-            void writer.write(resultArrayBuf);
-            void writer.close();
-            decoded = ds.readable;
-          }
-          const text = await new Response(decoded).text();
-          return text;
-        })
-        .then(function(text) {
-          resourceLoaderStreamWrite(streamId, text);
-          callback({
-            statusCode: 200,
-            headers: undefined,
-            messageOverride: undefined,
-            netError: undefined,
-            netErrorName: undefined,
-            urlValid: undefined,
-          });
-        })
-        .catch(function() {
-          callback({
-            statusCode: 404,
-            headers: undefined,
-            messageOverride: undefined,
-            netError: undefined,
-            netErrorName: undefined,
-            urlValid: undefined,
-          });
+      .then(async (result) => {
+        const resultArrayBuf = await result.arrayBuffer();
+        let decoded: ReadableStream | ArrayBuffer = resultArrayBuf;
+        if (isGzip(resultArrayBuf)) {
+          const ds = new DecompressionStream("gzip");
+          const writer = ds.writable.getWriter();
+          void writer.write(resultArrayBuf);
+          void writer.close();
+          decoded = ds.readable;
+        }
+        const text = await new Response(decoded).text();
+        return text;
+      })
+      .then(function (text) {
+        resourceLoaderStreamWrite(streamId, text);
+        callback({
+          statusCode: 200,
+          headers: undefined,
+          messageOverride: undefined,
+          netError: undefined,
+          netErrorName: undefined,
+          urlValid: undefined,
         });
+      })
+      .catch(function () {
+        callback({
+          statusCode: 404,
+          headers: undefined,
+          messageOverride: undefined,
+          netError: undefined,
+          netErrorName: undefined,
+          urlValid: undefined,
+        });
+      });
   }
 
-  registerPreference(name: string, options: {synced?: boolean}): void {
-  }
+  registerPreference(name: string, options: { synced?: boolean }): void {}
 
-  getPreferences(callback: (arg0: {
-                   [x: string]: string,
-                 }) => void): void {
+  getPreferences(callback: (arg0: { [x: string]: string }) => void): void {
     const prefs: {
-      [x: string]: string,
+      [x: string]: string;
     } = {};
     for (const name in window.localStorage) {
       prefs[name] = window.localStorage[name];
@@ -391,69 +453,63 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
     });
   }
 
-  upgradeDraggedFileSystemPermissions(fileSystem: FileSystem): void {
-  }
+  upgradeDraggedFileSystemPermissions(fileSystem: FileSystem): void {}
 
-  indexPath(requestId: number, fileSystemPath: Platform.DevToolsPath.RawPathString, excludedFolders: string): void {
-  }
+  indexPath(
+    requestId: number,
+    fileSystemPath: Platform.DevToolsPath.RawPathString,
+    excludedFolders: string
+  ): void {}
 
-  stopIndexing(requestId: number): void {
-  }
+  stopIndexing(requestId: number): void {}
 
-  searchInPath(requestId: number, fileSystemPath: Platform.DevToolsPath.RawPathString, query: string): void {
-  }
+  searchInPath(
+    requestId: number,
+    fileSystemPath: Platform.DevToolsPath.RawPathString,
+    query: string
+  ): void {}
 
   zoomFactor(): number {
     return 1;
   }
 
-  zoomIn(): void {
-  }
+  zoomIn(): void {}
 
-  zoomOut(): void {
-  }
+  zoomOut(): void {}
 
-  resetZoom(): void {
-  }
+  resetZoom(): void {}
 
-  setWhitelistedShortcuts(shortcuts: string): void {
-  }
+  setWhitelistedShortcuts(shortcuts: string): void {}
 
-  setEyeDropperActive(active: boolean): void {
-  }
+  setEyeDropperActive(active: boolean): void {}
 
-  showCertificateViewer(certChain: string[]): void {
-  }
+  showCertificateViewer(certChain: string[]): void {}
 
-  reattach(callback: () => void): void {
-  }
+  reattach(callback: () => void): void {}
 
-  readyForTest(): void {
-  }
+  readyForTest(): void {}
 
-  connectionReady(): void {
-  }
+  connectionReady(): void {}
 
-  setOpenNewWindowForPopups(value: boolean): void {
-  }
+  setOpenNewWindowForPopups(value: boolean): void {}
 
-  setDevicesDiscoveryConfig(config: Adb.Config): void {
-  }
+  setDevicesDiscoveryConfig(config: Adb.Config): void {}
 
-  setDevicesUpdatesEnabled(enabled: boolean): void {
-  }
+  setDevicesUpdatesEnabled(enabled: boolean): void {}
 
-  performActionOnRemotePage(pageId: string, action: string): void {
-  }
+  performActionOnRemotePage(pageId: string, action: string): void {}
 
-  openRemotePage(browserId: string, url: string): void {
-  }
+  openRemotePage(browserId: string, url: string): void {}
 
-  openNodeFrontend(): void {
-  }
+  openNodeFrontend(): void {}
 
-  showContextMenuAtPoint(x: number, y: number, items: ContextMenuDescriptor[], document: Document): void {
-    throw 'Soft context menu should be used';
+  showContextMenuAtPoint(
+    x: number,
+    y: number,
+    items: ContextMenuDescriptor[],
+    document: Document
+  ): void {
+    throw "Soft context menu should be used";
   }
 
   isHostedMode(): boolean {
@@ -464,28 +520,25 @@ export class InspectorFrontendHostStub implements InspectorFrontendHostAPI {
     // Extensions are not supported in hosted mode.
   }
 
-  async initialTargetId(): Promise<string|null> {
+  async initialTargetId(): Promise<string | null> {
     return null;
   }
 
-  doAidaConversation(request: string, callback: (result: DoAidaConversationResult) => void): void {
+  doAidaConversation(
+    request: string,
+    callback: (result: DoAidaConversationResult) => void
+  ): void {
     callback({
-      response: '{}',
+      response: "{}",
     });
   }
 
-  recordImpression(event: ImpressionEvent): void {
-  }
-  recordClick(event: ClickEvent): void {
-  }
-  recordHover(event: HoverEvent): void {
-  }
-  recordDrag(event: DragEvent): void {
-  }
-  recordChange(event: ChangeEvent): void {
-  }
-  recordKeyDown(event: KeyDownEvent): void {
-  }
+  recordImpression(event: ImpressionEvent): void {}
+  recordClick(event: ClickEvent): void {}
+  recordHover(event: HoverEvent): void {}
+  recordDrag(event: DragEvent): void {}
+  recordChange(event: ChangeEvent): void {}
+  recordKeyDown(event: KeyDownEvent): void {}
 }
 
 // @ts-ignore Global injected by devtools-compatibility.js

@@ -28,76 +28,87 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as Common from '../../core/common/common.js';
-import * as Host from '../../core/host/host.js';
-import * as i18n from '../../core/i18n/i18n.js';
-import * as Platform from '../../core/platform/platform.js';
+import * as Common from "../../core/common/common.js";
+import * as Host from "../../core/host/host.js";
+import * as i18n from "../../core/i18n/i18n.js";
+import * as Platform from "../../core/platform/platform.js";
 
-import {type ActionDelegate} from './ActionRegistration.js';
-import {type Context} from './Context.js';
+import { type ActionDelegate } from "./ActionRegistration.js";
+import { type Context } from "./Context.js";
 
-import {ToolbarButton, type Provider, type ToolbarItem} from './Toolbar.js';
-import {alert} from './ARIAUtils.js';
+import { ToolbarButton, type Provider, type ToolbarItem } from "./Toolbar.js";
+import { alert } from "./ARIAUtils.js";
 
 const UIStrings = {
   /**
    *@description Text to close something
    */
-  close: 'Close',
+  close: "Close",
   /**
    *@description Text to dock the DevTools to the right of the browser tab
    */
-  dockToRight: 'Dock to right',
+  dockToRight: "Dock to right",
   /**
    *@description Text to dock the DevTools to the bottom of the browser tab
    */
-  dockToBottom: 'Dock to bottom',
+  dockToBottom: "Dock to bottom",
   /**
    *@description Text to dock the DevTools to the left of the browser tab
    */
-  dockToLeft: 'Dock to left',
+  dockToLeft: "Dock to left",
   /**
    *@description Text to undock the DevTools
    */
-  undockIntoSeparateWindow: 'Undock into separate window',
+  undockIntoSeparateWindow: "Undock into separate window",
   /**
    *@description Text announced when the DevTools are undocked
    */
-  devtoolsUndocked: 'DevTools is undocked',
+  devtoolsUndocked: "DevTools is undocked",
   /**
    *@description Text announced when the DevTools are docked to the left, right, or bottom of the browser tab
    *@example {bottom} PH1
    */
-  devToolsDockedTo: 'DevTools is docked to {PH1}',
+  devToolsDockedTo: "DevTools is docked to {PH1}",
 };
-const str_ = i18n.i18n.registerUIStrings('ui/legacy/DockController.ts', UIStrings);
+const str_ = i18n.i18n.registerUIStrings(
+  "ui/legacy/DockController.ts",
+  UIStrings
+);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
 let dockControllerInstance: DockController;
 
-export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventTypes> {
+export class DockController extends Common.ObjectWrapper
+  .ObjectWrapper<EventTypes> {
   private canDockInternal: boolean;
   readonly closeButton: ToolbarButton;
   private readonly currentDockStateSetting: Common.Settings.Setting<DockState>;
   private readonly lastDockStateSetting: Common.Settings.Setting<DockState>;
-  private dockSideInternal: DockState|undefined = undefined;
+  private dockSideInternal: DockState | undefined = undefined;
   private titles?: Common.UIString.LocalizedString[];
-  private savedFocus?: Element|null;
+  private savedFocus?: Element | null;
 
   constructor(canDock: boolean) {
     super();
     this.canDockInternal = canDock;
 
-    this.closeButton = new ToolbarButton(i18nString(UIStrings.close), 'cross');
-    this.closeButton.element.classList.add('close-devtools');
+    this.closeButton = new ToolbarButton(i18nString(UIStrings.close), "cross");
+    this.closeButton.element.classList.add("close-devtools");
     this.closeButton.addEventListener(
-        ToolbarButton.Events.Click,
-        Host.InspectorFrontendHost.InspectorFrontendHostInstance.closeWindow.bind(
-            Host.InspectorFrontendHost.InspectorFrontendHostInstance));
+      ToolbarButton.Events.Click,
+      Host.InspectorFrontendHost.InspectorFrontendHostInstance.closeWindow.bind(
+        Host.InspectorFrontendHost.InspectorFrontendHostInstance
+      )
+    );
 
-    this.currentDockStateSetting = Common.Settings.Settings.instance().moduleSetting('currentDockState');
-    this.lastDockStateSetting = Common.Settings.Settings.instance().createSetting('lastDockState', DockState.BOTTOM);
+    this.currentDockStateSetting =
+      Common.Settings.Settings.instance().moduleSetting("currentDockState");
+    this.lastDockStateSetting =
+      Common.Settings.Settings.instance().createSetting(
+        "lastDockState",
+        DockState.BOTTOM
+      );
 
-    if (!canDock) {
+    if (!canDock && !(globalThis as any).chii) {
       this.dockSideInternal = DockState.UNDOCKED;
       this.closeButton.setVisible(false);
       return;
@@ -112,11 +123,13 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventType
     }
   }
 
-  static instance(opts: {
-    forceNew: boolean|null,
-    canDock: boolean,
-  } = {forceNew: null, canDock: false}): DockController {
-    const {forceNew, canDock} = opts;
+  static instance(
+    opts: {
+      forceNew: boolean | null;
+      canDock: boolean;
+    } = { forceNew: null, canDock: false }
+  ): DockController {
+    const { forceNew, canDock } = opts;
     if (!dockControllerInstance || forceNew) {
       dockControllerInstance = new DockController(canDock);
     }
@@ -143,7 +156,7 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventType
     setTimeout(this.announceDockLocation.bind(this), 2000);
   }
 
-  dockSide(): DockState|undefined {
+  dockSide(): DockState | undefined {
     return this.dockSideInternal;
   }
 
@@ -152,7 +165,10 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventType
   }
 
   isVertical(): boolean {
-    return this.dockSideInternal === DockState.RIGHT || this.dockSideInternal === DockState.LEFT;
+    return (
+      this.dockSideInternal === DockState.RIGHT ||
+      this.dockSideInternal === DockState.LEFT
+    );
   }
 
   setDockSide(dockSide: DockState): void {
@@ -175,14 +191,18 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventType
     }
 
     this.savedFocus = Platform.DOMUtilities.deepActiveElement(document);
-    const eventData = {from: this.dockSideInternal, to: dockSide};
+    const eventData = { from: this.dockSideInternal, to: dockSide };
     this.dispatchEventToListeners(Events.BeforeDockSideChanged, eventData);
-    console.timeStamp('DockController.setIsDocked');
+    console.timeStamp("DockController.setIsDocked");
     this.dockSideInternal = dockSide;
     this.currentDockStateSetting.set(dockSide);
     Host.InspectorFrontendHost.InspectorFrontendHostInstance.setIsDocked(
-        dockSide !== DockState.UNDOCKED, this.setIsDockedResponse.bind(this, eventData));
-    this.closeButton.setVisible(this.dockSideInternal !== DockState.UNDOCKED);
+      dockSide !== DockState.UNDOCKED,
+      this.setIsDockedResponse.bind(this, eventData)
+    );
+    this.closeButton.setVisible(
+      this.dockSideInternal !== DockState.UNDOCKED || (globalThis as any).chii
+    );
     this.dispatchEventToListeners(Events.DockSideChanged, eventData);
   }
 
@@ -195,7 +215,9 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventType
   }
 
   toggleDockSide(): void {
-    if (this.lastDockStateSetting.get() === this.currentDockStateSetting.get()) {
+    if (
+      this.lastDockStateSetting.get() === this.currentDockStateSetting.get()
+    ) {
       const index = states.indexOf(this.currentDockStateSetting.get()) || 0;
       this.lastDockStateSetting.set(states[(index + 1) % states.length]);
     }
@@ -206,39 +228,48 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper<EventType
     if (this.dockSideInternal === DockState.UNDOCKED) {
       alert(i18nString(UIStrings.devtoolsUndocked));
     } else {
-      alert(i18nString(UIStrings.devToolsDockedTo, {PH1: this.dockSideInternal || ''}));
+      alert(
+        i18nString(UIStrings.devToolsDockedTo, {
+          PH1: this.dockSideInternal || "",
+        })
+      );
     }
   }
 }
 
 export const enum DockState {
-  BOTTOM = 'bottom',
-  RIGHT = 'right',
-  LEFT = 'left',
-  UNDOCKED = 'undocked',
+  BOTTOM = "bottom",
+  RIGHT = "right",
+  LEFT = "left",
+  UNDOCKED = "undocked",
 }
 
-const states = [DockState.RIGHT, DockState.BOTTOM, DockState.LEFT, DockState.UNDOCKED];
+const states = [
+  DockState.RIGHT,
+  DockState.BOTTOM,
+  DockState.LEFT,
+  DockState.UNDOCKED,
+];
 
 // Use BeforeDockSideChanged to do something before all the UI bits are updated,
 // DockSideChanged to update UI, and AfterDockSideChanged to perform actions
 // after frontend is docked/undocked in the browser.
 
 export const enum Events {
-  BeforeDockSideChanged = 'BeforeDockSideChanged',
-  DockSideChanged = 'DockSideChanged',
-  AfterDockSideChanged = 'AfterDockSideChanged',
+  BeforeDockSideChanged = "BeforeDockSideChanged",
+  DockSideChanged = "DockSideChanged",
+  AfterDockSideChanged = "AfterDockSideChanged",
 }
 
 export interface ChangeEvent {
-  from: DockState|undefined;
+  from: DockState | undefined;
   to: DockState;
 }
 
 export type EventTypes = {
-  [Events.BeforeDockSideChanged]: ChangeEvent,
-  [Events.DockSideChanged]: ChangeEvent,
-  [Events.AfterDockSideChanged]: ChangeEvent,
+  [Events.BeforeDockSideChanged]: ChangeEvent;
+  [Events.DockSideChanged]: ChangeEvent;
+  [Events.AfterDockSideChanged]: ChangeEvent;
 };
 
 export class ToggleDockActionDelegate implements ActionDelegate {
@@ -251,10 +282,12 @@ export class ToggleDockActionDelegate implements ActionDelegate {
 let closeButtonProviderInstance: CloseButtonProvider;
 
 export class CloseButtonProvider implements Provider {
-  static instance(opts: {
-    forceNew: boolean|null,
-  } = {forceNew: null}): CloseButtonProvider {
-    const {forceNew} = opts;
+  static instance(
+    opts: {
+      forceNew: boolean | null;
+    } = { forceNew: null }
+  ): CloseButtonProvider {
+    const { forceNew } = opts;
     if (!closeButtonProviderInstance || forceNew) {
       closeButtonProviderInstance = new CloseButtonProvider();
     }
@@ -262,7 +295,7 @@ export class CloseButtonProvider implements Provider {
     return closeButtonProviderInstance;
   }
 
-  item(): ToolbarItem|null {
+  item(): ToolbarItem | null {
     return DockController.instance().closeButton;
   }
 }

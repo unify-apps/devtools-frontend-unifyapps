@@ -7,7 +7,6 @@ import "../../Images/Images.js";
 import "../../core/platform/platform.js";
 import "../../core/dom_extension/dom_extension.js";
 
-import "../../panels/sources/sources-meta.js";
 import "../../panels/console/console-meta.js";
 import "../../panels/settings/settings-meta.js";
 import "../../panels/protocol_monitor/protocol_monitor-meta.js";

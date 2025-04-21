@@ -2,146 +2,213 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import * as Common from '../../core/common/common.js';
-import * as UI from '../../ui/legacy/legacy.js';
+import * as Common from "../../core/common/common.js";
+import * as UI from "../../ui/legacy/legacy.js";
 
-import type * as Console from './console.js';
+import type * as Console from "./console.js";
 
-import * as i18n from '../../core/i18n/i18n.js';
+import * as i18n from "../../core/i18n/i18n.js";
 const UIStrings = {
   /**
    *@description Title of the Console tool
    */
-  console: 'Console',
+  console: "Console",
   /**
    *@description Title of an action that shows the console.
    */
-  showConsole: 'Show Console',
+  showConsole: "Show Console",
   /**
    *@description Title of an action that toggles the console.
    */
-  toggleConsole: 'Toggle Console',
+  toggleConsole: "Toggle Console",
   /**
    *@description Text to clear the console
    */
-  clearConsole: 'Clear console',
+  clearConsole: "Clear console",
   /**
    *@description Title of an action in the console tool to clear
    */
-  clearConsoleHistory: 'Clear console history',
+  clearConsoleHistory: "Clear console history",
   /**
    *@description Title of an action in the console tool to create pin. A live expression is code that the user can enter into the console and it will be pinned in the UI. Live expressions are constantly evaluated as the user interacts with the console (hence 'live').
    */
-  createLiveExpression: 'Create live expression',
+  createLiveExpression: "Create live expression",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  hideNetworkMessages: 'Hide network messages',
+  hideNetworkMessages: "Hide network messages",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  showNetworkMessages: 'Show network messages',
+  showNetworkMessages: "Show network messages",
   /**
    *@description Alternative title text of a setting in Console View of the Console panel
    */
-  selectedContextOnly: 'Selected context only',
+  selectedContextOnly: "Selected context only",
   /**
    *@description Tooltip text that appears on the setting when hovering over it in Console View of the Console panel
    */
-  onlyShowMessagesFromTheCurrent: 'Only show messages from the current context (`top`, `iframe`, `worker`, extension)',
+  onlyShowMessagesFromTheCurrent:
+    "Only show messages from the current context (`top`, `iframe`, `worker`, extension)",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  showMessagesFromAllContexts: 'Show messages from all contexts',
+  showMessagesFromAllContexts: "Show messages from all contexts",
   /**
    *@description Title of a setting under the Console category in Settings
    */
-  logXmlhttprequests: 'Log XMLHttpRequests',
+  logXmlhttprequests: "Log XMLHttpRequests",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  showTimestamps: 'Show timestamps',
+  showTimestamps: "Show timestamps",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  hideTimestamps: 'Hide timestamps',
+  hideTimestamps: "Hide timestamps",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  autocompleteFromHistory: 'Autocomplete from history',
+  autocompleteFromHistory: "Autocomplete from history",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  doNotAutocompleteFromHistory: 'Do not autocomplete from history',
+  doNotAutocompleteFromHistory: "Do not autocomplete from history",
   /**
    * @description Title of a setting under the Console category that controls whether to accept autocompletion with Enter.
    */
-  autocompleteOnEnter: 'Accept autocomplete suggestion on Enter',
+  autocompleteOnEnter: "Accept autocomplete suggestion on Enter",
   /**
    * @description Title of a setting under the Console category that controls whether to accept autocompletion with Enter.
    */
-  doNotAutocompleteOnEnter: 'Do not accept autocomplete suggestion on Enter',
+  doNotAutocompleteOnEnter: "Do not accept autocomplete suggestion on Enter",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  groupSimilarMessagesInConsole: 'Group similar messages in console',
+  groupSimilarMessagesInConsole: "Group similar messages in console",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  doNotGroupSimilarMessagesIn: 'Do not group similar messages in console',
+  doNotGroupSimilarMessagesIn: "Do not group similar messages in console",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  showCorsErrorsInConsole: 'Show `CORS` errors in console',
+  showCorsErrorsInConsole: "Show `CORS` errors in console",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  doNotShowCorsErrorsIn: 'Do not show `CORS` errors in console',
+  doNotShowCorsErrorsIn: "Do not show `CORS` errors in console",
   /**
    *@description Title of a setting under the Console category in Settings
    */
-  eagerEvaluation: 'Eager evaluation',
+  eagerEvaluation: "Eager evaluation",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  eagerlyEvaluateConsolePromptText: 'Eagerly evaluate console prompt text',
+  eagerlyEvaluateConsolePromptText: "Eagerly evaluate console prompt text",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  doNotEagerlyEvaluateConsole: 'Do not eagerly evaluate console prompt text',
+  doNotEagerlyEvaluateConsole: "Do not eagerly evaluate console prompt text",
   /**
    *@description Allows code that is executed in the console to do things that usually are only allowed if triggered by a user action
    */
-  evaluateTriggersUserActivation: 'Treat code evaluation as user action',
+  evaluateTriggersUserActivation: "Treat code evaluation as user action",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  treatEvaluationAsUserActivation: 'Treat evaluation as user activation',
+  treatEvaluationAsUserActivation: "Treat evaluation as user activation",
   /**
    *@description Title of a setting under the Console category that can be invoked through the Command Menu
    */
-  doNotTreatEvaluationAsUser: 'Do not treat evaluation as user activation',
+  doNotTreatEvaluationAsUser: "Do not treat evaluation as user activation",
   /**
    * @description Title of a setting under the Console category in Settings that controls whether `console.trace()` messages appear expanded by default.
    */
-  expandConsoleTraceMessagesByDefault: 'Automatically expand `console.trace()` messages',
+  expandConsoleTraceMessagesByDefault:
+    "Automatically expand `console.trace()` messages",
   /**
    * @description Title of a setting under the Console category in Settings that controls whether `console.trace()` messages appear collapsed by default.
    */
-  collapseConsoleTraceMessagesByDefault: 'Do not automatically expand `console.trace()` messages',
+  collapseConsoleTraceMessagesByDefault:
+    "Do not automatically expand `console.trace()` messages",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  enableJavascriptSourceMaps: "Enable JavaScript source maps",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  disableJavascriptSourceMaps: "Disable JavaScript source maps",
+  /**
+   *@description Title of a setting that can be invoked through the Command Menu.
+   *'tab moves focus' is the name of the setting, which means that when the user
+   *hits the tab key, the focus in the UI will be moved to the next part of the
+   *text editor, as opposed to inserting a tab character into the text in the
+   *text editor.
+   */
+  enableTabMovesFocus: "Enable tab moves focus",
+  /**
+   *@description Title of a setting that can be invoked through the Command Menu.
+   *'tab moves focus' is the name of the setting, which means that when the user
+   *hits the tab key, the focus in the UI will be moved to the next part of the
+   *text editor, as opposed to inserting a tab character into the text in the
+   *text editor.
+   */
+  disableTabMovesFocus: "Disable tab moves focus",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  enableCssSourceMaps: "Enable CSS source maps",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  disableCssSourceMaps: "Disable CSS source maps",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  enableBracketMatching: "Enable bracket matching",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  disableBracketMatching: "Disable bracket matching",
+  /**
+   *@description Title of a setting under the Sources category in Settings
+   */
+  bracketMatching: "Bracket matching",
+  /**
+   *@description Text for autocompletion
+   */
+  autocompletion: "Autocompletion",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  enableAutocompletion: "Enable autocompletion",
+  /**
+   *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+   */
+  disableAutocompletion: "Disable autocompletion",
 };
-const str_ = i18n.i18n.registerUIStrings('panels/console/console-meta.ts', UIStrings);
-const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
-let loadedConsoleModule: (typeof Console|undefined);
+const str_ = i18n.i18n.registerUIStrings(
+  "panels/console/console-meta.ts",
+  UIStrings
+);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(
+  undefined,
+  str_
+);
+let loadedConsoleModule: typeof Console | undefined;
 
 async function loadConsoleModule(): Promise<typeof Console> {
   if (!loadedConsoleModule) {
-    loadedConsoleModule = await import('./console.js');
+    loadedConsoleModule = await import("./console.js");
   }
   return loadedConsoleModule;
 }
 
-function maybeRetrieveContextTypes<T = unknown>(getClassCallBack: (consoleModule: typeof Console) => T[]): T[] {
+function maybeRetrieveContextTypes<T = unknown>(
+  getClassCallBack: (consoleModule: typeof Console) => T[]
+): T[] {
   if (loadedConsoleModule === undefined) {
     return [];
   }
@@ -150,7 +217,7 @@ function maybeRetrieveContextTypes<T = unknown>(getClassCallBack: (consoleModule
 
 UI.ViewManager.registerViewExtension({
   location: UI.ViewManager.ViewLocationValues.PANEL,
-  id: 'console',
+  id: "console",
   title: i18nLazyString(UIStrings.console),
   commandPrompt: i18nLazyString(UIStrings.showConsole),
   order: 20,
@@ -162,7 +229,7 @@ UI.ViewManager.registerViewExtension({
 
 UI.ViewManager.registerViewExtension({
   location: UI.ViewManager.ViewLocationValues.DRAWER_VIEW,
-  id: 'console-view',
+  id: "console-view",
   title: i18nLazyString(UIStrings.console),
   commandPrompt: i18nLazyString(UIStrings.showConsole),
   persistence: UI.ViewManager.ViewPersistence.PERMANENT,
@@ -174,7 +241,7 @@ UI.ViewManager.registerViewExtension({
 });
 
 UI.ActionRegistration.registerActionExtension({
-  actionId: 'console.toggle',
+  actionId: "console.toggle",
   category: UI.ActionRegistration.ActionCategory.CONSOLE,
   title: i18nLazyString(UIStrings.toggleConsole),
   async loadActionDelegate() {
@@ -183,7 +250,7 @@ UI.ActionRegistration.registerActionExtension({
   },
   bindings: [
     {
-      shortcut: 'Ctrl+`',
+      shortcut: "Ctrl+`",
       keybindSets: [
         UI.ActionRegistration.KeybindSet.DEVTOOLS_DEFAULT,
         UI.ActionRegistration.KeybindSet.VS_CODE,
@@ -193,7 +260,7 @@ UI.ActionRegistration.registerActionExtension({
 });
 
 UI.ActionRegistration.registerActionExtension({
-  actionId: 'console.clear',
+  actionId: "console.clear",
   category: UI.ActionRegistration.ActionCategory.CONSOLE,
   title: i18nLazyString(UIStrings.clearConsole),
   iconClass: UI.ActionRegistration.IconClass.CLEAR,
@@ -202,21 +269,119 @@ UI.ActionRegistration.registerActionExtension({
     return new Console.ConsoleView.ActionDelegate();
   },
   contextTypes() {
-    return maybeRetrieveContextTypes(Console => [Console.ConsoleView.ConsoleView]);
+    return maybeRetrieveContextTypes((Console) => [
+      Console.ConsoleView.ConsoleView,
+    ]);
   },
   bindings: [
     {
-      shortcut: 'Ctrl+L',
+      shortcut: "Ctrl+L",
     },
     {
-      shortcut: 'Meta+K',
+      shortcut: "Meta+K",
       platform: UI.ActionRegistration.Platforms.Mac,
     },
   ],
 });
 
+if ((globalThis as any).chii) {
+  Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableJavascriptSourceMaps),
+    settingName: "jsSourceMapsEnabled",
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+      {
+        value: true,
+        title: i18nLazyString(UIStrings.enableJavascriptSourceMaps),
+      },
+      {
+        value: false,
+        title: i18nLazyString(UIStrings.disableJavascriptSourceMaps),
+      },
+    ],
+  });
+
+  Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableTabMovesFocus),
+    settingName: "textEditorTabMovesFocus",
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+      {
+        value: true,
+        title: i18nLazyString(UIStrings.enableTabMovesFocus),
+      },
+      {
+        value: false,
+        title: i18nLazyString(UIStrings.disableTabMovesFocus),
+      },
+    ],
+  });
+
+  Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableCssSourceMaps),
+    settingName: "cssSourceMapsEnabled",
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+      {
+        value: true,
+        title: i18nLazyString(UIStrings.enableCssSourceMaps),
+      },
+      {
+        value: false,
+        title: i18nLazyString(UIStrings.disableCssSourceMaps),
+      },
+    ],
+  });
+
+  Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    title: i18nLazyString(UIStrings.bracketMatching),
+    settingName: "textEditorBracketMatching",
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+      {
+        value: true,
+        title: i18nLazyString(UIStrings.enableBracketMatching),
+      },
+      {
+        value: false,
+        title: i18nLazyString(UIStrings.disableBracketMatching),
+      },
+    ],
+  });
+
+  Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.autocompletion),
+    settingName: "textEditorAutocompletion",
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+      {
+        value: true,
+        title: i18nLazyString(UIStrings.enableAutocompletion),
+      },
+      {
+        value: false,
+        title: i18nLazyString(UIStrings.disableAutocompletion),
+      },
+    ],
+  });
+}
+
 UI.ActionRegistration.registerActionExtension({
-  actionId: 'console.clear.history',
+  actionId: "console.clear.history",
   category: UI.ActionRegistration.ActionCategory.CONSOLE,
   title: i18nLazyString(UIStrings.clearConsoleHistory),
   async loadActionDelegate() {
@@ -226,7 +391,7 @@ UI.ActionRegistration.registerActionExtension({
 });
 
 UI.ActionRegistration.registerActionExtension({
-  actionId: 'console.create-pin',
+  actionId: "console.create-pin",
   category: UI.ActionRegistration.ActionCategory.CONSOLE,
   title: i18nLazyString(UIStrings.createLiveExpression),
   iconClass: UI.ActionRegistration.IconClass.EYE,
@@ -240,7 +405,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.hideNetworkMessages),
-  settingName: 'hideNetworkMessages',
+  settingName: "hideNetworkMessages",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: false,
   options: [
@@ -259,7 +424,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.selectedContextOnly),
-  settingName: 'selectedContextFilterEnabled',
+  settingName: "selectedContextFilterEnabled",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: false,
   options: [
@@ -278,7 +443,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.logXmlhttprequests),
-  settingName: 'monitoringXHREnabled',
+  settingName: "monitoringXHREnabled",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: false,
 });
@@ -287,7 +452,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.showTimestamps),
-  settingName: 'consoleTimestampsEnabled',
+  settingName: "consoleTimestampsEnabled",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: false,
   options: [
@@ -305,7 +470,7 @@ Common.Settings.registerSettingExtension({
 Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   title: i18nLazyString(UIStrings.autocompleteFromHistory),
-  settingName: 'consoleHistoryAutocomplete',
+  settingName: "consoleHistoryAutocomplete",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: true,
   options: [
@@ -324,7 +489,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.autocompleteOnEnter),
-  settingName: 'consoleAutocompleteOnEnter',
+  settingName: "consoleAutocompleteOnEnter",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: false,
   options: [
@@ -343,7 +508,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.groupSimilarMessagesInConsole),
-  settingName: 'consoleGroupSimilar',
+  settingName: "consoleGroupSimilar",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: true,
   options: [
@@ -361,7 +526,7 @@ Common.Settings.registerSettingExtension({
 Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   title: i18nLazyString(UIStrings.showCorsErrorsInConsole),
-  settingName: 'consoleShowsCorsErrors',
+  settingName: "consoleShowsCorsErrors",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: true,
   options: [
@@ -380,7 +545,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.eagerEvaluation),
-  settingName: 'consoleEagerEval',
+  settingName: "consoleEagerEval",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: true,
   options: [
@@ -399,7 +564,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.evaluateTriggersUserActivation),
-  settingName: 'consoleUserActivationEval',
+  settingName: "consoleUserActivationEval",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: true,
   options: [
@@ -418,7 +583,7 @@ Common.Settings.registerSettingExtension({
   category: Common.Settings.SettingCategory.CONSOLE,
   storageType: Common.Settings.SettingStorageType.Synced,
   title: i18nLazyString(UIStrings.expandConsoleTraceMessagesByDefault),
-  settingName: 'consoleTraceExpand',
+  settingName: "consoleTraceExpand",
   settingType: Common.Settings.SettingType.BOOLEAN,
   defaultValue: true,
   options: [
@@ -435,9 +600,7 @@ Common.Settings.registerSettingExtension({
 
 Common.Revealer.registerRevealer({
   contextTypes() {
-    return [
-      Common.Console.Console,
-    ];
+    return [Common.Console.Console];
   },
   destination: undefined,
   async loadRevealer() {
