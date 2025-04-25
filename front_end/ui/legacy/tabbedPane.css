@@ -41,6 +41,10 @@
   flex-direction: column;
 }
 
+button.close-devtools devtools-icon {
+  color: var(--palette-gray-dark-alpha-500);
+}
+
 .tabbed-pane-content.has-no-tabs {
   background-color: var(--sys-color-cdt-base-container);
 }
@@ -89,11 +93,23 @@
 
 .tabbed-pane-header {
   display: flex;
-  flex: 0 0 27px;
+  flex: 0 0 28px;
   border-bottom: 1px solid var(--sys-color-divider);
   overflow: visible;
   width: 100%;
-  background-color: var(--sys-color-cdt-base);
+  background-color: var(--utility-brand-100);
+}
+
+div[aria-label="Main toolbar"].tabbed-pane-header {
+  min-height: 48px;
+  background-color: var(--palette-gray-dark-700);
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+div[aria-label="Panels"] + .tabbed-pane-tab-slider {
+  display: none;
 }
 
 .tabbed-pane-header-contents {
@@ -122,13 +138,49 @@
 .tabbed-pane-header-tab {
   float: left;
   padding: 2px 0.8em;
-  height: 26px;
+  height: 28px;
   line-height: 16px;
   white-space: nowrap;
-  cursor: default;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  color: var(--ui-text);
+  color: var(--palette-gray-500);
+  width: fit-content !important;
+  font-weight: 600;
+}
+
+div[aria-label="Panels"] .tabbed-pane-header-tab {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  height: 28px;
+  color: var(--palette-gray-dark-alpha-300);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+div[aria-label="Panels"] .tabbed-pane-header-tab:hover {
+  background-color: var(--palette-alpha-white-10) !important;
+  color: var(--palette-gray-dark-alpha-300) !important;
+}
+
+div[aria-label="Panels"] {
+  display: flex;
+  gap: 8px;
+}
+
+div[aria-label="Panels"] .tabbed-pane-header-tab.selected {
+  background-color: var(--utility-brand-600);
+  color: var(--text-white);
+}
+
+div[aria-label="Panels"] .tabbed-pane-header-tab.selected:hover {
+  background-color: var(--utility-brand-500) !important;
+  color: var(--text-white) !important;
 }
 
 .tabbed-pane-header-tab.closeable {
@@ -164,7 +216,9 @@
 
 .tabbed-pane-header-tab.selected {
   border-bottom: none;
-  color: var(--sys-color-primary);
+  color: var(--palette-brand-600);
+  font-weight: 600;
+  width: fit-content !important;
 }
 
 .tabbed-pane-header-tab.dragging {
@@ -282,6 +336,7 @@
   transform-origin: 0 100%;
   transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);
   visibility: hidden;
+  display: none;
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.1) {
@@ -302,6 +357,7 @@
 .tabbed-pane-left-toolbar {
   margin-right: -4px;
   flex: none;
+  display: none !important;
 }
 
 .tabbed-pane-right-toolbar {
@@ -353,13 +409,17 @@
     background-color: ButtonFace;
   }
 
-  .tabbed-pane-header-contents .tabbed-pane-header-tabs .tabbed-pane-header-tab {
+  .tabbed-pane-header-contents
+    .tabbed-pane-header-tabs
+    .tabbed-pane-header-tab {
     background: ButtonFace;
     color: ButtonText;
   }
 
   .tabbed-pane-header-tabs .tabbed-pane-header-tab:hover,
-  .tabbed-pane-header-tabs .tabbed-pane-shadow .tabbed-pane-header-tab:focus-visible {
+  .tabbed-pane-header-tabs
+    .tabbed-pane-shadow
+    .tabbed-pane-header-tab:focus-visible {
     background-color: Highlight;
     color: HighlightText;
   }
@@ -368,14 +428,20 @@
     color: inherit;
   }
 
-  .tabbed-pane-header-contents .tabbed-pane-header-tabs .tabbed-pane-header-tab.selected,
-  .tabbed-pane-header-contents .tabbed-pane-header-tabs .tabbed-pane-header-tab.selected:focus-visible {
+  .tabbed-pane-header-contents
+    .tabbed-pane-header-tabs
+    .tabbed-pane-header-tab.selected,
+  .tabbed-pane-header-contents
+    .tabbed-pane-header-tabs
+    .tabbed-pane-header-tab.selected:focus-visible {
     background-color: Highlight;
     color: HighlightText;
   }
 
   .tabbed-pane-header-tab:hover .tabbed-pane-close-button,
-  .tabbed-pane-shadow .tabbed-pane-header-tab:focus-visible .tabbed-pane-close-button {
+  .tabbed-pane-shadow
+    .tabbed-pane-header-tab:focus-visible
+    .tabbed-pane-close-button {
     color: HighlightText;
   }
 

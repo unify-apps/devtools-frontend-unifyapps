@@ -24,6 +24,7 @@ npm-debug.log
 /scripts/javascript_natives/node_modules
 /scripts/protocol_typescript/*.js
 
+node_modules
 /build
 /buildtools
 /out

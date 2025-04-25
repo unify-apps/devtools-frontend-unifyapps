@@ -247,7 +247,7 @@ export class NetworkPanel
     );
     this.rightToolbar = new UI.Toolbar.Toolbar("", networkToolbarContainer);
 
-    this.filterBar = new UI.FilterBar.FilterBar("networkPanel", true);
+    this.filterBar = new UI.FilterBar.FilterBar("networkPanel", false);
     this.filterBar.show(panel.contentElement);
     this.filterBar.addEventListener(
       UI.FilterBar.FilterBarEvents.Changed,

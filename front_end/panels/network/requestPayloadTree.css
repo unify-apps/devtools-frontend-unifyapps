@@ -15,7 +15,7 @@
 
 .tree-outline > .parent {
   user-select: none;
-  font-weight: bold;
+  font-weight: 600;
   color: var(--sys-color-on-surface);
   margin-top: -1px;
   display: flex;
@@ -99,21 +99,35 @@
 }
 
 @media (forced-colors: active) {
-  :host-context(.request-payload-tree) ol.tree-outline:not(.hide-selection-when-blurred) li.selected:focus {
+  :host-context(.request-payload-tree)
+    ol.tree-outline:not(.hide-selection-when-blurred)
+    li.selected:focus {
     background: Highlight;
   }
 
-  :host-context(.request-payload-tree) ol.tree-outline:not(.hide-selection-when-blurred) li::before {
+  :host-context(.request-payload-tree)
+    ol.tree-outline:not(.hide-selection-when-blurred)
+    li::before {
     background-color: ButtonText;
   }
 
-  :host-context(.request-payload-tree) ol.tree-outline:not(.hide-selection-when-blurred) li.selected.parent::before {
+  :host-context(.request-payload-tree)
+    ol.tree-outline:not(.hide-selection-when-blurred)
+    li.selected.parent::before {
     background-color: HighlightText;
   }
 
-  :host-context(.request-payload-tree) ol.tree-outline:not(.hide-selection-when-blurred) li.selected *,
-  :host-context(.request-payload-tree) ol.tree-outline:not(.hide-selection-when-blurred) li.selected.parent,
-  :host-context(.request-payload-tree) ol.tree-outline:not(.hide-selection-when-blurred) li.selected.parent span {
+  :host-context(.request-payload-tree)
+    ol.tree-outline:not(.hide-selection-when-blurred)
+    li.selected
+    *,
+  :host-context(.request-payload-tree)
+    ol.tree-outline:not(.hide-selection-when-blurred)
+    li.selected.parent,
+  :host-context(.request-payload-tree)
+    ol.tree-outline:not(.hide-selection-when-blurred)
+    li.selected.parent
+    span {
     color: HighlightText;
   }
 }

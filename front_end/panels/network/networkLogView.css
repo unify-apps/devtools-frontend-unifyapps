@@ -100,12 +100,12 @@
 .network-waterfall-header,
 .network-log-grid.data-grid thead {
   height: 31px;
-  background-color: var(--sys-color-surface1);
+  background-color: var(--sys-color-cdt-base-container);
 }
 
 .network-waterfall-header.small,
 .network-log-grid.data-grid.small thead {
-  height: 27px;
+  height: 28px;
 }
 
 .network-log-grid.data-grid select {
@@ -152,12 +152,20 @@
 }
 
 .network-log-grid.data-grid tr.selected.network-error-row,
-.network-log-grid.data-grid tr.selected.network-error-row .network-cell-subtitle,
+.network-log-grid.data-grid
+  tr.selected.network-error-row
+  .network-cell-subtitle,
 .network-log-grid.data-grid tr.selected.network-error-row .network-dim-cell,
-.network-log-grid.data-grid:focus-within tr.selected.network-error-row .devtools-link,
+.network-log-grid.data-grid:focus-within
+  tr.selected.network-error-row
+  .devtools-link,
 .network-log-grid.data-grid:focus-within tr.selected.network-error-row,
-.network-log-grid.data-grid:focus-within tr.selected.network-error-row .network-cell-subtitle,
-.network-log-grid.data-grid:focus-within tr.selected.network-error-row .network-dim-cell {
+.network-log-grid.data-grid:focus-within
+  tr.selected.network-error-row
+  .network-cell-subtitle,
+.network-log-grid.data-grid:focus-within
+  tr.selected.network-error-row
+  .network-dim-cell {
   color: var(--sys-color-error);
 }
 
@@ -223,14 +231,21 @@
   margin-right: 3px;
 }
 
-.network-log-grid.data-grid:focus-within .network-error-row.selected div.icon:not(.image) {
+.network-log-grid.data-grid:focus-within
+  .network-error-row.selected
+  div.icon:not(.image) {
   filter: none;
 }
 
-.network-log-grid.data-grid .network-error-row.data-grid-data-grid-node img.icon,
-.network-log-grid.data-grid .network-error-row.data-grid-data-grid-node.selected img.icon {
+.network-log-grid.data-grid
+  .network-error-row.data-grid-data-grid-node
+  img.icon,
+.network-log-grid.data-grid
+  .network-error-row.data-grid-data-grid-node.selected
+  img.icon {
   /* This is generated with https://codepen.io/sosuke/pen/Pjoqqp to target var(--color-red) */
-  filter: brightness(0) saturate(100%) invert(35%) sepia(76%) saturate(1413%) hue-rotate(338deg) brightness(92%) contrast(103%);
+  filter: brightness(0) saturate(100%) invert(35%) sepia(76%) saturate(1413%)
+    hue-rotate(338deg) brightness(92%) contrast(103%);
 }
 
 .data-grid-data-grid-node devtools-icon[name="arrow-up-down-circle"],
@@ -276,7 +291,9 @@
 
 .network-frame-divider {
   width: 2px;
-  background-color: var(--network-frame-divider-color); /* stylelint-disable-line plugin/use_theme_colors */
+  background-color: var(
+    --network-frame-divider-color
+  ); /* stylelint-disable-line plugin/use_theme_colors */
   z-index: 10;
   visibility: hidden;
 }
@@ -411,7 +428,10 @@
   .network-log-grid.data-grid:focus-within tbody tr.revealed.selected,
   .network-log-grid.data-grid:focus-within tr.selected .network-dim-cell,
   .network-log-grid.data-grid tr.selected .network-dim-cell,
-  .network-log-grid.data-grid:focus-within tr.selected .initiator-column .devtools-link,
+  .network-log-grid.data-grid:focus-within
+    tr.selected
+    .initiator-column
+    .devtools-link,
   .network-log-grid.data-grid tr.selected .initiator-column .devtools-link,
   .network-waterfall-header:hover * {
     color: HighlightText;

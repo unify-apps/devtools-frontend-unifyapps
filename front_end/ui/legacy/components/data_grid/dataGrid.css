@@ -92,8 +92,12 @@
   display: table-row;
 }
 
-.striped-data-grid .revealed.data-grid-data-grid-node:nth-child(odd):not(.dirty):not(.selected),
-.striped-data-grid-starts-with-odd .revealed.data-grid-data-grid-node:nth-child(even):not(.dirty):not(.selected) {
+.striped-data-grid
+  .revealed.data-grid-data-grid-node:nth-child(odd):not(.dirty):not(.selected),
+.striped-data-grid-starts-with-odd
+  .revealed.data-grid-data-grid-node:nth-child(even):not(.dirty):not(
+    .selected
+  ) {
   background-color: var(--sys-color-surface1);
 }
 
@@ -114,7 +118,7 @@
 }
 
 .data-grid tr:has(th) {
-  background-color: var(--sys-color-surface1);
+  background-color: var(--sys-color-cdt-base-container);
 }
 
 .data-grid th {
@@ -326,10 +330,22 @@
     background-color: HighlightText;
   }
 
-  .striped-data-grid .revealed.data-grid-data-grid-node:nth-child(odd):not(.dirty):not(.selected),
-  .striped-data-grid-starts-with-odd .revealed.data-grid-data-grid-node:nth-child(even):not(.dirty):not(.selected),
-  .request-cookies-view tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(2n),
-  .cookies-table tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(odd) {
+  .striped-data-grid
+    .revealed.data-grid-data-grid-node:nth-child(odd):not(.dirty):not(
+      .selected
+    ),
+  .striped-data-grid-starts-with-odd
+    .revealed.data-grid-data-grid-node:nth-child(even):not(.dirty):not(
+      .selected
+    ),
+  .request-cookies-view
+    tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(
+      .selected
+    ):nth-child(2n),
+  .cookies-table
+    tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(
+      .selected
+    ):nth-child(odd) {
     background-color: canvas;
   }
 
@@ -341,10 +357,22 @@
   .data-grid th.sortable:hover,
   .data-grid tbody tr.revealed:hover,
   .data-grid tbody tr.revealed.selected,
-  .striped-data-grid .revealed:hover.data-grid-data-grid-node:nth-child(odd):not(.dirty):not(.selected),
-  .striped-data-grid-starts-with-odd .revealed:hover.data-grid-data-grid-node:nth-child(even):not(.dirty):not(.selected),
-  .request-cookies-view tr.revealed:hover.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(2n),
-  .cookies-table tr.revealed:hover.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(odd) {
+  .striped-data-grid
+    .revealed:hover.data-grid-data-grid-node:nth-child(odd):not(.dirty):not(
+      .selected
+    ),
+  .striped-data-grid-starts-with-odd
+    .revealed:hover.data-grid-data-grid-node:nth-child(even):not(.dirty):not(
+      .selected
+    ),
+  .request-cookies-view
+    tr.revealed:hover.data-grid-data-grid-node.flagged-cookie-attribute-row:not(
+      .selected
+    ):nth-child(2n),
+  .cookies-table
+    tr.revealed:hover.data-grid-data-grid-node.flagged-cookie-attribute-row:not(
+      .selected
+    ):nth-child(odd) {
     forced-color-adjust: none;
     background-color: Highlight;
   }

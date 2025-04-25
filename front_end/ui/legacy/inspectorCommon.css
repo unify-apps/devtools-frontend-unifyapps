@@ -36,7 +36,8 @@
   --legacy-selection-inactive-fg-color: #5a5a5a;
   --legacy-selection-inactive-bg-color: #dadada;
   --legacy-divider-border: 1px solid var(--sys-color-divider);
-  --legacy-focus-ring-inactive-shadow: 0 0 0 1px var(--legacy-focus-ring-inactive-shadow-color);
+  --legacy-focus-ring-inactive-shadow: 0 0 0 1px
+    var(--legacy-focus-ring-inactive-shadow-color);
   --legacy-focus-ring-active-shadow: 0 0 0 1px var(--legacy-accent-color);
   --legacy-item-selection-bg-color: #cfe8fc;
   --legacy-item-selection-inactive-bg-color: #e0e0e0;
@@ -76,13 +77,15 @@
   --legacy-selection-fg-color: #cdcdcd;
   --legacy-selection-inactive-fg-color: #cdcdcd;
   --legacy-selection-inactive-bg-color: hsl(0deg 0% 28%);
-  --legacy-focus-ring-inactive-shadow: 0 0 0 1px var(--legacy-focus-ring-inactive-shadow-color);
+  --legacy-focus-ring-inactive-shadow: 0 0 0 1px
+    var(--legacy-focus-ring-inactive-shadow-color);
   --legacy-item-selection-bg-color: hsl(207deg 88% 22%);
   --legacy-item-selection-inactive-bg-color: #454545;
 }
 
 body {
-  --default-font-family: ".SFNSDisplay-Regular", "Helvetica Neue", "Lucida Grande", sans-serif;
+  --default-font-family: ".SFNSDisplay-Regular", "Helvetica Neue",
+    "Lucida Grande", sans-serif;
 
   height: 100%;
   width: 100%;
@@ -100,15 +103,15 @@ body {
 
 /* Default fonts */
 .platform-linux {
-  --default-font-family: roboto, ubuntu, arial, sans-serif;
+  --default-font-family: "Inter", roboto, ubuntu, arial, sans-serif;
 }
 
 .platform-mac {
-  --default-font-family: ".SFNSDisplay-Regular", "Helvetica Neue", "Lucida Grande", sans-serif;
+  --default-font-family: "Inter", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
 
 .platform-windows {
-  --default-font-family: "Segoe UI", tahoma, sans-serif;
+  --default-font-family: "Inter", "Segoe UI", tahoma, sans-serif;
 }
 
 :focus {
@@ -142,12 +145,16 @@ body {
 
 .monospace {
   font-family: var(--monospace-font-family);
-  font-size: var(--monospace-font-size) !important; /* stylelint-disable-line declaration-no-important */
+  font-size: var(
+    --monospace-font-size
+  ) !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .source-code {
   font-family: var(--source-code-font-family);
-  font-size: var(--source-code-font-size) !important; /* stylelint-disable-line declaration-no-important */
+  font-size: var(
+    --source-code-font-size
+  ) !important; /* stylelint-disable-line declaration-no-important */
   white-space: pre-wrap;
 }
 
@@ -279,7 +286,8 @@ input::placeholder {
   --override-input-placeholder-color: rgb(230 230 230 / 54%);
 }
 
-:host-context(.-theme-with-dark-background) input[type="checkbox"]:not(.-theme-preserve) {
+:host-context(.-theme-with-dark-background)
+  input[type="checkbox"]:not(.-theme-preserve) {
   accent-color: var(--color-checkbox-accent-color);
 }
 
@@ -334,7 +342,9 @@ input::placeholder {
 
 .editing,
 .editing * {
-  color: var(--sys-color-on-surface) !important; /* stylelint-disable-line declaration-no-important */
+  color: var(
+    --sys-color-on-surface
+  ) !important; /* stylelint-disable-line declaration-no-important */
   text-decoration: none !important; /* stylelint-disable-line declaration-no-important */
 }
 
@@ -583,7 +593,8 @@ input.custom-search-input::-webkit-search-cancel-button:hover {
   display: block;
   width: var(--dimension, 24px);
   height: var(--dimension, 24px);
-  border: var(--override-spinner-size, 3px) solid var(--override-spinner-color, var(--sys-color-token-subtle));
+  border: var(--override-spinner-size, 3px) solid
+    var(--override-spinner-color, var(--sys-color-token-subtle));
   border-radius: 12px;
   clip: rect(0, var(--clip-size, 15px), var(--clip-size, 15px), 0);
   content: "";
@@ -593,8 +604,12 @@ input.custom-search-input::-webkit-search-cancel-button:hover {
 }
 
 @keyframes spinner-animation {
-  from { transform: rotate(0); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 /** Adorner */
 .adorner-container {
@@ -612,7 +627,9 @@ input.custom-search-input::-webkit-search-cancel-button:hover {
 :host-context(.-theme-with-dark-background) devtools-adorner {
   --override-adorner-border-color: var(--sys-color-tonal-outline);
   --override-adorner-focus-border-color: var(--sys-color-state-focus-ring);
-  --override-adorner-active-background-color: var(--sys-color-state-riple-neutral-on-subtle);
+  --override-adorner-active-background-color: var(
+    --sys-color-state-riple-neutral-on-subtle
+  );
 }
 
 /* General panel styles */

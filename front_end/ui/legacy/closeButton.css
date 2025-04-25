@@ -5,6 +5,7 @@
  */
 
 .close-button {
+  cursor: pointer;
   width: 20px;
   height: 20px;
   display: flex;

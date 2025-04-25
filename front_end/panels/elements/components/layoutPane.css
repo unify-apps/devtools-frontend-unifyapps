@@ -10,7 +10,7 @@
 }
 
 .header {
-  background-color: var(--sys-color-surface2);
+  background-color: var(--sys-color-cdt-base-container);
   border-bottom: 1px solid var(--sys-color-divider);
   line-height: 1.6;
   overflow: hidden;
@@ -25,7 +25,7 @@
 }
 
 .header:focus {
-  background-color: var(--sys-color-tonal-container);
+  background-color: var(--sys-color-cdt-base-container);
 }
 
 .content-section {
