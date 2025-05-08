@@ -28,10 +28,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {NodeURL} from './NodeURL.js';
-import type * as Platform from '../platform/platform.js';
-import type * as ProtocolProxyApi from '../../generated/protocol-proxy-api.js';
-import type * as Protocol from '../../generated/protocol.js';
+import { NodeURL } from "./NodeURL.js";
+import type * as Platform from "../platform/platform.js";
+import type * as ProtocolProxyApi from "../../generated/protocol-proxy-api.js";
+import type * as Protocol from "../../generated/protocol.js";
 
 export const DevToolsStubErrorCode = -32015;
 // TODO(dgozman): we are not reporting generic errors in tests, but we should
@@ -41,7 +41,7 @@ const ConnectionClosedErrorCode = -32001;
 
 type MessageParams = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [x: string]: any,
+  [x: string]: any;
 };
 
 type ProtocolDomainName = ProtocolProxyApi.ProtocolDomainName;
@@ -49,35 +49,44 @@ type ProtocolDomainName = ProtocolProxyApi.ProtocolDomainName;
 export interface MessageError {
   code: number;
   message: string;
-  data?: string|null;
+  data?: string | null;
 }
 
 export type Message = {
-  sessionId?: string,
-  url?: Platform.DevToolsPath.UrlString,
-  id?: number,
-  error?: MessageError|null,
-  result?: Object|null,
-  method?: QualifiedName,
-  params?: MessageParams|null,
+  sessionId?: string;
+  url?: Platform.DevToolsPath.UrlString;
+  id?: number;
+  error?: MessageError | null;
+  result?: Object | null;
+  method?: QualifiedName;
+  params?: MessageParams | null;
 };
 
 interface EventMessage extends Message {
   method: QualifiedName;
-  params?: MessageParams|null;
+  params?: MessageParams | null;
 }
 
 /** A qualified name, e.g. Domain.method */
-export type QualifiedName = string&{qualifiedEventNameTag: string | undefined};
+export type QualifiedName = string & {
+  qualifiedEventNameTag: string | undefined;
+};
 /** A qualified name, e.g. method */
-export type UnqualifiedName = string&{unqualifiedEventNameTag: string | undefined};
+export type UnqualifiedName = string & {
+  unqualifiedEventNameTag: string | undefined;
+};
 
-export const splitQualifiedName = (string: QualifiedName): [string, UnqualifiedName] => {
-  const [domain, eventName] = string.split('.');
+export const splitQualifiedName = (
+  string: QualifiedName
+): [string, UnqualifiedName] => {
+  const [domain, eventName] = string.split(".");
   return [domain, eventName as UnqualifiedName];
 };
 
-export const qualifyName = (domain: string, name: UnqualifiedName): QualifiedName => {
+export const qualifyName = (
+  domain: string,
+  name: UnqualifiedName
+): QualifiedName => {
   return `${domain}.${name}` as QualifiedName;
 };
 
@@ -91,7 +100,7 @@ interface CommandParameter {
   description: string;
 }
 
-type Callback = (error: MessageError|null, arg1: Object|null) => void;
+type Callback = (error: MessageError | null, arg1: Object | null) => void;
 
 interface CallbackWithDebugInfo {
   callback: Callback;
@@ -99,13 +108,19 @@ interface CallbackWithDebugInfo {
 }
 
 export class InspectorBackend {
-  readonly agentPrototypes: Map<ProtocolDomainName, _AgentPrototype> = new Map();
+  readonly agentPrototypes: Map<ProtocolDomainName, _AgentPrototype> =
+    new Map();
   #initialized: boolean = false;
-  #eventParameterNamesForDomain = new Map<ProtocolDomainName, EventParameterNames>();
+  #eventParameterNamesForDomain = new Map<
+    ProtocolDomainName,
+    EventParameterNames
+  >();
   readonly typeMap = new Map<QualifiedName, CommandParameter[]>();
   readonly enumMap = new Map<QualifiedName, Record<string, string>>();
 
-  private getOrCreateEventParameterNamesForDomain(domain: ProtocolDomainName): EventParameterNames {
+  private getOrCreateEventParameterNamesForDomain(
+    domain: ProtocolDomainName
+  ): EventParameterNames {
     let map = this.#eventParameterNamesForDomain.get(domain);
     if (!map) {
       map = new Map();
@@ -114,20 +129,25 @@ export class InspectorBackend {
     return map;
   }
 
-  getOrCreateEventParameterNamesForDomainForTesting(domain: ProtocolDomainName): EventParameterNames {
+  getOrCreateEventParameterNamesForDomainForTesting(
+    domain: ProtocolDomainName
+  ): EventParameterNames {
     return this.getOrCreateEventParameterNamesForDomain(domain);
   }
 
-  getEventParameterNames(): ReadonlyMap<ProtocolDomainName, ReadonlyEventParameterNames> {
+  getEventParameterNames(): ReadonlyMap<
+    ProtocolDomainName,
+    ReadonlyEventParameterNames
+  > {
     return this.#eventParameterNamesForDomain;
   }
 
   static reportProtocolError(error: string, messageObject: Object): void {
-    console.error(error + ': ' + JSON.stringify(messageObject));
+    console.error(error + ": " + JSON.stringify(messageObject));
   }
 
   static reportProtocolWarning(error: string, messageObject: Object): void {
-    console.warn(error + ': ' + JSON.stringify(messageObject));
+    console.warn(error + ": " + JSON.stringify(messageObject));
   }
 
   isInitialized(): boolean {
@@ -143,10 +163,19 @@ export class InspectorBackend {
     return prototype;
   }
 
-  registerCommand(method: QualifiedName, parameters: CommandParameter[], replyArgs: string[], description: string):
-      void {
+  registerCommand(
+    method: QualifiedName,
+    parameters: CommandParameter[],
+    replyArgs: string[],
+    description: string
+  ): void {
     const [domain, command] = splitQualifiedName(method);
-    this.agentPrototype(domain as ProtocolDomainName).registerCommand(command, parameters, replyArgs, description);
+    this.agentPrototype(domain as ProtocolDomainName).registerCommand(
+      command,
+      parameters,
+      replyArgs,
+      description
+    );
     this.#initialized = true;
   }
 
@@ -170,8 +199,10 @@ export class InspectorBackend {
   }
 
   registerEvent(eventName: QualifiedName, params: string[]): void {
-    const domain = eventName.split('.')[0];
-    const eventParameterNames = this.getOrCreateEventParameterNamesForDomain(domain as ProtocolDomainName);
+    const domain = eventName.split(".")[0];
+    const eventParameterNames = this.getOrCreateEventParameterNamesForDomain(
+      domain as ProtocolDomainName
+    );
     eventParameterNames.set(eventName, params);
     this.#initialized = true;
   }
@@ -180,21 +211,17 @@ export class InspectorBackend {
 let connectionFactory: () => Connection;
 
 export class Connection {
-  onMessage!: ((arg0: Object) => void)|null;
-  constructor() {
-  }
+  onMessage!: ((arg0: Object) => void) | null;
+  constructor() {}
 
-  setOnMessage(_onMessage: (arg0: (Object|string)) => void): void {
-  }
+  setOnMessage(_onMessage: (arg0: Object | string) => void): void {}
 
-  setOnDisconnect(_onDisconnect: (arg0: string) => void): void {
-  }
+  setOnDisconnect(_onDisconnect: (arg0: string) => void): void {}
 
-  sendRawMessage(_message: string): void {
-  }
+  sendRawMessage(_message: string): void {}
 
   disconnect(): Promise<void> {
-    throw new Error('not implemented');
+    throw new Error("not implemented");
   }
 
   static setFactory(factory: () => Connection): void {
@@ -219,13 +246,21 @@ export const test = {
    * Runs a function when no protocol activity is present.
    * ProtocolClient.test.deprecatedRunAfterPendingDispatches(() => console.log('done'))
    */
-  deprecatedRunAfterPendingDispatches: null as ((arg0: () => void) => void) | null,
+  deprecatedRunAfterPendingDispatches: null as
+    | ((arg0: () => void) => void)
+    | null,
 
   /**
    * Sends a raw message over main connection.
    * ProtocolClient.test.sendRawMessage('Page.enable', {}, console.log)
    */
-  sendRawMessage: null as ((method: QualifiedName, args: Object|null, arg2: SendRawMessageCallback) => void) | null,
+  sendRawMessage: null as
+    | ((
+        method: QualifiedName,
+        args: Object | null,
+        arg2: SendRawMessageCallback
+      ) => void)
+    | null,
 
   /**
    * Set to true to not log any errors.
@@ -236,28 +271,41 @@ export const test = {
    * Set to get notified about any messages sent over protocol.
    */
   onMessageSent: null as
-          ((message: {domain: string, method: string, params: Object, id: number, sessionId?: string},
-            target: TargetBase|null) => void) |
-      null,
+    | ((
+        message: {
+          domain: string;
+          method: string;
+          params: Object;
+          id: number;
+          sessionId?: string;
+        },
+        target: TargetBase | null
+      ) => void)
+    | null,
 
   /**
    * Set to get notified about any messages received over protocol.
    */
-  onMessageReceived: null as ((message: Object, target: TargetBase|null) => void) | null,
+  onMessageReceived: null as
+    | ((message: Object, target: TargetBase | null) => void)
+    | null,
 };
 
-const LongPollingMethods = new Set<string>(['CSS.takeComputedStyleUpdates']);
+const LongPollingMethods = new Set<string>(["CSS.takeComputedStyleUpdates"]);
 
 export class SessionRouter {
   readonly #connectionInternal: Connection;
   #lastMessageId: number;
   #pendingResponsesCount: number;
   readonly #pendingLongPollingMessageIds: Set<number>;
-  readonly #sessions: Map<string, {
-    target: TargetBase,
-    callbacks: Map<number, CallbackWithDebugInfo>,
-    proxyConnection: ((Connection | undefined)|null),
-  }>;
+  readonly #sessions: Map<
+    string,
+    {
+      target: TargetBase;
+      callbacks: Map<number, CallbackWithDebugInfo>;
+      proxyConnection: (Connection | undefined) | null;
+    }
+  >;
   #pendingScripts: (() => void)[];
 
   constructor(connection: Connection) {
@@ -270,32 +318,43 @@ export class SessionRouter {
 
     this.#pendingScripts = [];
 
-    test.deprecatedRunAfterPendingDispatches = this.deprecatedRunAfterPendingDispatches.bind(this);
+    test.deprecatedRunAfterPendingDispatches =
+      this.deprecatedRunAfterPendingDispatches.bind(this);
     test.sendRawMessage = this.sendRawMessageForTesting.bind(this);
 
     this.#connectionInternal.setOnMessage(this.onMessage.bind(this));
 
-    this.#connectionInternal.setOnDisconnect(reason => {
-      const session = this.#sessions.get('');
+    this.#connectionInternal.setOnDisconnect((reason) => {
+      const session = this.#sessions.get("");
       if (session) {
         session.target.dispose(reason);
       }
     });
   }
 
-  registerSession(target: TargetBase, sessionId: string, proxyConnection?: Connection|null): void {
+  registerSession(
+    target: TargetBase,
+    sessionId: string,
+    proxyConnection?: Connection | null
+  ): void {
     // Only the Audits panel uses proxy connections. If it is ever possible to have multiple active at the
     // same time, it should be tested thoroughly.
     if (proxyConnection) {
       for (const session of this.#sessions.values()) {
         if (session.proxyConnection) {
-          console.error('Multiple simultaneous proxy connections are currently unsupported');
+          console.error(
+            "Multiple simultaneous proxy connections are currently unsupported"
+          );
           break;
         }
       }
     }
 
-    this.#sessions.set(sessionId, {target, callbacks: new Map(), proxyConnection});
+    this.#sessions.set(sessionId, {
+      target,
+      callbacks: new Map(),
+      proxyConnection,
+    });
   }
 
   unregisterSession(sessionId: string): void {
@@ -309,8 +368,8 @@ export class SessionRouter {
     this.#sessions.delete(sessionId);
   }
 
-  private getTargetBySessionId(sessionId: string): TargetBase|null {
-    const session = this.#sessions.get(sessionId ? sessionId : '');
+  private getTargetBySessionId(sessionId: string): TargetBase | null {
+    const session = this.#sessions.get(sessionId ? sessionId : "");
     if (!session) {
       return null;
     }
@@ -325,7 +384,13 @@ export class SessionRouter {
     return this.#connectionInternal;
   }
 
-  sendMessage(sessionId: string, domain: string, method: QualifiedName, params: Object|null, callback: Callback): void {
+  sendMessage(
+    sessionId: string,
+    domain: string,
+    method: QualifiedName,
+    params: Object | null,
+    callback: Callback
+  ): void {
     const messageId = this.nextMessageId();
     const messageObject: Message = {
       id: messageId,
@@ -340,14 +405,21 @@ export class SessionRouter {
     }
 
     if (test.dumpProtocol) {
-      test.dumpProtocol('frontend: ' + JSON.stringify(messageObject));
+      test.dumpProtocol("frontend: " + JSON.stringify(messageObject));
     }
 
     if (test.onMessageSent) {
       const paramsObject = JSON.parse(JSON.stringify(params || {}));
       test.onMessageSent(
-          {domain, method, params: (paramsObject as Object), id: messageId, sessionId},
-          this.getTargetBySessionId(sessionId));
+        {
+          domain,
+          method,
+          params: paramsObject as Object,
+          id: messageId,
+          sessionId,
+        },
+        this.getTargetBySessionId(sessionId)
+      );
     }
 
     ++this.#pendingResponsesCount;
@@ -359,27 +431,47 @@ export class SessionRouter {
     if (!session) {
       return;
     }
-    session.callbacks.set(messageId, {callback, method});
+    session.callbacks.set(messageId, { callback, method });
     this.#connectionInternal.sendRawMessage(JSON.stringify(messageObject));
   }
 
-  private sendRawMessageForTesting(method: QualifiedName, params: Object|null, callback: Callback|null, sessionId = ''):
-      void {
-    const domain = method.split('.')[0];
-    this.sendMessage(sessionId, domain, method, params, callback || ((): void => {}));
+  private sendRawMessageForTesting(
+    method: QualifiedName,
+    params: Object | null,
+    callback: Callback | null,
+    sessionId = ""
+  ): void {
+    const domain = method.split(".")[0];
+    this.sendMessage(
+      sessionId,
+      domain,
+      method,
+      params,
+      callback || ((): void => {})
+    );
   }
 
-  private onMessage(message: string|Object): void {
+  private onMessage(message: string | Object): void {
     if (test.dumpProtocol) {
-      test.dumpProtocol('backend: ' + ((typeof message === 'string') ? message : JSON.stringify(message)));
+      test.dumpProtocol(
+        "backend: " +
+          (typeof message === "string" ? message : JSON.stringify(message))
+      );
     }
 
     if (test.onMessageReceived) {
-      const messageObjectCopy = JSON.parse((typeof message === 'string') ? message : JSON.stringify(message));
-      test.onMessageReceived(messageObjectCopy, this.getTargetBySessionId(messageObjectCopy.sessionId));
+      const messageObjectCopy = JSON.parse(
+        typeof message === "string" ? message : JSON.stringify(message)
+      );
+      test.onMessageReceived(
+        messageObjectCopy,
+        this.getTargetBySessionId(messageObjectCopy.sessionId)
+      );
     }
 
-    const messageObject = ((typeof message === 'string') ? JSON.parse(message) : message) as Message;
+    const messageObject = (
+      typeof message === "string" ? JSON.parse(message) : message
+    ) as Message;
 
     // Send all messages to proxy connections.
     let suppressUnknownMessageErrors = false;
@@ -390,7 +482,9 @@ export class SessionRouter {
 
       if (!session.proxyConnection.onMessage) {
         InspectorBackend.reportProtocolError(
-            'Protocol Error: the session has a proxyConnection with no _onMessage', messageObject);
+          "Protocol Error: the session has a proxyConnection with no _onMessage",
+          messageObject
+        );
         continue;
       }
 
@@ -398,11 +492,14 @@ export class SessionRouter {
       suppressUnknownMessageErrors = true;
     }
 
-    const sessionId = messageObject.sessionId || '';
+    const sessionId = messageObject.sessionId || "";
     const session = this.#sessions.get(sessionId);
     if (!session) {
       if (!suppressUnknownMessageErrors) {
-        InspectorBackend.reportProtocolError('Protocol Error: the message with wrong session id', messageObject);
+        InspectorBackend.reportProtocolError(
+          "Protocol Error: the message with wrong session id",
+          messageObject
+        );
       }
       return;
     }
@@ -416,7 +513,8 @@ export class SessionRouter {
       NodeURL.patch(messageObject);
     }
 
-    if (messageObject.id !== undefined) {  // just a response for some request
+    if (messageObject.id !== undefined) {
+      // just a response for some request
       const callback = session.callbacks.get(messageObject.id);
       session.callbacks.delete(messageObject.id);
       if (!callback) {
@@ -425,21 +523,33 @@ export class SessionRouter {
           return;
         }
         if (!suppressUnknownMessageErrors) {
-          InspectorBackend.reportProtocolError('Protocol Error: the message with wrong id', messageObject);
+          InspectorBackend.reportProtocolError(
+            "Protocol Error: the message with wrong id",
+            messageObject
+          );
         }
         return;
       }
 
-      callback.callback(messageObject.error || null, messageObject.result || null);
+      callback.callback(
+        messageObject.error || null,
+        messageObject.result || null
+      );
       --this.#pendingResponsesCount;
       this.#pendingLongPollingMessageIds.delete(messageObject.id);
 
-      if (this.#pendingScripts.length && !this.hasOutstandingNonLongPollingRequests()) {
+      if (
+        this.#pendingScripts.length &&
+        !this.hasOutstandingNonLongPollingRequests()
+      ) {
         this.deprecatedRunAfterPendingDispatches();
       }
     } else {
       if (messageObject.method === undefined) {
-        InspectorBackend.reportProtocolError('Protocol Error: the message without method', messageObject);
+        InspectorBackend.reportProtocolError(
+          "Protocol Error: the message without method",
+          messageObject
+        );
         return;
       }
       // This cast is justified as we just checked for the presence of messageObject.method.
@@ -449,10 +559,12 @@ export class SessionRouter {
   }
 
   private hasOutstandingNonLongPollingRequests(): boolean {
-    return this.#pendingResponsesCount - this.#pendingLongPollingMessageIds.size > 0;
+    return (
+      this.#pendingResponsesCount - this.#pendingLongPollingMessageIds.size > 0
+    );
   }
 
-  private deprecatedRunAfterPendingDispatches(script?: (() => void)): void {
+  private deprecatedRunAfterPendingDispatches(script?: () => void): void {
     if (script) {
       this.#pendingScripts.push(script);
     }
@@ -486,7 +598,10 @@ export class SessionRouter {
     window.setTimeout(() => callback(error, null), 0);
   }
 
-  static dispatchUnregisterSessionError({callback, method}: CallbackWithDebugInfo): void {
+  static dispatchUnregisterSessionError({
+    callback,
+    method,
+  }: CallbackWithDebugInfo): void {
     const error = {
       message: `Session is unregistering, can\'t dispatch pending call to ${method}`,
       code: ConnectionClosedErrorCode,
@@ -500,34 +615,62 @@ export class SessionRouter {
  * Make sure that `Domain` in get/set is only ever instantiated with one protocol domain
  * name, because if `Domain` allows multiple domains, the type is unsound.
  */
-interface AgentsMap extends Map<ProtocolDomainName, ProtocolProxyApi.ProtocolApi[ProtocolDomainName]> {
-  get<Domain extends ProtocolDomainName>(key: Domain): ProtocolProxyApi.ProtocolApi[Domain]|undefined;
-  set<Domain extends ProtocolDomainName>(key: Domain, value: ProtocolProxyApi.ProtocolApi[Domain]): this;
+interface AgentsMap
+  extends Map<
+    ProtocolDomainName,
+    ProtocolProxyApi.ProtocolApi[ProtocolDomainName]
+  > {
+  get<Domain extends ProtocolDomainName>(
+    key: Domain
+  ): ProtocolProxyApi.ProtocolApi[Domain] | undefined;
+  set<Domain extends ProtocolDomainName>(
+    key: Domain,
+    value: ProtocolProxyApi.ProtocolApi[Domain]
+  ): this;
 }
 
 /**
  * Make sure that `Domain` in get/set is only ever instantiated with one protocol domain
  * name, because if `Domain` allows multiple domains, the type is unsound.
  */
-interface DispatcherMap extends Map<ProtocolDomainName, ProtocolProxyApi.ProtocolDispatchers[ProtocolDomainName]> {
-  get<Domain extends ProtocolDomainName>(key: Domain): DispatcherManager<Domain>|undefined;
-  set<Domain extends ProtocolDomainName>(key: Domain, value: DispatcherManager<Domain>): this;
+interface DispatcherMap
+  extends Map<
+    ProtocolDomainName,
+    ProtocolProxyApi.ProtocolDispatchers[ProtocolDomainName]
+  > {
+  get<Domain extends ProtocolDomainName>(
+    key: Domain
+  ): DispatcherManager<Domain> | undefined;
+  set<Domain extends ProtocolDomainName>(
+    key: Domain,
+    value: DispatcherManager<Domain>
+  ): this;
 }
 
 export class TargetBase {
   needsNodeJSPatching: boolean;
   readonly sessionId: string;
-  routerInternal: SessionRouter|null;
+  routerInternal: SessionRouter | null;
   #agents: AgentsMap = new Map();
   #dispatchers: DispatcherMap = new Map();
 
   constructor(
-      needsNodeJSPatching: boolean, parentTarget: TargetBase|null, sessionId: string, connection: Connection|null) {
+    needsNodeJSPatching: boolean,
+    parentTarget: TargetBase | null,
+    sessionId: string,
+    connection: Connection | null
+  ) {
     this.needsNodeJSPatching = needsNodeJSPatching;
     this.sessionId = sessionId;
 
-    if ((!parentTarget && connection) || (!parentTarget && sessionId) || (connection && sessionId)) {
-      throw new Error('Either connection or sessionId (but not both) must be supplied for a child target');
+    if (
+      (!parentTarget && connection) ||
+      (!parentTarget && sessionId) ||
+      (connection && sessionId)
+    ) {
+      throw new Error(
+        "Either connection or sessionId (but not both) must be supplied for a child target"
+      );
     }
 
     let router: SessionRouter;
@@ -544,12 +687,14 @@ export class TargetBase {
     router.registerSession(this, this.sessionId);
 
     for (const [domain, agentPrototype] of inspectorBackend.agentPrototypes) {
-      const agent = Object.create((agentPrototype as _AgentPrototype));
+      const agent = Object.create(agentPrototype as _AgentPrototype);
       agent.target = this;
       this.#agents.set(domain, agent);
     }
 
-    for (const [domain, eventParameterNames] of inspectorBackend.getEventParameterNames().entries()) {
+    for (const [domain, eventParameterNames] of inspectorBackend
+      .getEventParameterNames()
+      .entries()) {
       this.#dispatchers.set(domain, new DispatcherManager(eventParameterNames));
     }
   }
@@ -559,8 +704,9 @@ export class TargetBase {
     const dispatcher = this.#dispatchers.get(domainName as ProtocolDomainName);
     if (!dispatcher) {
       InspectorBackend.reportProtocolError(
-          `Protocol Error: the message ${eventMessage.method} is for non-existing domain '${domainName}'`,
-          eventMessage);
+        `Protocol Error: the message ${eventMessage.method} is for non-existing domain '${domainName}'`,
+        eventMessage
+      );
       return;
     }
     dispatcher.dispatch(method, eventMessage);
@@ -582,7 +728,7 @@ export class TargetBase {
     this.needsNodeJSPatching = true;
   }
 
-  router(): SessionRouter|null {
+  router(): SessionRouter | null {
     return this.routerInternal;
   }
 
@@ -592,180 +738,186 @@ export class TargetBase {
    * Make sure that `Domain` is only ever instantiated with one protocol domain
    * name, because if `Domain` allows multiple domains, the type is unsound.
    */
-  private getAgent<Domain extends ProtocolDomainName>(domain: Domain): ProtocolProxyApi.ProtocolApi[Domain] {
+  private getAgent<Domain extends ProtocolDomainName>(
+    domain: Domain
+  ): ProtocolProxyApi.ProtocolApi[Domain] {
     const agent = this.#agents.get<Domain>(domain);
     if (!agent) {
-      throw new Error('Accessing undefined agent');
+      throw new Error("Accessing undefined agent");
     }
     return agent;
   }
 
   accessibilityAgent(): ProtocolProxyApi.AccessibilityApi {
-    return this.getAgent('Accessibility');
+    return this.getAgent("Accessibility");
   }
 
   animationAgent(): ProtocolProxyApi.AnimationApi {
-    return this.getAgent('Animation');
+    return this.getAgent("Animation");
   }
 
   auditsAgent(): ProtocolProxyApi.AuditsApi {
-    return this.getAgent('Audits');
+    return this.getAgent("Audits");
   }
 
   autofillAgent(): ProtocolProxyApi.AutofillApi {
-    return this.getAgent('Autofill');
+    return this.getAgent("Autofill");
   }
 
   browserAgent(): ProtocolProxyApi.BrowserApi {
-    return this.getAgent('Browser');
+    return this.getAgent("Browser");
   }
 
   backgroundServiceAgent(): ProtocolProxyApi.BackgroundServiceApi {
-    return this.getAgent('BackgroundService');
+    return this.getAgent("BackgroundService");
   }
 
   cacheStorageAgent(): ProtocolProxyApi.CacheStorageApi {
-    return this.getAgent('CacheStorage');
+    return this.getAgent("CacheStorage");
   }
 
   cssAgent(): ProtocolProxyApi.CSSApi {
-    return this.getAgent('CSS');
+    return this.getAgent("CSS");
   }
 
   databaseAgent(): ProtocolProxyApi.DatabaseApi {
-    return this.getAgent('Database');
+    return this.getAgent("Database");
   }
 
   debuggerAgent(): ProtocolProxyApi.DebuggerApi {
-    return this.getAgent('Debugger');
+    return this.getAgent("Debugger");
   }
 
   deviceOrientationAgent(): ProtocolProxyApi.DeviceOrientationApi {
-    return this.getAgent('DeviceOrientation');
+    return this.getAgent("DeviceOrientation");
   }
 
   domAgent(): ProtocolProxyApi.DOMApi {
-    return this.getAgent('DOM');
+    return this.getAgent("DOM");
   }
 
   domdebuggerAgent(): ProtocolProxyApi.DOMDebuggerApi {
-    return this.getAgent('DOMDebugger');
+    return this.getAgent("DOMDebugger");
   }
 
   domsnapshotAgent(): ProtocolProxyApi.DOMSnapshotApi {
-    return this.getAgent('DOMSnapshot');
+    return this.getAgent("DOMSnapshot");
   }
 
   domstorageAgent(): ProtocolProxyApi.DOMStorageApi {
-    return this.getAgent('DOMStorage');
+    return this.getAgent("DOMStorage");
   }
 
   emulationAgent(): ProtocolProxyApi.EmulationApi {
-    return this.getAgent('Emulation');
+    return this.getAgent("Emulation");
   }
 
   eventBreakpointsAgent(): ProtocolProxyApi.EventBreakpointsApi {
-    return this.getAgent('EventBreakpoints');
+    return this.getAgent("EventBreakpoints");
   }
 
   fetchAgent(): ProtocolProxyApi.FetchApi {
-    return this.getAgent('Fetch');
+    return this.getAgent("Fetch");
   }
 
   heapProfilerAgent(): ProtocolProxyApi.HeapProfilerApi {
-    return this.getAgent('HeapProfiler');
+    return this.getAgent("HeapProfiler");
   }
 
   indexedDBAgent(): ProtocolProxyApi.IndexedDBApi {
-    return this.getAgent('IndexedDB');
+    return this.getAgent("IndexedDB");
   }
 
   inputAgent(): ProtocolProxyApi.InputApi {
-    return this.getAgent('Input');
+    return this.getAgent("Input");
   }
 
   ioAgent(): ProtocolProxyApi.IOApi {
-    return this.getAgent('IO');
+    return this.getAgent("IO");
   }
 
   inspectorAgent(): ProtocolProxyApi.InspectorApi {
-    return this.getAgent('Inspector');
+    return this.getAgent("Inspector");
   }
 
   layerTreeAgent(): ProtocolProxyApi.LayerTreeApi {
-    return this.getAgent('LayerTree');
+    return this.getAgent("LayerTree");
   }
 
   logAgent(): ProtocolProxyApi.LogApi {
-    return this.getAgent('Log');
+    return this.getAgent("Log");
   }
 
   mediaAgent(): ProtocolProxyApi.MediaApi {
-    return this.getAgent('Media');
+    return this.getAgent("Media");
   }
 
   memoryAgent(): ProtocolProxyApi.MemoryApi {
-    return this.getAgent('Memory');
+    return this.getAgent("Memory");
   }
 
   networkAgent(): ProtocolProxyApi.NetworkApi {
-    return this.getAgent('Network');
+    return this.getAgent("Network");
   }
 
   overlayAgent(): ProtocolProxyApi.OverlayApi {
-    return this.getAgent('Overlay');
+    return this.getAgent("Overlay");
   }
 
   pageAgent(): ProtocolProxyApi.PageApi {
-    return this.getAgent('Page');
+    return this.getAgent("Page");
   }
 
   preloadAgent(): ProtocolProxyApi.PreloadApi {
-    return this.getAgent('Preload');
+    return this.getAgent("Preload");
   }
 
   profilerAgent(): ProtocolProxyApi.ProfilerApi {
-    return this.getAgent('Profiler');
+    return this.getAgent("Profiler");
   }
 
   performanceAgent(): ProtocolProxyApi.PerformanceApi {
-    return this.getAgent('Performance');
+    return this.getAgent("Performance");
   }
 
   runtimeAgent(): ProtocolProxyApi.RuntimeApi {
-    return this.getAgent('Runtime');
+    return this.getAgent("Runtime");
+  }
+
+  stateAgent(): ProtocolProxyApi.StateApi {
+    return this.getAgent("State");
   }
 
   securityAgent(): ProtocolProxyApi.SecurityApi {
-    return this.getAgent('Security');
+    return this.getAgent("Security");
   }
 
   serviceWorkerAgent(): ProtocolProxyApi.ServiceWorkerApi {
-    return this.getAgent('ServiceWorker');
+    return this.getAgent("ServiceWorker");
   }
 
   storageAgent(): ProtocolProxyApi.StorageApi {
-    return this.getAgent('Storage');
+    return this.getAgent("Storage");
   }
 
   systemInfo(): ProtocolProxyApi.SystemInfoApi {
-    return this.getAgent('SystemInfo');
+    return this.getAgent("SystemInfo");
   }
 
   targetAgent(): ProtocolProxyApi.TargetApi {
-    return this.getAgent('Target');
+    return this.getAgent("Target");
   }
 
   tracingAgent(): ProtocolProxyApi.TracingApi {
-    return this.getAgent('Tracing');
+    return this.getAgent("Tracing");
   }
 
   webAudioAgent(): ProtocolProxyApi.WebAudioApi {
-    return this.getAgent('WebAudio');
+    return this.getAgent("WebAudio");
   }
 
   webAuthnAgent(): ProtocolProxyApi.WebAuthnApi {
-    return this.getAgent('WebAuthn');
+    return this.getAgent("WebAuthn");
   }
 
   // Dispatcher registration and de-registration, keep alphabetically sorted.
@@ -775,7 +927,9 @@ export class TargetBase {
    * name, because if `Domain` allows multiple domains, the type is unsound.
    */
   private registerDispatcher<Domain extends ProtocolDomainName>(
-      domain: Domain, dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]): void {
+    domain: Domain,
+    dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]
+  ): void {
     const manager = this.#dispatchers.get(domain);
     if (!manager) {
       return;
@@ -788,7 +942,9 @@ export class TargetBase {
    * name, because if `Domain` allows multiple domains, the type is unsound.
    */
   private unregisterDispatcher<Domain extends ProtocolDomainName>(
-      domain: Domain, dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]): void {
+    domain: Domain,
+    dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]
+  ): void {
     const manager = this.#dispatchers.get(domain);
     if (!manager) {
       return;
@@ -796,124 +952,176 @@ export class TargetBase {
     manager.removeDomainDispatcher(dispatcher);
   }
 
-  registerAccessibilityDispatcher(dispatcher: ProtocolProxyApi.AccessibilityDispatcher): void {
-    this.registerDispatcher('Accessibility', dispatcher);
+  registerAccessibilityDispatcher(
+    dispatcher: ProtocolProxyApi.AccessibilityDispatcher
+  ): void {
+    this.registerDispatcher("Accessibility", dispatcher);
   }
 
-  registerAutofillDispatcher(dispatcher: ProtocolProxyApi.AutofillDispatcher): void {
-    this.registerDispatcher('Autofill', dispatcher);
+  registerAutofillDispatcher(
+    dispatcher: ProtocolProxyApi.AutofillDispatcher
+  ): void {
+    this.registerDispatcher("Autofill", dispatcher);
   }
 
-  registerAnimationDispatcher(dispatcher: ProtocolProxyApi.AnimationDispatcher): void {
-    this.registerDispatcher('Animation', dispatcher);
+  registerAnimationDispatcher(
+    dispatcher: ProtocolProxyApi.AnimationDispatcher
+  ): void {
+    this.registerDispatcher("Animation", dispatcher);
   }
 
-  registerAuditsDispatcher(dispatcher: ProtocolProxyApi.AuditsDispatcher): void {
-    this.registerDispatcher('Audits', dispatcher);
+  registerAuditsDispatcher(
+    dispatcher: ProtocolProxyApi.AuditsDispatcher
+  ): void {
+    this.registerDispatcher("Audits", dispatcher);
   }
 
   registerCSSDispatcher(dispatcher: ProtocolProxyApi.CSSDispatcher): void {
-    this.registerDispatcher('CSS', dispatcher);
+    this.registerDispatcher("CSS", dispatcher);
   }
 
-  registerDatabaseDispatcher(dispatcher: ProtocolProxyApi.DatabaseDispatcher): void {
-    this.registerDispatcher('Database', dispatcher);
+  registerDatabaseDispatcher(
+    dispatcher: ProtocolProxyApi.DatabaseDispatcher
+  ): void {
+    this.registerDispatcher("Database", dispatcher);
   }
 
-  registerBackgroundServiceDispatcher(dispatcher: ProtocolProxyApi.BackgroundServiceDispatcher): void {
-    this.registerDispatcher('BackgroundService', dispatcher);
+  registerBackgroundServiceDispatcher(
+    dispatcher: ProtocolProxyApi.BackgroundServiceDispatcher
+  ): void {
+    this.registerDispatcher("BackgroundService", dispatcher);
   }
 
-  registerDebuggerDispatcher(dispatcher: ProtocolProxyApi.DebuggerDispatcher): void {
-    this.registerDispatcher('Debugger', dispatcher);
+  registerDebuggerDispatcher(
+    dispatcher: ProtocolProxyApi.DebuggerDispatcher
+  ): void {
+    this.registerDispatcher("Debugger", dispatcher);
   }
 
-  unregisterDebuggerDispatcher(dispatcher: ProtocolProxyApi.DebuggerDispatcher): void {
-    this.unregisterDispatcher('Debugger', dispatcher);
+  unregisterDebuggerDispatcher(
+    dispatcher: ProtocolProxyApi.DebuggerDispatcher
+  ): void {
+    this.unregisterDispatcher("Debugger", dispatcher);
   }
 
   registerDOMDispatcher(dispatcher: ProtocolProxyApi.DOMDispatcher): void {
-    this.registerDispatcher('DOM', dispatcher);
+    this.registerDispatcher("DOM", dispatcher);
   }
 
-  registerDOMStorageDispatcher(dispatcher: ProtocolProxyApi.DOMStorageDispatcher): void {
-    this.registerDispatcher('DOMStorage', dispatcher);
+  registerStateDispatcher(dispatcher: ProtocolProxyApi.StateDispatcher): void {
+    this.registerDispatcher("State", dispatcher);
+  }
+
+  registerDOMStorageDispatcher(
+    dispatcher: ProtocolProxyApi.DOMStorageDispatcher
+  ): void {
+    this.registerDispatcher("DOMStorage", dispatcher);
   }
 
   registerFetchDispatcher(dispatcher: ProtocolProxyApi.FetchDispatcher): void {
-    this.registerDispatcher('Fetch', dispatcher);
+    this.registerDispatcher("Fetch", dispatcher);
   }
 
-  registerHeapProfilerDispatcher(dispatcher: ProtocolProxyApi.HeapProfilerDispatcher): void {
-    this.registerDispatcher('HeapProfiler', dispatcher);
+  registerHeapProfilerDispatcher(
+    dispatcher: ProtocolProxyApi.HeapProfilerDispatcher
+  ): void {
+    this.registerDispatcher("HeapProfiler", dispatcher);
   }
 
-  registerInspectorDispatcher(dispatcher: ProtocolProxyApi.InspectorDispatcher): void {
-    this.registerDispatcher('Inspector', dispatcher);
+  registerInspectorDispatcher(
+    dispatcher: ProtocolProxyApi.InspectorDispatcher
+  ): void {
+    this.registerDispatcher("Inspector", dispatcher);
   }
 
-  registerLayerTreeDispatcher(dispatcher: ProtocolProxyApi.LayerTreeDispatcher): void {
-    this.registerDispatcher('LayerTree', dispatcher);
+  registerLayerTreeDispatcher(
+    dispatcher: ProtocolProxyApi.LayerTreeDispatcher
+  ): void {
+    this.registerDispatcher("LayerTree", dispatcher);
   }
 
   registerLogDispatcher(dispatcher: ProtocolProxyApi.LogDispatcher): void {
-    this.registerDispatcher('Log', dispatcher);
+    this.registerDispatcher("Log", dispatcher);
   }
 
   registerMediaDispatcher(dispatcher: ProtocolProxyApi.MediaDispatcher): void {
-    this.registerDispatcher('Media', dispatcher);
+    this.registerDispatcher("Media", dispatcher);
   }
 
-  registerNetworkDispatcher(dispatcher: ProtocolProxyApi.NetworkDispatcher): void {
-    this.registerDispatcher('Network', dispatcher);
+  registerNetworkDispatcher(
+    dispatcher: ProtocolProxyApi.NetworkDispatcher
+  ): void {
+    this.registerDispatcher("Network", dispatcher);
   }
 
-  registerOverlayDispatcher(dispatcher: ProtocolProxyApi.OverlayDispatcher): void {
-    this.registerDispatcher('Overlay', dispatcher);
+  registerOverlayDispatcher(
+    dispatcher: ProtocolProxyApi.OverlayDispatcher
+  ): void {
+    this.registerDispatcher("Overlay", dispatcher);
   }
 
   registerPageDispatcher(dispatcher: ProtocolProxyApi.PageDispatcher): void {
-    this.registerDispatcher('Page', dispatcher);
+    this.registerDispatcher("Page", dispatcher);
   }
 
-  registerPreloadDispatcher(dispatcher: ProtocolProxyApi.PreloadDispatcher): void {
-    this.registerDispatcher('Preload', dispatcher);
+  registerPreloadDispatcher(
+    dispatcher: ProtocolProxyApi.PreloadDispatcher
+  ): void {
+    this.registerDispatcher("Preload", dispatcher);
   }
 
-  registerProfilerDispatcher(dispatcher: ProtocolProxyApi.ProfilerDispatcher): void {
-    this.registerDispatcher('Profiler', dispatcher);
+  registerProfilerDispatcher(
+    dispatcher: ProtocolProxyApi.ProfilerDispatcher
+  ): void {
+    this.registerDispatcher("Profiler", dispatcher);
   }
 
-  registerRuntimeDispatcher(dispatcher: ProtocolProxyApi.RuntimeDispatcher): void {
-    this.registerDispatcher('Runtime', dispatcher);
+  registerRuntimeDispatcher(
+    dispatcher: ProtocolProxyApi.RuntimeDispatcher
+  ): void {
+    this.registerDispatcher("Runtime", dispatcher);
   }
 
-  registerSecurityDispatcher(dispatcher: ProtocolProxyApi.SecurityDispatcher): void {
-    this.registerDispatcher('Security', dispatcher);
+  registerSecurityDispatcher(
+    dispatcher: ProtocolProxyApi.SecurityDispatcher
+  ): void {
+    this.registerDispatcher("Security", dispatcher);
   }
 
-  registerServiceWorkerDispatcher(dispatcher: ProtocolProxyApi.ServiceWorkerDispatcher): void {
-    this.registerDispatcher('ServiceWorker', dispatcher);
+  registerServiceWorkerDispatcher(
+    dispatcher: ProtocolProxyApi.ServiceWorkerDispatcher
+  ): void {
+    this.registerDispatcher("ServiceWorker", dispatcher);
   }
 
-  registerStorageDispatcher(dispatcher: ProtocolProxyApi.StorageDispatcher): void {
-    this.registerDispatcher('Storage', dispatcher);
+  registerStorageDispatcher(
+    dispatcher: ProtocolProxyApi.StorageDispatcher
+  ): void {
+    this.registerDispatcher("Storage", dispatcher);
   }
 
-  registerTargetDispatcher(dispatcher: ProtocolProxyApi.TargetDispatcher): void {
-    this.registerDispatcher('Target', dispatcher);
+  registerTargetDispatcher(
+    dispatcher: ProtocolProxyApi.TargetDispatcher
+  ): void {
+    this.registerDispatcher("Target", dispatcher);
   }
 
-  registerTracingDispatcher(dispatcher: ProtocolProxyApi.TracingDispatcher): void {
-    this.registerDispatcher('Tracing', dispatcher);
+  registerTracingDispatcher(
+    dispatcher: ProtocolProxyApi.TracingDispatcher
+  ): void {
+    this.registerDispatcher("Tracing", dispatcher);
   }
 
-  registerWebAudioDispatcher(dispatcher: ProtocolProxyApi.WebAudioDispatcher): void {
-    this.registerDispatcher('WebAudio', dispatcher);
+  registerWebAudioDispatcher(
+    dispatcher: ProtocolProxyApi.WebAudioDispatcher
+  ): void {
+    this.registerDispatcher("WebAudio", dispatcher);
   }
 
-  registerWebAuthnDispatcher(dispatcher: ProtocolProxyApi.WebAuthnDispatcher): void {
-    this.registerDispatcher('WebAuthn', dispatcher);
+  registerWebAuthnDispatcher(
+    dispatcher: ProtocolProxyApi.WebAuthnDispatcher
+  ): void {
+    this.registerDispatcher("WebAuthn", dispatcher);
   }
 
   getNeedsNodeJSPatching(): boolean {
@@ -934,10 +1142,16 @@ export class TargetBase {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 class _AgentPrototype {
   replyArgs: {
-    [x: string]: string[],
+    [x: string]: string[];
   };
-  description = '';
-  metadata: {[commandName: string]: {parameters: CommandParameter[], description: string, replyArgs: string[]}};
+  description = "";
+  metadata: {
+    [commandName: string]: {
+      parameters: CommandParameter[];
+      description: string;
+      replyArgs: string[];
+    };
+  };
   readonly domain: string;
   target!: TargetBase;
   constructor(domain: string) {
@@ -947,29 +1161,46 @@ class _AgentPrototype {
   }
 
   registerCommand(
-      methodName: UnqualifiedName, parameters: CommandParameter[], replyArgs: string[], description: string): void {
+    methodName: UnqualifiedName,
+    parameters: CommandParameter[],
+    replyArgs: string[],
+    description: string
+  ): void {
     const domainAndMethod = qualifyName(this.domain, methodName);
-    function sendMessagePromise(this: _AgentPrototype, ...args: unknown[]): Promise<unknown> {
-      return _AgentPrototype.prototype.sendMessageToBackendPromise.call(this, domainAndMethod, parameters, args);
+    function sendMessagePromise(
+      this: _AgentPrototype,
+      ...args: unknown[]
+    ): Promise<unknown> {
+      return _AgentPrototype.prototype.sendMessageToBackendPromise.call(
+        this,
+        domainAndMethod,
+        parameters,
+        args
+      );
     }
     // @ts-ignore Method code generation
     this[methodName] = sendMessagePromise;
-    this.metadata[domainAndMethod] = {parameters, description, replyArgs};
+    this.metadata[domainAndMethod] = { parameters, description, replyArgs };
 
     function invoke(
-        this: _AgentPrototype, request: Object|undefined = {}): Promise<Protocol.ProtocolResponseWithError> {
+      this: _AgentPrototype,
+      request: Object | undefined = {}
+    ): Promise<Protocol.ProtocolResponseWithError> {
       return this.invoke(domainAndMethod, request);
     }
 
     // @ts-ignore Method code generation
-    this['invoke_' + methodName] = invoke;
+    this["invoke_" + methodName] = invoke;
     this.replyArgs[domainAndMethod] = replyArgs;
   }
 
   private prepareParameters(
-      method: string, parameters: CommandParameter[], args: unknown[], errorCallback: (arg0: string) => void): Object
-      |null {
-    const params: {[x: string]: unknown} = {};
+    method: string,
+    parameters: CommandParameter[],
+    args: unknown[],
+    errorCallback: (arg0: string) => void
+  ): Object | null {
+    const params: { [x: string]: unknown } = {};
     let hasParams = false;
 
     for (const param of parameters) {
@@ -979,20 +1210,24 @@ class _AgentPrototype {
 
       if (!args.length && !optionalFlag) {
         errorCallback(
-            `Protocol Error: Invalid number of arguments for method '${method}' call. ` +
-            `It must have the following arguments ${JSON.stringify(parameters)}'.`);
+          `Protocol Error: Invalid number of arguments for method '${method}' call. ` +
+            `It must have the following arguments ${JSON.stringify(
+              parameters
+            )}'.`
+        );
         return null;
       }
 
       const value = args.shift();
-      if (optionalFlag && typeof value === 'undefined') {
+      if (optionalFlag && typeof value === "undefined") {
         continue;
       }
-      const expectedJSType = typeName === 'array' ? 'object' : typeName;
+      const expectedJSType = typeName === "array" ? "object" : typeName;
       if (typeof value !== expectedJSType) {
         errorCallback(
-            `Protocol Error: Invalid type of argument '${paramName}' for method '${method}' call. ` +
-            `It must be '${typeName}' but it is '${typeof value}'.`);
+          `Protocol Error: Invalid type of argument '${paramName}' for method '${method}' call. ` +
+            `It must be '${typeName}' but it is '${typeof value}'.`
+        );
         return null;
       }
 
@@ -1001,15 +1236,20 @@ class _AgentPrototype {
     }
 
     if (args.length) {
-      errorCallback(`Protocol Error: Extra ${args.length} arguments in a call to method '${method}'.`);
+      errorCallback(
+        `Protocol Error: Extra ${args.length} arguments in a call to method '${method}'.`
+      );
       return null;
     }
 
     return hasParams ? params : null;
   }
 
-  private sendMessageToBackendPromise(method: QualifiedName, parameters: CommandParameter[], args: unknown[]):
-      Promise<unknown> {
+  private sendMessageToBackendPromise(
+    method: QualifiedName,
+    parameters: CommandParameter[],
+    args: unknown[]
+  ): Promise<unknown> {
     let errorMessage;
     function onError(message: string): void {
       console.error(message);
@@ -1020,14 +1260,23 @@ class _AgentPrototype {
       return Promise.resolve(null);
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       // TODO(crbug.com/1172300) Ignored during the jsdoc to ts migration
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const callback: Callback = (error: MessageError|null, result: any|null): void => {
+      const callback: Callback = (
+        error: MessageError | null,
+        result: any | null
+      ): void => {
         if (error) {
-          if (!test.suppressRequestErrors && error.code !== DevToolsStubErrorCode && error.code !== GenericErrorCode &&
-              error.code !== ConnectionClosedErrorCode) {
-            console.error('Request ' + method + ' failed. ' + JSON.stringify(error));
+          if (
+            !test.suppressRequestErrors &&
+            error.code !== DevToolsStubErrorCode &&
+            error.code !== GenericErrorCode &&
+            error.code !== ConnectionClosedErrorCode
+          ) {
+            console.error(
+              "Request " + method + " failed. " + JSON.stringify(error)
+            );
           }
 
           resolve(null);
@@ -1042,28 +1291,56 @@ class _AgentPrototype {
       if (!router) {
         SessionRouter.dispatchConnectionError(callback, method);
       } else {
-        router.sendMessage(this.target.sessionId, this.domain, method, params, callback);
+        router.sendMessage(
+          this.target.sessionId,
+          this.domain,
+          method,
+          params,
+          callback
+        );
       }
     });
   }
 
-  private invoke(method: QualifiedName, request: Object|null): Promise<Protocol.ProtocolResponseWithError> {
-    return new Promise(fulfill => {
-      const callback: Callback = (error: MessageError|undefined|null, result: Object|null): void => {
-        if (error && !test.suppressRequestErrors && error.code !== DevToolsStubErrorCode &&
-            error.code !== GenericErrorCode && error.code !== ConnectionClosedErrorCode) {
-          console.error('Request ' + method + ' failed. ' + JSON.stringify(error));
+  private invoke(
+    method: QualifiedName,
+    request: Object | null
+  ): Promise<Protocol.ProtocolResponseWithError> {
+    return new Promise((fulfill) => {
+      const callback: Callback = (
+        error: MessageError | undefined | null,
+        result: Object | null
+      ): void => {
+        if (
+          error &&
+          !test.suppressRequestErrors &&
+          error.code !== DevToolsStubErrorCode &&
+          error.code !== GenericErrorCode &&
+          error.code !== ConnectionClosedErrorCode
+        ) {
+          console.error(
+            "Request " + method + " failed. " + JSON.stringify(error)
+          );
         }
 
         const errorMessage = error?.message;
-        fulfill({...result, getError: (): string | undefined => errorMessage});
+        fulfill({
+          ...result,
+          getError: (): string | undefined => errorMessage,
+        });
       };
 
       const router = this.target.router();
       if (!router) {
         SessionRouter.dispatchConnectionError(callback, method);
       } else {
-        router.sendMessage(this.target.sessionId, this.domain, method, request, callback);
+        router.sendMessage(
+          this.target.sessionId,
+          this.domain,
+          method,
+          request,
+          callback
+        );
       }
     });
   }
@@ -1084,11 +1361,15 @@ class DispatcherManager<Domain extends ProtocolDomainName> {
     this.#eventArgs = eventArgs;
   }
 
-  addDomainDispatcher(dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]): void {
+  addDomainDispatcher(
+    dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]
+  ): void {
     this.#dispatchers.push(dispatcher);
   }
 
-  removeDomainDispatcher(dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]): void {
+  removeDomainDispatcher(
+    dispatcher: ProtocolProxyApi.ProtocolDispatchers[Domain]
+  ): void {
     const index = this.#dispatchers.indexOf(dispatcher);
     if (index === -1) {
       return;
@@ -1103,16 +1384,21 @@ class DispatcherManager<Domain extends ProtocolDomainName> {
 
     if (!this.#eventArgs.has(messageObject.method)) {
       InspectorBackend.reportProtocolWarning(
-          `Protocol Warning: Attempted to dispatch an unspecified event '${messageObject.method}'`, messageObject);
+        `Protocol Warning: Attempted to dispatch an unspecified event '${messageObject.method}'`,
+        messageObject
+      );
       return;
     }
 
-    const messageParams = {...messageObject.params};
+    const messageParams = { ...messageObject.params };
     for (let index = 0; index < this.#dispatchers.length; ++index) {
       const dispatcher = this.#dispatchers[index];
 
       if (event in dispatcher) {
-        const f = dispatcher[event as string as keyof ProtocolProxyApi.ProtocolDispatchers[Domain]];
+        const f =
+          dispatcher[
+            event as string as keyof ProtocolProxyApi.ProtocolDispatchers[Domain]
+          ];
         // @ts-ignore Can't type check the dispatch.
         f.call(dispatcher, messageParams);
       }
