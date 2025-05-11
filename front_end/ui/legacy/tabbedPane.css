@@ -146,6 +146,8 @@ div[aria-label="Panels"] + .tabbed-pane-tab-slider {
   align-items: center;
   color: var(--palette-gray-500);
   width: fit-content !important;
+  min-width: 70px;
+  justify-content: center;
   font-weight: 600;
 }
 
@@ -219,6 +221,8 @@ div[aria-label="Panels"] .tabbed-pane-header-tab.selected:hover {
   color: var(--palette-brand-600);
   font-weight: 600;
   width: fit-content !important;
+  min-width: 70px;
+  justify-content: center;
 }
 
 .tabbed-pane-header-tab.dragging {
@@ -358,6 +362,10 @@ div[aria-label="Panels"] .tabbed-pane-header-tab.selected:hover {
   margin-right: -4px;
   flex: none;
   display: none !important;
+}
+
+:host(.network-item-view) .tabbed-pane-left-toolbar {
+  display: block !important;
 }
 
 .tabbed-pane-right-toolbar {
