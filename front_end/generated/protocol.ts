@@ -7,73 +7,77 @@
  * Re-generate with: npm run generate-protocol-resources.
  */
 
-
 export type integer = number;
 export type binary = string;
-export type EnumerableEnum<T> = {[K in keyof T]: T[K]};
+export type EnumerableEnum<T> = { [K in keyof T]: T[K] };
 export interface ProtocolResponseWithError {
   /** Returns an error message if the request failed. */
-  getError(): string|undefined;
+  getError(): string | undefined;
 }
-type OpaqueType<Tag extends string> = {protocolOpaqueTypeTag: Tag};
-type OpaqueIdentifier<RepresentationType, Tag extends string> = RepresentationType&OpaqueType<Tag>;
+type OpaqueType<Tag extends string> = { protocolOpaqueTypeTag: Tag };
+type OpaqueIdentifier<
+  RepresentationType,
+  Tag extends string
+> = RepresentationType & OpaqueType<Tag>;
 
 export namespace Accessibility {
-
   /**
    * Unique accessibility node identifier.
    */
-  export type AXNodeId = OpaqueIdentifier<string, 'Protocol.Accessibility.AXNodeId'>;
+  export type AXNodeId = OpaqueIdentifier<
+    string,
+    "Protocol.Accessibility.AXNodeId"
+  >;
 
   /**
    * Enum of possible property types.
    */
   export const enum AXValueType {
-    Boolean = 'boolean',
-    Tristate = 'tristate',
-    BooleanOrUndefined = 'booleanOrUndefined',
-    Idref = 'idref',
-    IdrefList = 'idrefList',
-    Integer = 'integer',
-    Node = 'node',
-    NodeList = 'nodeList',
-    Number = 'number',
-    String = 'string',
-    ComputedString = 'computedString',
-    Token = 'token',
-    TokenList = 'tokenList',
-    DomRelation = 'domRelation',
-    Role = 'role',
-    InternalRole = 'internalRole',
-    ValueUndefined = 'valueUndefined',
+    Boolean = "boolean",
+    Tristate = "tristate",
+    BooleanOrUndefined = "booleanOrUndefined",
+    Idref = "idref",
+    IdrefList = "idrefList",
+    Integer = "integer",
+    Node = "node",
+    NodeList = "nodeList",
+    Number = "number",
+    String = "string",
+    ComputedString = "computedString",
+    Token = "token",
+    TokenList = "tokenList",
+    DomRelation = "domRelation",
+    Role = "role",
+    InternalRole = "internalRole",
+    ValueUndefined = "valueUndefined",
   }
 
   /**
    * Enum of possible property sources.
    */
   export const enum AXValueSourceType {
-    Attribute = 'attribute',
-    Implicit = 'implicit',
-    Style = 'style',
-    Contents = 'contents',
-    Placeholder = 'placeholder',
-    RelatedElement = 'relatedElement',
+    Attribute = "attribute",
+    Implicit = "implicit",
+    Style = "style",
+    Contents = "contents",
+    Placeholder = "placeholder",
+    RelatedElement = "relatedElement",
   }
 
   /**
    * Enum of possible native property sources (as a subtype of a particular AXValueSourceType).
    */
   export const enum AXValueNativeSourceType {
-    Description = 'description',
-    Figcaption = 'figcaption',
-    Label = 'label',
-    Labelfor = 'labelfor',
-    Labelwrapped = 'labelwrapped',
-    Legend = 'legend',
-    Rubyannotation = 'rubyannotation',
-    Tablecaption = 'tablecaption',
-    Title = 'title',
-    Other = 'other',
+    Description = "description",
+    Figcaption = "figcaption",
+    Label = "label",
+    Labelfor = "labelfor",
+    Labelwrapped = "labelwrapped",
+    Legend = "legend",
+    Rubyannotation = "rubyannotation",
+    Tablecaption = "tablecaption",
+    Title = "title",
+    Other = "other",
   }
 
   /**
@@ -175,45 +179,45 @@ export namespace Accessibility {
    * - from 'activedescendant' to 'owns' - relationships between elements other than parent/child/sibling.
    */
   export const enum AXPropertyName {
-    Busy = 'busy',
-    Disabled = 'disabled',
-    Editable = 'editable',
-    Focusable = 'focusable',
-    Focused = 'focused',
-    Hidden = 'hidden',
-    HiddenRoot = 'hiddenRoot',
-    Invalid = 'invalid',
-    Keyshortcuts = 'keyshortcuts',
-    Settable = 'settable',
-    Roledescription = 'roledescription',
-    Live = 'live',
-    Atomic = 'atomic',
-    Relevant = 'relevant',
-    Root = 'root',
-    Autocomplete = 'autocomplete',
-    HasPopup = 'hasPopup',
-    Level = 'level',
-    Multiselectable = 'multiselectable',
-    Orientation = 'orientation',
-    Multiline = 'multiline',
-    Readonly = 'readonly',
-    Required = 'required',
-    Valuemin = 'valuemin',
-    Valuemax = 'valuemax',
-    Valuetext = 'valuetext',
-    Checked = 'checked',
-    Expanded = 'expanded',
-    Modal = 'modal',
-    Pressed = 'pressed',
-    Selected = 'selected',
-    Activedescendant = 'activedescendant',
-    Controls = 'controls',
-    Describedby = 'describedby',
-    Details = 'details',
-    Errormessage = 'errormessage',
-    Flowto = 'flowto',
-    Labelledby = 'labelledby',
-    Owns = 'owns',
+    Busy = "busy",
+    Disabled = "disabled",
+    Editable = "editable",
+    Focusable = "focusable",
+    Focused = "focused",
+    Hidden = "hidden",
+    HiddenRoot = "hiddenRoot",
+    Invalid = "invalid",
+    Keyshortcuts = "keyshortcuts",
+    Settable = "settable",
+    Roledescription = "roledescription",
+    Live = "live",
+    Atomic = "atomic",
+    Relevant = "relevant",
+    Root = "root",
+    Autocomplete = "autocomplete",
+    HasPopup = "hasPopup",
+    Level = "level",
+    Multiselectable = "multiselectable",
+    Orientation = "orientation",
+    Multiline = "multiline",
+    Readonly = "readonly",
+    Required = "required",
+    Valuemin = "valuemin",
+    Valuemax = "valuemax",
+    Valuetext = "valuetext",
+    Checked = "checked",
+    Expanded = "expanded",
+    Modal = "modal",
+    Pressed = "pressed",
+    Selected = "selected",
+    Activedescendant = "activedescendant",
+    Controls = "controls",
+    Describedby = "describedby",
+    Details = "details",
+    Errormessage = "errormessage",
+    Flowto = "flowto",
+    Labelledby = "labelledby",
+    Owns = "owns",
   }
 
   /**
@@ -345,7 +349,8 @@ export namespace Accessibility {
     objectId?: Runtime.RemoteObjectId;
   }
 
-  export interface GetAXNodeAndAncestorsResponse extends ProtocolResponseWithError {
+  export interface GetAXNodeAndAncestorsResponse
+    extends ProtocolResponseWithError {
     nodes: AXNode[];
   }
 
@@ -416,11 +421,10 @@ export namespace Accessibility {
 }
 
 export namespace Animation {
-
   export const enum AnimationType {
-    CSSTransition = 'CSSTransition',
-    CSSAnimation = 'CSSAnimation',
-    WebAnimation = 'WebAnimation',
+    CSSTransition = "CSSTransition",
+    CSSAnimation = "CSSAnimation",
+    WebAnimation = "WebAnimation",
   }
 
   /**
@@ -665,7 +669,6 @@ export namespace Animation {
  * Audits domain allows investigation of page violations and possible improvements.
  */
 export namespace Audits {
-
   /**
    * Information about a cookie that is affected by an inspector issue.
    */
@@ -697,35 +700,35 @@ export namespace Audits {
   }
 
   export const enum CookieExclusionReason {
-    ExcludeSameSiteUnspecifiedTreatedAsLax = 'ExcludeSameSiteUnspecifiedTreatedAsLax',
-    ExcludeSameSiteNoneInsecure = 'ExcludeSameSiteNoneInsecure',
-    ExcludeSameSiteLax = 'ExcludeSameSiteLax',
-    ExcludeSameSiteStrict = 'ExcludeSameSiteStrict',
-    ExcludeInvalidSameParty = 'ExcludeInvalidSameParty',
-    ExcludeSamePartyCrossPartyContext = 'ExcludeSamePartyCrossPartyContext',
-    ExcludeDomainNonASCII = 'ExcludeDomainNonASCII',
-    ExcludeThirdPartyCookieBlockedInFirstPartySet = 'ExcludeThirdPartyCookieBlockedInFirstPartySet',
-    ExcludeThirdPartyPhaseout = 'ExcludeThirdPartyPhaseout',
+    ExcludeSameSiteUnspecifiedTreatedAsLax = "ExcludeSameSiteUnspecifiedTreatedAsLax",
+    ExcludeSameSiteNoneInsecure = "ExcludeSameSiteNoneInsecure",
+    ExcludeSameSiteLax = "ExcludeSameSiteLax",
+    ExcludeSameSiteStrict = "ExcludeSameSiteStrict",
+    ExcludeInvalidSameParty = "ExcludeInvalidSameParty",
+    ExcludeSamePartyCrossPartyContext = "ExcludeSamePartyCrossPartyContext",
+    ExcludeDomainNonASCII = "ExcludeDomainNonASCII",
+    ExcludeThirdPartyCookieBlockedInFirstPartySet = "ExcludeThirdPartyCookieBlockedInFirstPartySet",
+    ExcludeThirdPartyPhaseout = "ExcludeThirdPartyPhaseout",
   }
 
   export const enum CookieWarningReason {
-    WarnSameSiteUnspecifiedCrossSiteContext = 'WarnSameSiteUnspecifiedCrossSiteContext',
-    WarnSameSiteNoneInsecure = 'WarnSameSiteNoneInsecure',
-    WarnSameSiteUnspecifiedLaxAllowUnsafe = 'WarnSameSiteUnspecifiedLaxAllowUnsafe',
-    WarnSameSiteStrictLaxDowngradeStrict = 'WarnSameSiteStrictLaxDowngradeStrict',
-    WarnSameSiteStrictCrossDowngradeStrict = 'WarnSameSiteStrictCrossDowngradeStrict',
-    WarnSameSiteStrictCrossDowngradeLax = 'WarnSameSiteStrictCrossDowngradeLax',
-    WarnSameSiteLaxCrossDowngradeStrict = 'WarnSameSiteLaxCrossDowngradeStrict',
-    WarnSameSiteLaxCrossDowngradeLax = 'WarnSameSiteLaxCrossDowngradeLax',
-    WarnAttributeValueExceedsMaxSize = 'WarnAttributeValueExceedsMaxSize',
-    WarnDomainNonASCII = 'WarnDomainNonASCII',
-    WarnThirdPartyPhaseout = 'WarnThirdPartyPhaseout',
-    WarnCrossSiteRedirectDowngradeChangesInclusion = 'WarnCrossSiteRedirectDowngradeChangesInclusion',
+    WarnSameSiteUnspecifiedCrossSiteContext = "WarnSameSiteUnspecifiedCrossSiteContext",
+    WarnSameSiteNoneInsecure = "WarnSameSiteNoneInsecure",
+    WarnSameSiteUnspecifiedLaxAllowUnsafe = "WarnSameSiteUnspecifiedLaxAllowUnsafe",
+    WarnSameSiteStrictLaxDowngradeStrict = "WarnSameSiteStrictLaxDowngradeStrict",
+    WarnSameSiteStrictCrossDowngradeStrict = "WarnSameSiteStrictCrossDowngradeStrict",
+    WarnSameSiteStrictCrossDowngradeLax = "WarnSameSiteStrictCrossDowngradeLax",
+    WarnSameSiteLaxCrossDowngradeStrict = "WarnSameSiteLaxCrossDowngradeStrict",
+    WarnSameSiteLaxCrossDowngradeLax = "WarnSameSiteLaxCrossDowngradeLax",
+    WarnAttributeValueExceedsMaxSize = "WarnAttributeValueExceedsMaxSize",
+    WarnDomainNonASCII = "WarnDomainNonASCII",
+    WarnThirdPartyPhaseout = "WarnThirdPartyPhaseout",
+    WarnCrossSiteRedirectDowngradeChangesInclusion = "WarnCrossSiteRedirectDowngradeChangesInclusion",
   }
 
   export const enum CookieOperation {
-    SetCookie = 'SetCookie',
-    ReadCookie = 'ReadCookie',
+    SetCookie = "SetCookie",
+    ReadCookie = "ReadCookie",
   }
 
   /**
@@ -755,40 +758,40 @@ export namespace Audits {
   }
 
   export const enum MixedContentResolutionStatus {
-    MixedContentBlocked = 'MixedContentBlocked',
-    MixedContentAutomaticallyUpgraded = 'MixedContentAutomaticallyUpgraded',
-    MixedContentWarning = 'MixedContentWarning',
+    MixedContentBlocked = "MixedContentBlocked",
+    MixedContentAutomaticallyUpgraded = "MixedContentAutomaticallyUpgraded",
+    MixedContentWarning = "MixedContentWarning",
   }
 
   export const enum MixedContentResourceType {
-    AttributionSrc = 'AttributionSrc',
-    Audio = 'Audio',
-    Beacon = 'Beacon',
-    CSPReport = 'CSPReport',
-    Download = 'Download',
-    EventSource = 'EventSource',
-    Favicon = 'Favicon',
-    Font = 'Font',
-    Form = 'Form',
-    Frame = 'Frame',
-    Image = 'Image',
-    Import = 'Import',
-    Manifest = 'Manifest',
-    Ping = 'Ping',
-    PluginData = 'PluginData',
-    PluginResource = 'PluginResource',
-    Prefetch = 'Prefetch',
-    Resource = 'Resource',
-    Script = 'Script',
-    ServiceWorker = 'ServiceWorker',
-    SharedWorker = 'SharedWorker',
-    SpeculationRules = 'SpeculationRules',
-    Stylesheet = 'Stylesheet',
-    Track = 'Track',
-    Video = 'Video',
-    Worker = 'Worker',
-    XMLHttpRequest = 'XMLHttpRequest',
-    XSLT = 'XSLT',
+    AttributionSrc = "AttributionSrc",
+    Audio = "Audio",
+    Beacon = "Beacon",
+    CSPReport = "CSPReport",
+    Download = "Download",
+    EventSource = "EventSource",
+    Favicon = "Favicon",
+    Font = "Font",
+    Form = "Form",
+    Frame = "Frame",
+    Image = "Image",
+    Import = "Import",
+    Manifest = "Manifest",
+    Ping = "Ping",
+    PluginData = "PluginData",
+    PluginResource = "PluginResource",
+    Prefetch = "Prefetch",
+    Resource = "Resource",
+    Script = "Script",
+    ServiceWorker = "ServiceWorker",
+    SharedWorker = "SharedWorker",
+    SpeculationRules = "SpeculationRules",
+    Stylesheet = "Stylesheet",
+    Track = "Track",
+    Video = "Video",
+    Worker = "Worker",
+    XMLHttpRequest = "XMLHttpRequest",
+    XSLT = "XSLT",
   }
 
   export interface MixedContentIssueDetails {
@@ -827,11 +830,11 @@ export namespace Audits {
    * refinements of the net error BLOCKED_BY_RESPONSE.
    */
   export const enum BlockedByResponseReason {
-    CoepFrameResourceNeedsCoepHeader = 'CoepFrameResourceNeedsCoepHeader',
-    CoopSandboxedIFrameCannotNavigateToCoopPage = 'CoopSandboxedIFrameCannotNavigateToCoopPage',
-    CorpNotSameOrigin = 'CorpNotSameOrigin',
-    CorpNotSameOriginAfterDefaultedToSameOriginByCoep = 'CorpNotSameOriginAfterDefaultedToSameOriginByCoep',
-    CorpNotSameSite = 'CorpNotSameSite',
+    CoepFrameResourceNeedsCoepHeader = "CoepFrameResourceNeedsCoepHeader",
+    CoopSandboxedIFrameCannotNavigateToCoopPage = "CoopSandboxedIFrameCannotNavigateToCoopPage",
+    CorpNotSameOrigin = "CorpNotSameOrigin",
+    CorpNotSameOriginAfterDefaultedToSameOriginByCoep = "CorpNotSameOriginAfterDefaultedToSameOriginByCoep",
+    CorpNotSameSite = "CorpNotSameSite",
   }
 
   /**
@@ -847,14 +850,14 @@ export namespace Audits {
   }
 
   export const enum HeavyAdResolutionStatus {
-    HeavyAdBlocked = 'HeavyAdBlocked',
-    HeavyAdWarning = 'HeavyAdWarning',
+    HeavyAdBlocked = "HeavyAdBlocked",
+    HeavyAdWarning = "HeavyAdWarning",
   }
 
   export const enum HeavyAdReason {
-    NetworkTotalLimit = 'NetworkTotalLimit',
-    CpuTotalLimit = 'CpuTotalLimit',
-    CpuPeakLimit = 'CpuPeakLimit',
+    NetworkTotalLimit = "NetworkTotalLimit",
+    CpuTotalLimit = "CpuTotalLimit",
+    CpuPeakLimit = "CpuPeakLimit",
   }
 
   export interface HeavyAdIssueDetails {
@@ -873,12 +876,12 @@ export namespace Audits {
   }
 
   export const enum ContentSecurityPolicyViolationType {
-    KInlineViolation = 'kInlineViolation',
-    KEvalViolation = 'kEvalViolation',
-    KURLViolation = 'kURLViolation',
-    KTrustedTypesSinkViolation = 'kTrustedTypesSinkViolation',
-    KTrustedTypesPolicyViolation = 'kTrustedTypesPolicyViolation',
-    KWasmEvalViolation = 'kWasmEvalViolation',
+    KInlineViolation = "kInlineViolation",
+    KEvalViolation = "kEvalViolation",
+    KURLViolation = "kURLViolation",
+    KTrustedTypesSinkViolation = "kTrustedTypesSinkViolation",
+    KTrustedTypesPolicyViolation = "kTrustedTypesPolicyViolation",
+    KWasmEvalViolation = "kWasmEvalViolation",
   }
 
   export interface SourceCodeLocation {
@@ -905,8 +908,8 @@ export namespace Audits {
   }
 
   export const enum SharedArrayBufferIssueType {
-    TransferIssue = 'TransferIssue',
-    CreationIssue = 'CreationIssue',
+    TransferIssue = "TransferIssue",
+    CreationIssue = "CreationIssue",
   }
 
   /**
@@ -944,21 +947,21 @@ export namespace Audits {
   }
 
   export const enum AttributionReportingIssueType {
-    PermissionPolicyDisabled = 'PermissionPolicyDisabled',
-    UntrustworthyReportingOrigin = 'UntrustworthyReportingOrigin',
-    InsecureContext = 'InsecureContext',
-    InvalidHeader = 'InvalidHeader',
-    InvalidRegisterTriggerHeader = 'InvalidRegisterTriggerHeader',
-    SourceAndTriggerHeaders = 'SourceAndTriggerHeaders',
-    SourceIgnored = 'SourceIgnored',
-    TriggerIgnored = 'TriggerIgnored',
-    OsSourceIgnored = 'OsSourceIgnored',
-    OsTriggerIgnored = 'OsTriggerIgnored',
-    InvalidRegisterOsSourceHeader = 'InvalidRegisterOsSourceHeader',
-    InvalidRegisterOsTriggerHeader = 'InvalidRegisterOsTriggerHeader',
-    WebAndOsHeaders = 'WebAndOsHeaders',
-    NoWebOrOsSupport = 'NoWebOrOsSupport',
-    NavigationRegistrationWithoutTransientUserActivation = 'NavigationRegistrationWithoutTransientUserActivation',
+    PermissionPolicyDisabled = "PermissionPolicyDisabled",
+    UntrustworthyReportingOrigin = "UntrustworthyReportingOrigin",
+    InsecureContext = "InsecureContext",
+    InvalidHeader = "InvalidHeader",
+    InvalidRegisterTriggerHeader = "InvalidRegisterTriggerHeader",
+    SourceAndTriggerHeaders = "SourceAndTriggerHeaders",
+    SourceIgnored = "SourceIgnored",
+    TriggerIgnored = "TriggerIgnored",
+    OsSourceIgnored = "OsSourceIgnored",
+    OsTriggerIgnored = "OsTriggerIgnored",
+    InvalidRegisterOsSourceHeader = "InvalidRegisterOsSourceHeader",
+    InvalidRegisterOsTriggerHeader = "InvalidRegisterOsTriggerHeader",
+    WebAndOsHeaders = "WebAndOsHeaders",
+    NoWebOrOsSupport = "NoWebOrOsSupport",
+    NavigationRegistrationWithoutTransientUserActivation = "NavigationRegistrationWithoutTransientUserActivation",
   }
 
   /**
@@ -994,18 +997,18 @@ export namespace Audits {
   }
 
   export const enum GenericIssueErrorType {
-    CrossOriginPortalPostMessageError = 'CrossOriginPortalPostMessageError',
-    FormLabelForNameError = 'FormLabelForNameError',
-    FormDuplicateIdForInputError = 'FormDuplicateIdForInputError',
-    FormInputWithNoLabelError = 'FormInputWithNoLabelError',
-    FormAutocompleteAttributeEmptyError = 'FormAutocompleteAttributeEmptyError',
-    FormEmptyIdAndNameAttributesForInputError = 'FormEmptyIdAndNameAttributesForInputError',
-    FormAriaLabelledByToNonExistingId = 'FormAriaLabelledByToNonExistingId',
-    FormInputAssignedAutocompleteValueToIdOrNameAttributeError = 'FormInputAssignedAutocompleteValueToIdOrNameAttributeError',
-    FormLabelHasNeitherForNorNestedInput = 'FormLabelHasNeitherForNorNestedInput',
-    FormLabelForMatchesNonExistingIdError = 'FormLabelForMatchesNonExistingIdError',
-    FormInputHasWrongButWellIntendedAutocompleteValueError = 'FormInputHasWrongButWellIntendedAutocompleteValueError',
-    ResponseWasBlockedByORB = 'ResponseWasBlockedByORB',
+    CrossOriginPortalPostMessageError = "CrossOriginPortalPostMessageError",
+    FormLabelForNameError = "FormLabelForNameError",
+    FormDuplicateIdForInputError = "FormDuplicateIdForInputError",
+    FormInputWithNoLabelError = "FormInputWithNoLabelError",
+    FormAutocompleteAttributeEmptyError = "FormAutocompleteAttributeEmptyError",
+    FormEmptyIdAndNameAttributesForInputError = "FormEmptyIdAndNameAttributesForInputError",
+    FormAriaLabelledByToNonExistingId = "FormAriaLabelledByToNonExistingId",
+    FormInputAssignedAutocompleteValueToIdOrNameAttributeError = "FormInputAssignedAutocompleteValueToIdOrNameAttributeError",
+    FormLabelHasNeitherForNorNestedInput = "FormLabelHasNeitherForNorNestedInput",
+    FormLabelForMatchesNonExistingIdError = "FormLabelForMatchesNonExistingIdError",
+    FormInputHasWrongButWellIntendedAutocompleteValueError = "FormInputHasWrongButWellIntendedAutocompleteValueError",
+    ResponseWasBlockedByORB = "ResponseWasBlockedByORB",
   }
 
   /**
@@ -1058,8 +1061,8 @@ export namespace Audits {
   }
 
   export const enum ClientHintIssueReason {
-    MetaTagAllowListInvalidOrigin = 'MetaTagAllowListInvalidOrigin',
-    MetaTagModifiedHTML = 'MetaTagModifiedHTML',
+    MetaTagAllowListInvalidOrigin = "MetaTagAllowListInvalidOrigin",
+    MetaTagModifiedHTML = "MetaTagModifiedHTML",
   }
 
   export interface FederatedAuthRequestIssueDetails {
@@ -1073,44 +1076,44 @@ export namespace Audits {
    * all cases except for success.
    */
   export const enum FederatedAuthRequestIssueReason {
-    ShouldEmbargo = 'ShouldEmbargo',
-    TooManyRequests = 'TooManyRequests',
-    WellKnownHttpNotFound = 'WellKnownHttpNotFound',
-    WellKnownNoResponse = 'WellKnownNoResponse',
-    WellKnownInvalidResponse = 'WellKnownInvalidResponse',
-    WellKnownListEmpty = 'WellKnownListEmpty',
-    WellKnownInvalidContentType = 'WellKnownInvalidContentType',
-    ConfigNotInWellKnown = 'ConfigNotInWellKnown',
-    WellKnownTooBig = 'WellKnownTooBig',
-    ConfigHttpNotFound = 'ConfigHttpNotFound',
-    ConfigNoResponse = 'ConfigNoResponse',
-    ConfigInvalidResponse = 'ConfigInvalidResponse',
-    ConfigInvalidContentType = 'ConfigInvalidContentType',
-    ClientMetadataHttpNotFound = 'ClientMetadataHttpNotFound',
-    ClientMetadataNoResponse = 'ClientMetadataNoResponse',
-    ClientMetadataInvalidResponse = 'ClientMetadataInvalidResponse',
-    ClientMetadataInvalidContentType = 'ClientMetadataInvalidContentType',
-    DisabledInSettings = 'DisabledInSettings',
-    ErrorFetchingSignin = 'ErrorFetchingSignin',
-    InvalidSigninResponse = 'InvalidSigninResponse',
-    AccountsHttpNotFound = 'AccountsHttpNotFound',
-    AccountsNoResponse = 'AccountsNoResponse',
-    AccountsInvalidResponse = 'AccountsInvalidResponse',
-    AccountsListEmpty = 'AccountsListEmpty',
-    AccountsInvalidContentType = 'AccountsInvalidContentType',
-    IdTokenHttpNotFound = 'IdTokenHttpNotFound',
-    IdTokenNoResponse = 'IdTokenNoResponse',
-    IdTokenInvalidResponse = 'IdTokenInvalidResponse',
-    IdTokenIdpErrorResponse = 'IdTokenIdpErrorResponse',
-    IdTokenCrossSiteIdpErrorResponse = 'IdTokenCrossSiteIdpErrorResponse',
-    IdTokenInvalidRequest = 'IdTokenInvalidRequest',
-    IdTokenInvalidContentType = 'IdTokenInvalidContentType',
-    ErrorIdToken = 'ErrorIdToken',
-    Canceled = 'Canceled',
-    RpPageNotVisible = 'RpPageNotVisible',
-    SilentMediationFailure = 'SilentMediationFailure',
-    ThirdPartyCookiesBlocked = 'ThirdPartyCookiesBlocked',
-    NotSignedInWithIdp = 'NotSignedInWithIdp',
+    ShouldEmbargo = "ShouldEmbargo",
+    TooManyRequests = "TooManyRequests",
+    WellKnownHttpNotFound = "WellKnownHttpNotFound",
+    WellKnownNoResponse = "WellKnownNoResponse",
+    WellKnownInvalidResponse = "WellKnownInvalidResponse",
+    WellKnownListEmpty = "WellKnownListEmpty",
+    WellKnownInvalidContentType = "WellKnownInvalidContentType",
+    ConfigNotInWellKnown = "ConfigNotInWellKnown",
+    WellKnownTooBig = "WellKnownTooBig",
+    ConfigHttpNotFound = "ConfigHttpNotFound",
+    ConfigNoResponse = "ConfigNoResponse",
+    ConfigInvalidResponse = "ConfigInvalidResponse",
+    ConfigInvalidContentType = "ConfigInvalidContentType",
+    ClientMetadataHttpNotFound = "ClientMetadataHttpNotFound",
+    ClientMetadataNoResponse = "ClientMetadataNoResponse",
+    ClientMetadataInvalidResponse = "ClientMetadataInvalidResponse",
+    ClientMetadataInvalidContentType = "ClientMetadataInvalidContentType",
+    DisabledInSettings = "DisabledInSettings",
+    ErrorFetchingSignin = "ErrorFetchingSignin",
+    InvalidSigninResponse = "InvalidSigninResponse",
+    AccountsHttpNotFound = "AccountsHttpNotFound",
+    AccountsNoResponse = "AccountsNoResponse",
+    AccountsInvalidResponse = "AccountsInvalidResponse",
+    AccountsListEmpty = "AccountsListEmpty",
+    AccountsInvalidContentType = "AccountsInvalidContentType",
+    IdTokenHttpNotFound = "IdTokenHttpNotFound",
+    IdTokenNoResponse = "IdTokenNoResponse",
+    IdTokenInvalidResponse = "IdTokenInvalidResponse",
+    IdTokenIdpErrorResponse = "IdTokenIdpErrorResponse",
+    IdTokenCrossSiteIdpErrorResponse = "IdTokenCrossSiteIdpErrorResponse",
+    IdTokenInvalidRequest = "IdTokenInvalidRequest",
+    IdTokenInvalidContentType = "IdTokenInvalidContentType",
+    ErrorIdToken = "ErrorIdToken",
+    Canceled = "Canceled",
+    RpPageNotVisible = "RpPageNotVisible",
+    SilentMediationFailure = "SilentMediationFailure",
+    ThirdPartyCookiesBlocked = "ThirdPartyCookiesBlocked",
+    NotSignedInWithIdp = "NotSignedInWithIdp",
   }
 
   export interface FederatedAuthUserInfoRequestIssueDetails {
@@ -1123,15 +1126,15 @@ export namespace Audits {
    * third_party/blink/public/mojom/devtools/inspector_issue.mojom.
    */
   export const enum FederatedAuthUserInfoRequestIssueReason {
-    NotSameOrigin = 'NotSameOrigin',
-    NotIframe = 'NotIframe',
-    NotPotentiallyTrustworthy = 'NotPotentiallyTrustworthy',
-    NoAPIPermission = 'NoApiPermission',
-    NotSignedInWithIdp = 'NotSignedInWithIdp',
-    NoAccountSharingPermission = 'NoAccountSharingPermission',
-    InvalidConfigOrWellKnown = 'InvalidConfigOrWellKnown',
-    InvalidAccountsResponse = 'InvalidAccountsResponse',
-    NoReturningUserFromFetchedAccounts = 'NoReturningUserFromFetchedAccounts',
+    NotSameOrigin = "NotSameOrigin",
+    NotIframe = "NotIframe",
+    NotPotentiallyTrustworthy = "NotPotentiallyTrustworthy",
+    NoAPIPermission = "NoApiPermission",
+    NotSignedInWithIdp = "NotSignedInWithIdp",
+    NoAccountSharingPermission = "NoAccountSharingPermission",
+    InvalidConfigOrWellKnown = "InvalidConfigOrWellKnown",
+    InvalidAccountsResponse = "InvalidAccountsResponse",
+    NoReturningUserFromFetchedAccounts = "NoReturningUserFromFetchedAccounts",
   }
 
   /**
@@ -1156,8 +1159,8 @@ export namespace Audits {
   }
 
   export const enum StyleSheetLoadingIssueReason {
-    LateImportRule = 'LateImportRule',
-    RequestFailed = 'RequestFailed',
+    LateImportRule = "LateImportRule",
+    RequestFailed = "RequestFailed",
   }
 
   /**
@@ -1179,10 +1182,10 @@ export namespace Audits {
   }
 
   export const enum PropertyRuleIssueReason {
-    InvalidSyntax = 'InvalidSyntax',
-    InvalidInitialValue = 'InvalidInitialValue',
-    InvalidInherits = 'InvalidInherits',
-    InvalidName = 'InvalidName',
+    InvalidSyntax = "InvalidSyntax",
+    InvalidInitialValue = "InvalidInitialValue",
+    InvalidInherits = "InvalidInherits",
+    InvalidName = "InvalidName",
   }
 
   /**
@@ -1210,26 +1213,26 @@ export namespace Audits {
    * information about the kind of issue.
    */
   export const enum InspectorIssueCode {
-    CookieIssue = 'CookieIssue',
-    MixedContentIssue = 'MixedContentIssue',
-    BlockedByResponseIssue = 'BlockedByResponseIssue',
-    HeavyAdIssue = 'HeavyAdIssue',
-    ContentSecurityPolicyIssue = 'ContentSecurityPolicyIssue',
-    SharedArrayBufferIssue = 'SharedArrayBufferIssue',
-    LowTextContrastIssue = 'LowTextContrastIssue',
-    CorsIssue = 'CorsIssue',
-    AttributionReportingIssue = 'AttributionReportingIssue',
-    QuirksModeIssue = 'QuirksModeIssue',
-    NavigatorUserAgentIssue = 'NavigatorUserAgentIssue',
-    GenericIssue = 'GenericIssue',
-    DeprecationIssue = 'DeprecationIssue',
-    ClientHintIssue = 'ClientHintIssue',
-    FederatedAuthRequestIssue = 'FederatedAuthRequestIssue',
-    BounceTrackingIssue = 'BounceTrackingIssue',
-    CookieDeprecationMetadataIssue = 'CookieDeprecationMetadataIssue',
-    StylesheetLoadingIssue = 'StylesheetLoadingIssue',
-    FederatedAuthUserInfoRequestIssue = 'FederatedAuthUserInfoRequestIssue',
-    PropertyRuleIssue = 'PropertyRuleIssue',
+    CookieIssue = "CookieIssue",
+    MixedContentIssue = "MixedContentIssue",
+    BlockedByResponseIssue = "BlockedByResponseIssue",
+    HeavyAdIssue = "HeavyAdIssue",
+    ContentSecurityPolicyIssue = "ContentSecurityPolicyIssue",
+    SharedArrayBufferIssue = "SharedArrayBufferIssue",
+    LowTextContrastIssue = "LowTextContrastIssue",
+    CorsIssue = "CorsIssue",
+    AttributionReportingIssue = "AttributionReportingIssue",
+    QuirksModeIssue = "QuirksModeIssue",
+    NavigatorUserAgentIssue = "NavigatorUserAgentIssue",
+    GenericIssue = "GenericIssue",
+    DeprecationIssue = "DeprecationIssue",
+    ClientHintIssue = "ClientHintIssue",
+    FederatedAuthRequestIssue = "FederatedAuthRequestIssue",
+    BounceTrackingIssue = "BounceTrackingIssue",
+    CookieDeprecationMetadataIssue = "CookieDeprecationMetadataIssue",
+    StylesheetLoadingIssue = "StylesheetLoadingIssue",
+    FederatedAuthUserInfoRequestIssue = "FederatedAuthUserInfoRequestIssue",
+    PropertyRuleIssue = "PropertyRuleIssue",
   }
 
   /**
@@ -1264,7 +1267,7 @@ export namespace Audits {
    * A unique id for a DevTools inspector issue. Allows other entities (e.g.
    * exceptions, CDP message, console messages, etc.) to reference an issue.
    */
-  export type IssueId = OpaqueIdentifier<string, 'Protocol.Audits.IssueId'>;
+  export type IssueId = OpaqueIdentifier<string, "Protocol.Audits.IssueId">;
 
   /**
    * An inspector issue reported from the back-end.
@@ -1280,9 +1283,9 @@ export namespace Audits {
   }
 
   export const enum GetEncodedResponseRequestEncoding {
-    Webp = 'webp',
-    Jpeg = 'jpeg',
-    Png = 'png',
+    Webp = "webp",
+    Jpeg = "jpeg",
+    Png = "png",
   }
 
   export interface GetEncodedResponseRequest {
@@ -1304,7 +1307,8 @@ export namespace Audits {
     sizeOnly?: boolean;
   }
 
-  export interface GetEncodedResponseResponse extends ProtocolResponseWithError {
+  export interface GetEncodedResponseResponse
+    extends ProtocolResponseWithError {
     /**
      * The encoded body as a base64 string. Omitted if sizeOnly is true.
      */
@@ -1339,7 +1343,6 @@ export namespace Audits {
  * Defines commands and events for Autofill.
  */
 export namespace Autofill {
-
   export interface CreditCard {
     /**
      * 16-digit credit card number.
@@ -1408,8 +1411,8 @@ export namespace Autofill {
    * Specified whether a filled field was done so by using the html autocomplete attribute or autofill heuristics.
    */
   export const enum FillingStrategy {
-    AutocompleteAttribute = 'autocompleteAttribute',
-    AutofillInferred = 'autofillInferred',
+    AutocompleteAttribute = "autocompleteAttribute",
+    AutofillInferred = "autofillInferred",
   }
 
   export interface FilledField {
@@ -1482,19 +1485,18 @@ export namespace Autofill {
  * Defines events for background web platform features.
  */
 export namespace BackgroundService {
-
   /**
    * The Background Service that will be associated with the commands/events.
    * Every Background Service operates independently, but they share the same
    * API.
    */
   export const enum ServiceName {
-    BackgroundFetch = 'backgroundFetch',
-    BackgroundSync = 'backgroundSync',
-    PushMessaging = 'pushMessaging',
-    Notifications = 'notifications',
-    PaymentHandler = 'paymentHandler',
-    PeriodicBackgroundSync = 'periodicBackgroundSync',
+    BackgroundFetch = "backgroundFetch",
+    BackgroundSync = "backgroundSync",
+    PushMessaging = "pushMessaging",
+    Notifications = "notifications",
+    PaymentHandler = "paymentHandler",
+    PeriodicBackgroundSync = "periodicBackgroundSync",
   }
 
   /**
@@ -1578,19 +1580,21 @@ export namespace BackgroundService {
  * The Browser domain defines methods and events for browser managing.
  */
 export namespace Browser {
+  export type BrowserContextID = OpaqueIdentifier<
+    string,
+    "Protocol.Browser.BrowserContextID"
+  >;
 
-  export type BrowserContextID = OpaqueIdentifier<string, 'Protocol.Browser.BrowserContextID'>;
-
-  export type WindowID = OpaqueIdentifier<integer, 'Protocol.Browser.WindowID'>;
+  export type WindowID = OpaqueIdentifier<integer, "Protocol.Browser.WindowID">;
 
   /**
    * The state of the browser window.
    */
   export const enum WindowState {
-    Normal = 'normal',
-    Minimized = 'minimized',
-    Maximized = 'maximized',
-    Fullscreen = 'fullscreen',
+    Normal = "normal",
+    Minimized = "minimized",
+    Maximized = "maximized",
+    Fullscreen = "fullscreen",
   }
 
   /**
@@ -1620,39 +1624,39 @@ export namespace Browser {
   }
 
   export const enum PermissionType {
-    AccessibilityEvents = 'accessibilityEvents',
-    AudioCapture = 'audioCapture',
-    BackgroundSync = 'backgroundSync',
-    BackgroundFetch = 'backgroundFetch',
-    ClipboardReadWrite = 'clipboardReadWrite',
-    ClipboardSanitizedWrite = 'clipboardSanitizedWrite',
-    DisplayCapture = 'displayCapture',
-    DurableStorage = 'durableStorage',
-    Flash = 'flash',
-    Geolocation = 'geolocation',
-    IdleDetection = 'idleDetection',
-    LocalFonts = 'localFonts',
-    Midi = 'midi',
-    MidiSysex = 'midiSysex',
-    Nfc = 'nfc',
-    Notifications = 'notifications',
-    PaymentHandler = 'paymentHandler',
-    PeriodicBackgroundSync = 'periodicBackgroundSync',
-    ProtectedMediaIdentifier = 'protectedMediaIdentifier',
-    Sensors = 'sensors',
-    StorageAccess = 'storageAccess',
-    TopLevelStorageAccess = 'topLevelStorageAccess',
-    VideoCapture = 'videoCapture',
-    VideoCapturePanTiltZoom = 'videoCapturePanTiltZoom',
-    WakeLockScreen = 'wakeLockScreen',
-    WakeLockSystem = 'wakeLockSystem',
-    WindowManagement = 'windowManagement',
+    AccessibilityEvents = "accessibilityEvents",
+    AudioCapture = "audioCapture",
+    BackgroundSync = "backgroundSync",
+    BackgroundFetch = "backgroundFetch",
+    ClipboardReadWrite = "clipboardReadWrite",
+    ClipboardSanitizedWrite = "clipboardSanitizedWrite",
+    DisplayCapture = "displayCapture",
+    DurableStorage = "durableStorage",
+    Flash = "flash",
+    Geolocation = "geolocation",
+    IdleDetection = "idleDetection",
+    LocalFonts = "localFonts",
+    Midi = "midi",
+    MidiSysex = "midiSysex",
+    Nfc = "nfc",
+    Notifications = "notifications",
+    PaymentHandler = "paymentHandler",
+    PeriodicBackgroundSync = "periodicBackgroundSync",
+    ProtectedMediaIdentifier = "protectedMediaIdentifier",
+    Sensors = "sensors",
+    StorageAccess = "storageAccess",
+    TopLevelStorageAccess = "topLevelStorageAccess",
+    VideoCapture = "videoCapture",
+    VideoCapturePanTiltZoom = "videoCapturePanTiltZoom",
+    WakeLockScreen = "wakeLockScreen",
+    WakeLockSystem = "wakeLockSystem",
+    WindowManagement = "windowManagement",
   }
 
   export const enum PermissionSetting {
-    Granted = 'granted',
-    Denied = 'denied',
-    Prompt = 'prompt',
+    Granted = "granted",
+    Denied = "denied",
+    Prompt = "prompt",
   }
 
   /**
@@ -1688,8 +1692,8 @@ export namespace Browser {
    * Browser command ids used by executeBrowserCommand.
    */
   export const enum BrowserCommandId {
-    OpenTabSearch = 'openTabSearch',
-    CloseTabSearch = 'closeTabSearch',
+    OpenTabSearch = "openTabSearch",
+    CloseTabSearch = "closeTabSearch",
   }
 
   /**
@@ -1771,10 +1775,10 @@ export namespace Browser {
   }
 
   export const enum SetDownloadBehaviorRequestBehavior {
-    Deny = 'deny',
-    Allow = 'allow',
-    AllowAndName = 'allowAndName',
-    Default = 'default',
+    Deny = "deny",
+    Allow = "allow",
+    AllowAndName = "allowAndName",
+    Default = "default",
   }
 
   export interface SetDownloadBehaviorRequest {
@@ -1833,7 +1837,8 @@ export namespace Browser {
     jsVersion: string;
   }
 
-  export interface GetBrowserCommandLineResponse extends ProtocolResponseWithError {
+  export interface GetBrowserCommandLineResponse
+    extends ProtocolResponseWithError {
     /**
      * Commandline parameters
      */
@@ -1900,7 +1905,8 @@ export namespace Browser {
     targetId?: Target.TargetID;
   }
 
-  export interface GetWindowForTargetResponse extends ProtocolResponseWithError {
+  export interface GetWindowForTargetResponse
+    extends ProtocolResponseWithError {
     /**
      * Browser window id.
      */
@@ -1963,9 +1969,9 @@ export namespace Browser {
   }
 
   export const enum DownloadProgressEventState {
-    InProgress = 'inProgress',
-    Completed = 'completed',
-    Canceled = 'canceled',
+    InProgress = "inProgress",
+    Completed = "completed",
+    Canceled = "canceled",
   }
 
   /**
@@ -2000,8 +2006,10 @@ export namespace Browser {
  * subsequently load the required stylesheet contents using the `getStyleSheet[Text]()` methods.
  */
 export namespace CSS {
-
-  export type StyleSheetId = OpaqueIdentifier<string, 'Protocol.CSS.StyleSheetId'>;
+  export type StyleSheetId = OpaqueIdentifier<
+    string,
+    "Protocol.CSS.StyleSheetId"
+  >;
 
   /**
    * Stylesheet type: "injected" for stylesheets injected via extension, "user-agent" for user-agent
@@ -2009,10 +2017,10 @@ export namespace CSS {
    * inspector" rules), "regular" for regular stylesheets.
    */
   export const enum StyleSheetOrigin {
-    Injected = 'injected',
-    UserAgent = 'user-agent',
-    Inspector = 'inspector',
-    Regular = 'regular',
+    Injected = "injected",
+    UserAgent = "user-agent",
+    Inspector = "inspector",
+    Regular = "regular",
   }
 
   /**
@@ -2269,12 +2277,12 @@ export namespace CSS {
    * This list only contains rule types that are collected during the ancestor rule collection.
    */
   export const enum CSSRuleType {
-    MediaRule = 'MediaRule',
-    SupportsRule = 'SupportsRule',
-    ContainerRule = 'ContainerRule',
-    LayerRule = 'LayerRule',
-    ScopeRule = 'ScopeRule',
-    StyleRule = 'StyleRule',
+    MediaRule = "MediaRule",
+    SupportsRule = "SupportsRule",
+    ContainerRule = "ContainerRule",
+    LayerRule = "LayerRule",
+    ScopeRule = "ScopeRule",
+    StyleRule = "StyleRule",
   }
 
   /**
@@ -2419,10 +2427,10 @@ export namespace CSS {
   }
 
   export const enum CSSMediaSource {
-    MediaRule = 'mediaRule',
-    ImportRule = 'importRule',
-    LinkedSheet = 'linkedSheet',
-    InlineSheet = 'inlineSheet',
+    MediaRule = "mediaRule",
+    ImportRule = "importRule",
+    LinkedSheet = "linkedSheet",
+    InlineSheet = "inlineSheet",
   }
 
   /**
@@ -2911,7 +2919,8 @@ export namespace CSS {
     nodeId: DOM.NodeId;
   }
 
-  export interface GetBackgroundColorsResponse extends ProtocolResponseWithError {
+  export interface GetBackgroundColorsResponse
+    extends ProtocolResponseWithError {
     /**
      * The range of background colors behind this element, if it contains any visible text. If no
      * visible text is present, this will be undefined. In the case of a flat background color,
@@ -2935,7 +2944,8 @@ export namespace CSS {
     nodeId: DOM.NodeId;
   }
 
-  export interface GetComputedStyleForNodeResponse extends ProtocolResponseWithError {
+  export interface GetComputedStyleForNodeResponse
+    extends ProtocolResponseWithError {
     /**
      * Computed style for the specified DOM node.
      */
@@ -2946,7 +2956,8 @@ export namespace CSS {
     nodeId: DOM.NodeId;
   }
 
-  export interface GetInlineStylesForNodeResponse extends ProtocolResponseWithError {
+  export interface GetInlineStylesForNodeResponse
+    extends ProtocolResponseWithError {
     /**
      * Inline style for the specified DOM node.
      */
@@ -2961,7 +2972,8 @@ export namespace CSS {
     nodeId: DOM.NodeId;
   }
 
-  export interface GetMatchedStylesForNodeResponse extends ProtocolResponseWithError {
+  export interface GetMatchedStylesForNodeResponse
+    extends ProtocolResponseWithError {
     /**
      * Inline style for the specified DOM node.
      */
@@ -3020,7 +3032,8 @@ export namespace CSS {
     nodeId: DOM.NodeId;
   }
 
-  export interface GetPlatformFontsForNodeResponse extends ProtocolResponseWithError {
+  export interface GetPlatformFontsForNodeResponse
+    extends ProtocolResponseWithError {
     /**
      * Usage statistics for every employed platform font.
      */
@@ -3050,7 +3063,8 @@ export namespace CSS {
     propertiesToTrack: CSSComputedStyleProperty[];
   }
 
-  export interface TakeComputedStyleUpdatesResponse extends ProtocolResponseWithError {
+  export interface TakeComputedStyleUpdatesResponse
+    extends ProtocolResponseWithError {
     /**
      * The list of node Ids that have their tracked computed styles updated.
      */
@@ -3072,7 +3086,8 @@ export namespace CSS {
     propertyName: string;
   }
 
-  export interface SetPropertyRulePropertyNameResponse extends ProtocolResponseWithError {
+  export interface SetPropertyRulePropertyNameResponse
+    extends ProtocolResponseWithError {
     /**
      * The resulting key text after modification.
      */
@@ -3111,7 +3126,8 @@ export namespace CSS {
     text: string;
   }
 
-  export interface SetContainerQueryTextResponse extends ProtocolResponseWithError {
+  export interface SetContainerQueryTextResponse
+    extends ProtocolResponseWithError {
     /**
      * The resulting CSS container query rule after modification.
      */
@@ -3180,7 +3196,8 @@ export namespace CSS {
     styles: CSSStyle[];
   }
 
-  export interface StopRuleUsageTrackingResponse extends ProtocolResponseWithError {
+  export interface StopRuleUsageTrackingResponse
+    extends ProtocolResponseWithError {
     ruleUsage: RuleUsage[];
   }
 
@@ -3239,22 +3256,24 @@ export namespace CSS {
 }
 
 export namespace CacheStorage {
-
   /**
    * Unique identifier of the Cache object.
    */
-  export type CacheId = OpaqueIdentifier<string, 'Protocol.CacheStorage.CacheId'>;
+  export type CacheId = OpaqueIdentifier<
+    string,
+    "Protocol.CacheStorage.CacheId"
+  >;
 
   /**
    * type of HTTP response cached
    */
   export const enum CachedResponseType {
-    Basic = 'basic',
-    Cors = 'cors',
-    Default = 'default',
-    Error = 'error',
-    OpaqueResponse = 'opaqueResponse',
-    OpaqueRedirect = 'opaqueRedirect',
+    Basic = "basic",
+    Cors = "cors",
+    Default = "default",
+    Error = "error",
+    OpaqueResponse = "opaqueResponse",
+    OpaqueRedirect = "opaqueRedirect",
   }
 
   /**
@@ -3392,7 +3411,8 @@ export namespace CacheStorage {
     requestHeaders: Header[];
   }
 
-  export interface RequestCachedResponseResponse extends ProtocolResponseWithError {
+  export interface RequestCachedResponseResponse
+    extends ProtocolResponseWithError {
     /**
      * Response read from the cache.
      */
@@ -3436,7 +3456,6 @@ export namespace CacheStorage {
  * functionalities.
  */
 export namespace Cast {
-
   export interface Sink {
     name: string;
     id: string;
@@ -3494,17 +3513,19 @@ export namespace Cast {
  * corresponding document elements as their child nodes.
  */
 export namespace DOM {
-
   /**
    * Unique DOM node identifier.
    */
-  export type NodeId = OpaqueIdentifier<integer, 'Protocol.DOM.NodeId'>;
+  export type NodeId = OpaqueIdentifier<integer, "Protocol.DOM.NodeId">;
 
   /**
    * Unique DOM node identifier used to reference a node that may not have been pushed to the
    * front-end.
    */
-  export type BackendNodeId = OpaqueIdentifier<integer, 'Protocol.DOM.BackendNodeId'>;
+  export type BackendNodeId = OpaqueIdentifier<
+    integer,
+    "Protocol.DOM.BackendNodeId"
+  >;
 
   /**
    * Backend node with a friendly name.
@@ -3525,67 +3546,67 @@ export namespace DOM {
    * Pseudo element type.
    */
   export const enum PseudoType {
-    FirstLine = 'first-line',
-    FirstLetter = 'first-letter',
-    Before = 'before',
-    After = 'after',
-    Marker = 'marker',
-    Backdrop = 'backdrop',
-    Selection = 'selection',
-    TargetText = 'target-text',
-    SpellingError = 'spelling-error',
-    GrammarError = 'grammar-error',
-    Highlight = 'highlight',
-    FirstLineInherited = 'first-line-inherited',
-    Scrollbar = 'scrollbar',
-    ScrollbarThumb = 'scrollbar-thumb',
-    ScrollbarButton = 'scrollbar-button',
-    ScrollbarTrack = 'scrollbar-track',
-    ScrollbarTrackPiece = 'scrollbar-track-piece',
-    ScrollbarCorner = 'scrollbar-corner',
-    Resizer = 'resizer',
-    InputListButton = 'input-list-button',
-    ViewTransition = 'view-transition',
-    ViewTransitionGroup = 'view-transition-group',
-    ViewTransitionImagePair = 'view-transition-image-pair',
-    ViewTransitionOld = 'view-transition-old',
-    ViewTransitionNew = 'view-transition-new',
+    FirstLine = "first-line",
+    FirstLetter = "first-letter",
+    Before = "before",
+    After = "after",
+    Marker = "marker",
+    Backdrop = "backdrop",
+    Selection = "selection",
+    TargetText = "target-text",
+    SpellingError = "spelling-error",
+    GrammarError = "grammar-error",
+    Highlight = "highlight",
+    FirstLineInherited = "first-line-inherited",
+    Scrollbar = "scrollbar",
+    ScrollbarThumb = "scrollbar-thumb",
+    ScrollbarButton = "scrollbar-button",
+    ScrollbarTrack = "scrollbar-track",
+    ScrollbarTrackPiece = "scrollbar-track-piece",
+    ScrollbarCorner = "scrollbar-corner",
+    Resizer = "resizer",
+    InputListButton = "input-list-button",
+    ViewTransition = "view-transition",
+    ViewTransitionGroup = "view-transition-group",
+    ViewTransitionImagePair = "view-transition-image-pair",
+    ViewTransitionOld = "view-transition-old",
+    ViewTransitionNew = "view-transition-new",
   }
 
   /**
    * Shadow root type.
    */
   export const enum ShadowRootType {
-    UserAgent = 'user-agent',
-    Open = 'open',
-    Closed = 'closed',
+    UserAgent = "user-agent",
+    Open = "open",
+    Closed = "closed",
   }
 
   /**
    * Document compatibility mode.
    */
   export const enum CompatibilityMode {
-    QuirksMode = 'QuirksMode',
-    LimitedQuirksMode = 'LimitedQuirksMode',
-    NoQuirksMode = 'NoQuirksMode',
+    QuirksMode = "QuirksMode",
+    LimitedQuirksMode = "LimitedQuirksMode",
+    NoQuirksMode = "NoQuirksMode",
   }
 
   /**
    * ContainerSelector physical axes
    */
   export const enum PhysicalAxes {
-    Horizontal = 'Horizontal',
-    Vertical = 'Vertical',
-    Both = 'Both',
+    Horizontal = "Horizontal",
+    Vertical = "Vertical",
+    Both = "Both",
   }
 
   /**
    * ContainerSelector logical axes
    */
   export const enum LogicalAxes {
-    Inline = 'Inline',
-    Block = 'Block',
-    Both = 'Both',
+    Inline = "Inline",
+    Block = "Block",
+    Both = "Both",
   }
 
   /**
@@ -3837,7 +3858,8 @@ export namespace DOM {
     nodeId: NodeId;
   }
 
-  export interface CollectClassNamesFromSubtreeResponse extends ProtocolResponseWithError {
+  export interface CollectClassNamesFromSubtreeResponse
+    extends ProtocolResponseWithError {
     /**
      * Class name list.
      */
@@ -3927,8 +3949,8 @@ export namespace DOM {
   }
 
   export const enum EnableRequestIncludeWhitespace {
-    None = 'none',
-    All = 'all',
+    None = "none",
+    All = "all",
   }
 
   export interface EnableRequest {
@@ -4044,7 +4066,8 @@ export namespace DOM {
     pierce?: boolean;
   }
 
-  export interface GetFlattenedDocumentResponse extends ProtocolResponseWithError {
+  export interface GetFlattenedDocumentResponse
+    extends ProtocolResponseWithError {
     /**
      * Resulting node.
      */
@@ -4067,7 +4090,8 @@ export namespace DOM {
     pierce?: boolean;
   }
 
-  export interface GetNodesForSubtreeByStyleResponse extends ProtocolResponseWithError {
+  export interface GetNodesForSubtreeByStyleResponse
+    extends ProtocolResponseWithError {
     /**
      * Resulting nodes.
      */
@@ -4093,7 +4117,8 @@ export namespace DOM {
     ignorePointerEventsNone?: boolean;
   }
 
-  export interface GetNodeForLocationResponse extends ProtocolResponseWithError {
+  export interface GetNodeForLocationResponse
+    extends ProtocolResponseWithError {
     /**
      * Resulting node.
      */
@@ -4137,7 +4162,8 @@ export namespace DOM {
     nodeId: NodeId;
   }
 
-  export interface GetRelayoutBoundaryResponse extends ProtocolResponseWithError {
+  export interface GetRelayoutBoundaryResponse
+    extends ProtocolResponseWithError {
     /**
      * Relayout boundary node id for the given node.
      */
@@ -4218,7 +4244,8 @@ export namespace DOM {
     path: string;
   }
 
-  export interface PushNodeByPathToFrontendResponse extends ProtocolResponseWithError {
+  export interface PushNodeByPathToFrontendResponse
+    extends ProtocolResponseWithError {
     /**
      * Id of the node for given path.
      */
@@ -4232,7 +4259,8 @@ export namespace DOM {
     backendNodeIds: BackendNodeId[];
   }
 
-  export interface PushNodesByBackendIdsToFrontendResponse extends ProtocolResponseWithError {
+  export interface PushNodesByBackendIdsToFrontendResponse
+    extends ProtocolResponseWithError {
     /**
      * The array of ids of pushed nodes that correspond to the backend ids specified in
      * backendNodeIds.
@@ -4276,7 +4304,8 @@ export namespace DOM {
     nodeIds: NodeId[];
   }
 
-  export interface GetTopLayerElementsResponse extends ProtocolResponseWithError {
+  export interface GetTopLayerElementsResponse
+    extends ProtocolResponseWithError {
     /**
      * NodeIds of top layer elements
      */
@@ -4422,7 +4451,8 @@ export namespace DOM {
     nodeId: NodeId;
   }
 
-  export interface GetNodeStackTracesResponse extends ProtocolResponseWithError {
+  export interface GetNodeStackTracesResponse
+    extends ProtocolResponseWithError {
     /**
      * Creation stack trace, if available.
      */
@@ -4509,7 +4539,8 @@ export namespace DOM {
     logicalAxes?: LogicalAxes;
   }
 
-  export interface GetContainerForNodeResponse extends ProtocolResponseWithError {
+  export interface GetContainerForNodeResponse
+    extends ProtocolResponseWithError {
     /**
      * The container node for the given node, or null if not found.
      */
@@ -4523,7 +4554,8 @@ export namespace DOM {
     nodeId: NodeId;
   }
 
-  export interface GetQueryingDescendantsForContainerResponse extends ProtocolResponseWithError {
+  export interface GetQueryingDescendantsForContainerResponse
+    extends ProtocolResponseWithError {
     /**
      * Descendant nodes with container queries against the given container.
      */
@@ -4723,22 +4755,21 @@ export namespace DOM {
  * execution will stop on these operations as if there was a regular breakpoint set.
  */
 export namespace DOMDebugger {
-
   /**
    * DOM breakpoint type.
    */
   export const enum DOMBreakpointType {
-    SubtreeModified = 'subtree-modified',
-    AttributeModified = 'attribute-modified',
-    NodeRemoved = 'node-removed',
+    SubtreeModified = "subtree-modified",
+    AttributeModified = "attribute-modified",
+    NodeRemoved = "node-removed",
   }
 
   /**
    * CSP Violation type.
    */
   export const enum CSPViolationType {
-    TrustedtypeSinkViolation = 'trustedtype-sink-violation',
-    TrustedtypePolicyViolation = 'trustedtype-policy-violation',
+    TrustedtypeSinkViolation = "trustedtype-sink-violation",
+    TrustedtypePolicyViolation = "trustedtype-policy-violation",
   }
 
   /**
@@ -4898,7 +4929,6 @@ export namespace DOMDebugger {
  * reported through Debugger domain, similarly to regular breakpoints being hit.
  */
 export namespace EventBreakpoints {
-
   export interface SetInstrumentationBreakpointRequest {
     /**
      * Instrumentation name to stop on.
@@ -4918,7 +4948,6 @@ export namespace EventBreakpoints {
  * This domain facilitates obtaining document snapshots with DOM, layout, and style information.
  */
 export namespace DOMSnapshot {
-
   /**
    * A Node in the DOM tree.
    */
@@ -5447,7 +5476,6 @@ export namespace DOMSnapshot {
  * Query and modify DOM storage.
  */
 export namespace DOMStorage {
-
   export type SerializedStorageKey = string;
 
   /**
@@ -5481,7 +5509,8 @@ export namespace DOMStorage {
     storageId: StorageId;
   }
 
-  export interface GetDOMStorageItemsResponse extends ProtocolResponseWithError {
+  export interface GetDOMStorageItemsResponse
+    extends ProtocolResponseWithError {
     entries: Item[];
   }
 
@@ -5520,11 +5549,13 @@ export namespace DOMStorage {
 }
 
 export namespace Database {
-
   /**
    * Unique identifier of Database object.
    */
-  export type DatabaseId = OpaqueIdentifier<string, 'Protocol.Database.DatabaseId'>;
+  export type DatabaseId = OpaqueIdentifier<
+    string,
+    "Protocol.Database.DatabaseId"
+  >;
 
   /**
    * Database object.
@@ -5577,7 +5608,8 @@ export namespace Database {
     databaseId: DatabaseId;
   }
 
-  export interface GetDatabaseTableNamesResponse extends ProtocolResponseWithError {
+  export interface GetDatabaseTableNamesResponse
+    extends ProtocolResponseWithError {
     tableNames: string[];
   }
 
@@ -5587,7 +5619,6 @@ export namespace Database {
 }
 
 export namespace DeviceOrientation {
-
   export interface SetDeviceOrientationOverrideRequest {
     /**
      * Mock alpha
@@ -5608,12 +5639,11 @@ export namespace DeviceOrientation {
  * This domain emulates different environments for the page.
  */
 export namespace Emulation {
-
   export const enum ScreenOrientationType {
-    PortraitPrimary = 'portraitPrimary',
-    PortraitSecondary = 'portraitSecondary',
-    LandscapePrimary = 'landscapePrimary',
-    LandscapeSecondary = 'landscapeSecondary',
+    PortraitPrimary = "portraitPrimary",
+    PortraitSecondary = "portraitSecondary",
+    LandscapePrimary = "landscapePrimary",
+    LandscapeSecondary = "landscapeSecondary",
   }
 
   /**
@@ -5631,8 +5661,8 @@ export namespace Emulation {
   }
 
   export const enum DisplayFeatureOrientation {
-    Vertical = 'vertical',
-    Horizontal = 'horizontal',
+    Vertical = "vertical",
+    Horizontal = "horizontal",
   }
 
   export interface DisplayFeature {
@@ -5654,8 +5684,8 @@ export namespace Emulation {
   }
 
   export const enum DevicePostureType {
-    Continuous = 'continuous',
-    Folded = 'folded',
+    Continuous = "continuous",
+    Folded = "folded",
   }
 
   export interface DevicePosture {
@@ -5677,9 +5707,9 @@ export namespace Emulation {
    * resource fetches.
    */
   export const enum VirtualTimePolicy {
-    Advance = 'advance',
-    Pause = 'pause',
-    PauseIfNetworkFetchesPending = 'pauseIfNetworkFetchesPending',
+    Advance = "advance",
+    Pause = "pause",
+    PauseIfNetworkFetchesPending = "pauseIfNetworkFetchesPending",
   }
 
   /**
@@ -5718,15 +5748,15 @@ export namespace Emulation {
    * See https://w3c.github.io/sensors/#automation for more information.
    */
   export const enum SensorType {
-    AbsoluteOrientation = 'absolute-orientation',
-    Accelerometer = 'accelerometer',
-    AmbientLight = 'ambient-light',
-    Gravity = 'gravity',
-    Gyroscope = 'gyroscope',
-    LinearAcceleration = 'linear-acceleration',
-    Magnetometer = 'magnetometer',
-    Proximity = 'proximity',
-    RelativeOrientation = 'relative-orientation',
+    AbsoluteOrientation = "absolute-orientation",
+    Accelerometer = "accelerometer",
+    AmbientLight = "ambient-light",
+    Gravity = "gravity",
+    Gyroscope = "gyroscope",
+    LinearAcceleration = "linear-acceleration",
+    Magnetometer = "magnetometer",
+    Proximity = "proximity",
+    RelativeOrientation = "relative-orientation",
   }
 
   export interface SensorMetadata {
@@ -5762,8 +5792,8 @@ export namespace Emulation {
    * Enum of image types that can be disabled.
    */
   export const enum DisabledImageType {
-    Avif = 'avif',
-    Webp = 'webp',
+    Avif = "avif",
+    Webp = "webp",
   }
 
   export interface CanEmulateResponse extends ProtocolResponseWithError {
@@ -5881,8 +5911,8 @@ export namespace Emulation {
   }
 
   export const enum SetEmitTouchEventsForMouseRequestConfiguration {
-    Mobile = 'mobile',
-    Desktop = 'desktop',
+    Mobile = "mobile",
+    Desktop = "desktop",
   }
 
   export interface SetEmitTouchEventsForMouseRequest {
@@ -5908,13 +5938,13 @@ export namespace Emulation {
   }
 
   export const enum SetEmulatedVisionDeficiencyRequestType {
-    None = 'none',
-    BlurredVision = 'blurredVision',
-    ReducedContrast = 'reducedContrast',
-    Achromatopsia = 'achromatopsia',
-    Deuteranopia = 'deuteranopia',
-    Protanopia = 'protanopia',
-    Tritanopia = 'tritanopia',
+    None = "none",
+    BlurredVision = "blurredVision",
+    ReducedContrast = "reducedContrast",
+    Achromatopsia = "achromatopsia",
+    Deuteranopia = "deuteranopia",
+    Protanopia = "protanopia",
+    Tritanopia = "tritanopia",
   }
 
   export interface SetEmulatedVisionDeficiencyRequest {
@@ -5944,7 +5974,8 @@ export namespace Emulation {
     type: SensorType;
   }
 
-  export interface GetOverriddenSensorInformationResponse extends ProtocolResponseWithError {
+  export interface GetOverriddenSensorInformationResponse
+    extends ProtocolResponseWithError {
     requestedSamplingFrequency: number;
   }
 
@@ -6020,7 +6051,8 @@ export namespace Emulation {
     initialVirtualTime?: Network.TimeSinceEpoch;
   }
 
-  export interface SetVirtualTimePolicyResponse extends ProtocolResponseWithError {
+  export interface SetVirtualTimePolicyResponse
+    extends ProtocolResponseWithError {
     /**
      * Absolute timestamp at which virtual time was first enabled (up time in milliseconds).
      */
@@ -6099,11 +6131,10 @@ export namespace Emulation {
  * This domain provides experimental commands only supported in headless mode.
  */
 export namespace HeadlessExperimental {
-
   export const enum ScreenshotParamsFormat {
-    Jpeg = 'jpeg',
-    Png = 'png',
-    Webp = 'webp',
+    Jpeg = "jpeg",
+    Png = "png",
+    Webp = "webp",
   }
 
   /**
@@ -6166,12 +6197,14 @@ export namespace HeadlessExperimental {
  * Input/Output operations for streams produced by DevTools.
  */
 export namespace IO {
-
   /**
    * This is either obtained from another method or specified as `blob:<uuid>` where
    * `<uuid>` is an UUID of a Blob.
    */
-  export type StreamHandle = OpaqueIdentifier<string, 'Protocol.IO.StreamHandle'>;
+  export type StreamHandle = OpaqueIdentifier<
+    string,
+    "Protocol.IO.StreamHandle"
+  >;
 
   export interface CloseRequest {
     /**
@@ -6227,7 +6260,6 @@ export namespace IO {
 }
 
 export namespace IndexedDB {
-
   /**
    * Database with an array of object stores.
    */
@@ -6292,10 +6324,10 @@ export namespace IndexedDB {
   }
 
   export const enum KeyType {
-    Number = 'number',
-    String = 'string',
-    Date = 'date',
-    Array = 'array',
+    Number = "number",
+    String = "string",
+    Date = "date",
+    Array = "array",
   }
 
   /**
@@ -6365,9 +6397,9 @@ export namespace IndexedDB {
   }
 
   export const enum KeyPathType {
-    Null = 'null',
-    String = 'string',
-    Array = 'array',
+    Null = "null",
+    String = "string",
+    Array = "array",
   }
 
   /**
@@ -6585,7 +6617,8 @@ export namespace IndexedDB {
     storageBucket?: Storage.StorageBucket;
   }
 
-  export interface RequestDatabaseNamesResponse extends ProtocolResponseWithError {
+  export interface RequestDatabaseNamesResponse
+    extends ProtocolResponseWithError {
     /**
      * Database names for origin.
      */
@@ -6594,7 +6627,6 @@ export namespace IndexedDB {
 }
 
 export namespace Input {
-
   export interface TouchPoint {
     /**
      * X coordinate of the event relative to the main frame's viewport in CSS pixels.
@@ -6644,18 +6676,18 @@ export namespace Input {
   }
 
   export const enum GestureSourceType {
-    Default = 'default',
-    Touch = 'touch',
-    Mouse = 'mouse',
+    Default = "default",
+    Touch = "touch",
+    Mouse = "mouse",
   }
 
   export const enum MouseButton {
-    None = 'none',
-    Left = 'left',
-    Middle = 'middle',
-    Right = 'right',
-    Back = 'back',
-    Forward = 'forward',
+    None = "none",
+    Left = "left",
+    Middle = "middle",
+    Right = "right",
+    Back = "back",
+    Forward = "forward",
   }
 
   /**
@@ -6697,10 +6729,10 @@ export namespace Input {
   }
 
   export const enum DispatchDragEventRequestType {
-    DragEnter = 'dragEnter',
-    DragOver = 'dragOver',
-    Drop = 'drop',
-    DragCancel = 'dragCancel',
+    DragEnter = "dragEnter",
+    DragOver = "dragOver",
+    Drop = "drop",
+    DragCancel = "dragCancel",
   }
 
   export interface DispatchDragEventRequest {
@@ -6726,10 +6758,10 @@ export namespace Input {
   }
 
   export const enum DispatchKeyEventRequestType {
-    KeyDown = 'keyDown',
-    KeyUp = 'keyUp',
-    RawKeyDown = 'rawKeyDown',
-    Char = 'char',
+    KeyDown = "keyDown",
+    KeyUp = "keyUp",
+    RawKeyDown = "rawKeyDown",
+    Char = "char",
   }
 
   export interface DispatchKeyEventRequest {
@@ -6833,15 +6865,15 @@ export namespace Input {
   }
 
   export const enum DispatchMouseEventRequestType {
-    MousePressed = 'mousePressed',
-    MouseReleased = 'mouseReleased',
-    MouseMoved = 'mouseMoved',
-    MouseWheel = 'mouseWheel',
+    MousePressed = "mousePressed",
+    MouseReleased = "mouseReleased",
+    MouseMoved = "mouseMoved",
+    MouseWheel = "mouseWheel",
   }
 
   export const enum DispatchMouseEventRequestPointerType {
-    Mouse = 'mouse',
-    Pen = 'pen',
+    Mouse = "mouse",
+    Pen = "pen",
   }
 
   export interface DispatchMouseEventRequest {
@@ -6915,10 +6947,10 @@ export namespace Input {
   }
 
   export const enum DispatchTouchEventRequestType {
-    TouchStart = 'touchStart',
-    TouchEnd = 'touchEnd',
-    TouchMove = 'touchMove',
-    TouchCancel = 'touchCancel',
+    TouchStart = "touchStart",
+    TouchEnd = "touchEnd",
+    TouchMove = "touchMove",
+    TouchCancel = "touchCancel",
   }
 
   export interface DispatchTouchEventRequest {
@@ -6945,10 +6977,10 @@ export namespace Input {
   }
 
   export const enum EmulateTouchFromMouseEventRequestType {
-    MousePressed = 'mousePressed',
-    MouseReleased = 'mouseReleased',
-    MouseMoved = 'mouseMoved',
-    MouseWheel = 'mouseWheel',
+    MousePressed = "mousePressed",
+    MouseReleased = "mouseReleased",
+    MouseMoved = "mouseMoved",
+    MouseWheel = "mouseWheel",
   }
 
   export interface EmulateTouchFromMouseEventRequest {
@@ -7114,7 +7146,6 @@ export namespace Input {
 }
 
 export namespace Inspector {
-
   /**
    * Fired when remote debugging connection is about to be terminated. Contains detach reason.
    */
@@ -7127,21 +7158,23 @@ export namespace Inspector {
 }
 
 export namespace LayerTree {
-
   /**
    * Unique Layer identifier.
    */
-  export type LayerId = OpaqueIdentifier<string, 'Protocol.LayerTree.LayerId'>;
+  export type LayerId = OpaqueIdentifier<string, "Protocol.LayerTree.LayerId">;
 
   /**
    * Unique snapshot identifier.
    */
-  export type SnapshotId = OpaqueIdentifier<string, 'Protocol.LayerTree.SnapshotId'>;
+  export type SnapshotId = OpaqueIdentifier<
+    string,
+    "Protocol.LayerTree.SnapshotId"
+  >;
 
   export const enum ScrollRectType {
-    RepaintsOnScroll = 'RepaintsOnScroll',
-    TouchEventHandler = 'TouchEventHandler',
-    WheelEventHandler = 'WheelEventHandler',
+    RepaintsOnScroll = "RepaintsOnScroll",
+    TouchEventHandler = "TouchEventHandler",
+    WheelEventHandler = "WheelEventHandler",
   }
 
   /**
@@ -7281,7 +7314,8 @@ export namespace LayerTree {
     layerId: LayerId;
   }
 
-  export interface CompositingReasonsResponse extends ProtocolResponseWithError {
+  export interface CompositingReasonsResponse
+    extends ProtocolResponseWithError {
     /**
      * A list of strings specifying reasons for the given layer to become composited.
      */
@@ -7386,7 +7420,8 @@ export namespace LayerTree {
     snapshotId: SnapshotId;
   }
 
-  export interface SnapshotCommandLogResponse extends ProtocolResponseWithError {
+  export interface SnapshotCommandLogResponse
+    extends ProtocolResponseWithError {
     /**
      * The array of canvas function calls.
      */
@@ -7416,32 +7451,31 @@ export namespace LayerTree {
  * Provides access to log entries.
  */
 export namespace Log {
-
   export const enum LogEntrySource {
-    XML = 'xml',
-    Javascript = 'javascript',
-    Network = 'network',
-    Storage = 'storage',
-    Appcache = 'appcache',
-    Rendering = 'rendering',
-    Security = 'security',
-    Deprecation = 'deprecation',
-    Worker = 'worker',
-    Violation = 'violation',
-    Intervention = 'intervention',
-    Recommendation = 'recommendation',
-    Other = 'other',
+    XML = "xml",
+    Javascript = "javascript",
+    Network = "network",
+    Storage = "storage",
+    Appcache = "appcache",
+    Rendering = "rendering",
+    Security = "security",
+    Deprecation = "deprecation",
+    Worker = "worker",
+    Violation = "violation",
+    Intervention = "intervention",
+    Recommendation = "recommendation",
+    Other = "other",
   }
 
   export const enum LogEntryLevel {
-    Verbose = 'verbose',
-    Info = 'info',
-    Warning = 'warning',
-    Error = 'error',
+    Verbose = "verbose",
+    Info = "info",
+    Warning = "warning",
+    Error = "error",
   }
 
   export const enum LogEntryCategory {
-    Cors = 'cors',
+    Cors = "cors",
   }
 
   /**
@@ -7492,13 +7526,13 @@ export namespace Log {
   }
 
   export const enum ViolationSettingName {
-    LongTask = 'longTask',
-    LongLayout = 'longLayout',
-    BlockedEvent = 'blockedEvent',
-    BlockedParser = 'blockedParser',
-    DiscouragedAPIUse = 'discouragedAPIUse',
-    Handler = 'handler',
-    RecurringHandler = 'recurringHandler',
+    LongTask = "longTask",
+    LongLayout = "longLayout",
+    BlockedEvent = "blockedEvent",
+    BlockedParser = "blockedParser",
+    DiscouragedAPIUse = "discouragedAPIUse",
+    Handler = "handler",
+    RecurringHandler = "recurringHandler",
   }
 
   /**
@@ -7534,13 +7568,12 @@ export namespace Log {
 }
 
 export namespace Memory {
-
   /**
    * Memory pressure level.
    */
   export const enum PressureLevel {
-    Moderate = 'moderate',
-    Critical = 'critical',
+    Moderate = "moderate",
+    Critical = "critical",
   }
 
   /**
@@ -7623,15 +7656,18 @@ export namespace Memory {
     suppressRandomness?: boolean;
   }
 
-  export interface GetAllTimeSamplingProfileResponse extends ProtocolResponseWithError {
+  export interface GetAllTimeSamplingProfileResponse
+    extends ProtocolResponseWithError {
     profile: SamplingProfile;
   }
 
-  export interface GetBrowserSamplingProfileResponse extends ProtocolResponseWithError {
+  export interface GetBrowserSamplingProfileResponse
+    extends ProtocolResponseWithError {
     profile: SamplingProfile;
   }
 
-  export interface GetSamplingProfileResponse extends ProtocolResponseWithError {
+  export interface GetSamplingProfileResponse
+    extends ProtocolResponseWithError {
     profile: SamplingProfile;
   }
 }
@@ -7641,64 +7677,69 @@ export namespace Memory {
  * file, data and other requests and responses, their headers, bodies, timing, etc.
  */
 export namespace Network {
-
   /**
    * Resource type as it was perceived by the rendering engine.
    */
   export const enum ResourceType {
-    Document = 'Document',
-    Stylesheet = 'Stylesheet',
-    Image = 'Image',
-    Media = 'Media',
-    Font = 'Font',
-    Script = 'Script',
-    TextTrack = 'TextTrack',
-    XHR = 'XHR',
-    Fetch = 'Fetch',
-    Prefetch = 'Prefetch',
-    EventSource = 'EventSource',
-    WebSocket = 'WebSocket',
-    Manifest = 'Manifest',
-    SignedExchange = 'SignedExchange',
-    Ping = 'Ping',
-    CSPViolationReport = 'CSPViolationReport',
-    Preflight = 'Preflight',
-    Other = 'Other',
+    Document = "Document",
+    Stylesheet = "Stylesheet",
+    Image = "Image",
+    Media = "Media",
+    Font = "Font",
+    Script = "Script",
+    TextTrack = "TextTrack",
+    XHR = "XHR",
+    Fetch = "Fetch",
+    Prefetch = "Prefetch",
+    EventSource = "EventSource",
+    WebSocket = "WebSocket",
+    Manifest = "Manifest",
+    SignedExchange = "SignedExchange",
+    Ping = "Ping",
+    CSPViolationReport = "CSPViolationReport",
+    Preflight = "Preflight",
+    Other = "Other",
   }
 
   /**
    * Unique loader identifier.
    */
-  export type LoaderId = OpaqueIdentifier<string, 'Protocol.Network.LoaderId'>;
+  export type LoaderId = OpaqueIdentifier<string, "Protocol.Network.LoaderId">;
 
   /**
    * Unique request identifier.
    */
-  export type RequestId = OpaqueIdentifier<string, 'Protocol.Network.RequestId'>;
+  export type RequestId = OpaqueIdentifier<
+    string,
+    "Protocol.Network.RequestId"
+  >;
 
   /**
    * Unique intercepted request identifier.
    */
-  export type InterceptionId = OpaqueIdentifier<string, 'Protocol.Network.InterceptionId'>;
+  export type InterceptionId = OpaqueIdentifier<
+    string,
+    "Protocol.Network.InterceptionId"
+  >;
 
   /**
    * Network level fetch failure reason.
    */
   export const enum ErrorReason {
-    Failed = 'Failed',
-    Aborted = 'Aborted',
-    TimedOut = 'TimedOut',
-    AccessDenied = 'AccessDenied',
-    ConnectionClosed = 'ConnectionClosed',
-    ConnectionReset = 'ConnectionReset',
-    ConnectionRefused = 'ConnectionRefused',
-    ConnectionAborted = 'ConnectionAborted',
-    ConnectionFailed = 'ConnectionFailed',
-    NameNotResolved = 'NameNotResolved',
-    InternetDisconnected = 'InternetDisconnected',
-    AddressUnreachable = 'AddressUnreachable',
-    BlockedByClient = 'BlockedByClient',
-    BlockedByResponse = 'BlockedByResponse',
+    Failed = "Failed",
+    Aborted = "Aborted",
+    TimedOut = "TimedOut",
+    AccessDenied = "AccessDenied",
+    ConnectionClosed = "ConnectionClosed",
+    ConnectionReset = "ConnectionReset",
+    ConnectionRefused = "ConnectionRefused",
+    ConnectionAborted = "ConnectionAborted",
+    ConnectionFailed = "ConnectionFailed",
+    NameNotResolved = "NameNotResolved",
+    InternetDisconnected = "InternetDisconnected",
+    AddressUnreachable = "AddressUnreachable",
+    BlockedByClient = "BlockedByClient",
+    BlockedByResponse = "BlockedByResponse",
   }
 
   /**
@@ -7722,15 +7763,15 @@ export namespace Network {
    * The underlying connection technology that the browser is supposedly using.
    */
   export const enum ConnectionType {
-    None = 'none',
-    Cellular2g = 'cellular2g',
-    Cellular3g = 'cellular3g',
-    Cellular4g = 'cellular4g',
-    Bluetooth = 'bluetooth',
-    Ethernet = 'ethernet',
-    Wifi = 'wifi',
-    Wimax = 'wimax',
-    Other = 'other',
+    None = "none",
+    Cellular2g = "cellular2g",
+    Cellular3g = "cellular3g",
+    Cellular4g = "cellular4g",
+    Bluetooth = "bluetooth",
+    Ethernet = "ethernet",
+    Wifi = "wifi",
+    Wimax = "wimax",
+    Other = "other",
   }
 
   /**
@@ -7738,9 +7779,9 @@ export namespace Network {
    * https://tools.ietf.org/html/draft-west-first-party-cookies
    */
   export const enum CookieSameSite {
-    Strict = 'Strict',
-    Lax = 'Lax',
-    None = 'None',
+    Strict = "Strict",
+    Lax = "Lax",
+    None = "None",
   }
 
   /**
@@ -7748,9 +7789,9 @@ export namespace Network {
    * https://tools.ietf.org/html/draft-west-cookie-priority-00
    */
   export const enum CookiePriority {
-    Low = 'Low',
-    Medium = 'Medium',
-    High = 'High',
+    Low = "Low",
+    Medium = "Medium",
+    High = "High",
   }
 
   /**
@@ -7759,9 +7800,9 @@ export namespace Network {
    * This is a temporary ability and it will be removed in the future.
    */
   export const enum CookieSourceScheme {
-    Unset = 'Unset',
-    NonSecure = 'NonSecure',
-    Secure = 'Secure',
+    Unset = "Unset",
+    NonSecure = "NonSecure",
+    Secure = "Secure",
   }
 
   /**
@@ -7851,11 +7892,11 @@ export namespace Network {
    * Loading priority of a resource request.
    */
   export const enum ResourcePriority {
-    VeryLow = 'VeryLow',
-    Low = 'Low',
-    Medium = 'Medium',
-    High = 'High',
-    VeryHigh = 'VeryHigh',
+    VeryLow = "VeryLow",
+    Low = "Low",
+    Medium = "Medium",
+    High = "High",
+    VeryHigh = "VeryHigh",
   }
 
   /**
@@ -7866,14 +7907,14 @@ export namespace Network {
   }
 
   export const enum RequestReferrerPolicy {
-    UnsafeUrl = 'unsafe-url',
-    NoReferrerWhenDowngrade = 'no-referrer-when-downgrade',
-    NoReferrer = 'no-referrer',
-    Origin = 'origin',
-    OriginWhenCrossOrigin = 'origin-when-cross-origin',
-    SameOrigin = 'same-origin',
-    StrictOrigin = 'strict-origin',
-    StrictOriginWhenCrossOrigin = 'strict-origin-when-cross-origin',
+    UnsafeUrl = "unsafe-url",
+    NoReferrerWhenDowngrade = "no-referrer-when-downgrade",
+    NoReferrer = "no-referrer",
+    Origin = "origin",
+    OriginWhenCrossOrigin = "origin-when-cross-origin",
+    SameOrigin = "same-origin",
+    StrictOrigin = "strict-origin",
+    StrictOriginWhenCrossOrigin = "strict-origin-when-cross-origin",
   }
 
   /**
@@ -8047,67 +8088,67 @@ export namespace Network {
    * Whether the request complied with Certificate Transparency policy.
    */
   export const enum CertificateTransparencyCompliance {
-    Unknown = 'unknown',
-    NotCompliant = 'not-compliant',
-    Compliant = 'compliant',
+    Unknown = "unknown",
+    NotCompliant = "not-compliant",
+    Compliant = "compliant",
   }
 
   /**
    * The reason why request was blocked.
    */
   export const enum BlockedReason {
-    Other = 'other',
-    Csp = 'csp',
-    MixedContent = 'mixed-content',
-    Origin = 'origin',
-    Inspector = 'inspector',
-    SubresourceFilter = 'subresource-filter',
-    ContentType = 'content-type',
-    CoepFrameResourceNeedsCoepHeader = 'coep-frame-resource-needs-coep-header',
-    CoopSandboxedIframeCannotNavigateToCoopPage = 'coop-sandboxed-iframe-cannot-navigate-to-coop-page',
-    CorpNotSameOrigin = 'corp-not-same-origin',
-    CorpNotSameOriginAfterDefaultedToSameOriginByCoep = 'corp-not-same-origin-after-defaulted-to-same-origin-by-coep',
-    CorpNotSameSite = 'corp-not-same-site',
+    Other = "other",
+    Csp = "csp",
+    MixedContent = "mixed-content",
+    Origin = "origin",
+    Inspector = "inspector",
+    SubresourceFilter = "subresource-filter",
+    ContentType = "content-type",
+    CoepFrameResourceNeedsCoepHeader = "coep-frame-resource-needs-coep-header",
+    CoopSandboxedIframeCannotNavigateToCoopPage = "coop-sandboxed-iframe-cannot-navigate-to-coop-page",
+    CorpNotSameOrigin = "corp-not-same-origin",
+    CorpNotSameOriginAfterDefaultedToSameOriginByCoep = "corp-not-same-origin-after-defaulted-to-same-origin-by-coep",
+    CorpNotSameSite = "corp-not-same-site",
   }
 
   /**
    * The reason why request was blocked.
    */
   export const enum CorsError {
-    DisallowedByMode = 'DisallowedByMode',
-    InvalidResponse = 'InvalidResponse',
-    WildcardOriginNotAllowed = 'WildcardOriginNotAllowed',
-    MissingAllowOriginHeader = 'MissingAllowOriginHeader',
-    MultipleAllowOriginValues = 'MultipleAllowOriginValues',
-    InvalidAllowOriginValue = 'InvalidAllowOriginValue',
-    AllowOriginMismatch = 'AllowOriginMismatch',
-    InvalidAllowCredentials = 'InvalidAllowCredentials',
-    CorsDisabledScheme = 'CorsDisabledScheme',
-    PreflightInvalidStatus = 'PreflightInvalidStatus',
-    PreflightDisallowedRedirect = 'PreflightDisallowedRedirect',
-    PreflightWildcardOriginNotAllowed = 'PreflightWildcardOriginNotAllowed',
-    PreflightMissingAllowOriginHeader = 'PreflightMissingAllowOriginHeader',
-    PreflightMultipleAllowOriginValues = 'PreflightMultipleAllowOriginValues',
-    PreflightInvalidAllowOriginValue = 'PreflightInvalidAllowOriginValue',
-    PreflightAllowOriginMismatch = 'PreflightAllowOriginMismatch',
-    PreflightInvalidAllowCredentials = 'PreflightInvalidAllowCredentials',
-    PreflightMissingAllowExternal = 'PreflightMissingAllowExternal',
-    PreflightInvalidAllowExternal = 'PreflightInvalidAllowExternal',
-    PreflightMissingAllowPrivateNetwork = 'PreflightMissingAllowPrivateNetwork',
-    PreflightInvalidAllowPrivateNetwork = 'PreflightInvalidAllowPrivateNetwork',
-    InvalidAllowMethodsPreflightResponse = 'InvalidAllowMethodsPreflightResponse',
-    InvalidAllowHeadersPreflightResponse = 'InvalidAllowHeadersPreflightResponse',
-    MethodDisallowedByPreflightResponse = 'MethodDisallowedByPreflightResponse',
-    HeaderDisallowedByPreflightResponse = 'HeaderDisallowedByPreflightResponse',
-    RedirectContainsCredentials = 'RedirectContainsCredentials',
-    InsecurePrivateNetwork = 'InsecurePrivateNetwork',
-    InvalidPrivateNetworkAccess = 'InvalidPrivateNetworkAccess',
-    UnexpectedPrivateNetworkAccess = 'UnexpectedPrivateNetworkAccess',
-    NoCorsRedirectModeNotFollow = 'NoCorsRedirectModeNotFollow',
-    PreflightMissingPrivateNetworkAccessId = 'PreflightMissingPrivateNetworkAccessId',
-    PreflightMissingPrivateNetworkAccessName = 'PreflightMissingPrivateNetworkAccessName',
-    PrivateNetworkAccessPermissionUnavailable = 'PrivateNetworkAccessPermissionUnavailable',
-    PrivateNetworkAccessPermissionDenied = 'PrivateNetworkAccessPermissionDenied',
+    DisallowedByMode = "DisallowedByMode",
+    InvalidResponse = "InvalidResponse",
+    WildcardOriginNotAllowed = "WildcardOriginNotAllowed",
+    MissingAllowOriginHeader = "MissingAllowOriginHeader",
+    MultipleAllowOriginValues = "MultipleAllowOriginValues",
+    InvalidAllowOriginValue = "InvalidAllowOriginValue",
+    AllowOriginMismatch = "AllowOriginMismatch",
+    InvalidAllowCredentials = "InvalidAllowCredentials",
+    CorsDisabledScheme = "CorsDisabledScheme",
+    PreflightInvalidStatus = "PreflightInvalidStatus",
+    PreflightDisallowedRedirect = "PreflightDisallowedRedirect",
+    PreflightWildcardOriginNotAllowed = "PreflightWildcardOriginNotAllowed",
+    PreflightMissingAllowOriginHeader = "PreflightMissingAllowOriginHeader",
+    PreflightMultipleAllowOriginValues = "PreflightMultipleAllowOriginValues",
+    PreflightInvalidAllowOriginValue = "PreflightInvalidAllowOriginValue",
+    PreflightAllowOriginMismatch = "PreflightAllowOriginMismatch",
+    PreflightInvalidAllowCredentials = "PreflightInvalidAllowCredentials",
+    PreflightMissingAllowExternal = "PreflightMissingAllowExternal",
+    PreflightInvalidAllowExternal = "PreflightInvalidAllowExternal",
+    PreflightMissingAllowPrivateNetwork = "PreflightMissingAllowPrivateNetwork",
+    PreflightInvalidAllowPrivateNetwork = "PreflightInvalidAllowPrivateNetwork",
+    InvalidAllowMethodsPreflightResponse = "InvalidAllowMethodsPreflightResponse",
+    InvalidAllowHeadersPreflightResponse = "InvalidAllowHeadersPreflightResponse",
+    MethodDisallowedByPreflightResponse = "MethodDisallowedByPreflightResponse",
+    HeaderDisallowedByPreflightResponse = "HeaderDisallowedByPreflightResponse",
+    RedirectContainsCredentials = "RedirectContainsCredentials",
+    InsecurePrivateNetwork = "InsecurePrivateNetwork",
+    InvalidPrivateNetworkAccess = "InvalidPrivateNetworkAccess",
+    UnexpectedPrivateNetworkAccess = "UnexpectedPrivateNetworkAccess",
+    NoCorsRedirectModeNotFollow = "NoCorsRedirectModeNotFollow",
+    PreflightMissingPrivateNetworkAccessId = "PreflightMissingPrivateNetworkAccessId",
+    PreflightMissingPrivateNetworkAccessName = "PreflightMissingPrivateNetworkAccessName",
+    PrivateNetworkAccessPermissionUnavailable = "PrivateNetworkAccessPermissionUnavailable",
+    PrivateNetworkAccessPermissionDenied = "PrivateNetworkAccessPermissionDenied",
   }
 
   export interface CorsErrorStatus {
@@ -8119,15 +8160,15 @@ export namespace Network {
    * Source of serviceworker response.
    */
   export const enum ServiceWorkerResponseSource {
-    CacheStorage = 'cache-storage',
-    HttpCache = 'http-cache',
-    FallbackCode = 'fallback-code',
-    Network = 'network',
+    CacheStorage = "cache-storage",
+    HttpCache = "http-cache",
+    FallbackCode = "fallback-code",
+    Network = "network",
   }
 
   export const enum TrustTokenParamsRefreshPolicy {
-    UseCached = 'UseCached',
-    Refresh = 'Refresh',
+    UseCached = "UseCached",
+    Refresh = "Refresh",
   }
 
   /**
@@ -8150,23 +8191,23 @@ export namespace Network {
   }
 
   export const enum TrustTokenOperationType {
-    Issuance = 'Issuance',
-    Redemption = 'Redemption',
-    Signing = 'Signing',
+    Issuance = "Issuance",
+    Redemption = "Redemption",
+    Signing = "Signing",
   }
 
   /**
    * The reason why Chrome uses a specific transport protocol for HTTP semantics.
    */
   export const enum AlternateProtocolUsage {
-    AlternativeJobWonWithoutRace = 'alternativeJobWonWithoutRace',
-    AlternativeJobWonRace = 'alternativeJobWonRace',
-    MainJobWonRace = 'mainJobWonRace',
-    MappingMissing = 'mappingMissing',
-    Broken = 'broken',
-    DnsAlpnH3JobWonWithoutRace = 'dnsAlpnH3JobWonWithoutRace',
-    DnsAlpnH3JobWonRace = 'dnsAlpnH3JobWonRace',
-    UnspecifiedReason = 'unspecifiedReason',
+    AlternativeJobWonWithoutRace = "alternativeJobWonWithoutRace",
+    AlternativeJobWonRace = "alternativeJobWonRace",
+    MainJobWonRace = "mainJobWonRace",
+    MappingMissing = "mappingMissing",
+    Broken = "broken",
+    DnsAlpnH3JobWonWithoutRace = "dnsAlpnH3JobWonWithoutRace",
+    DnsAlpnH3JobWonRace = "dnsAlpnH3JobWonRace",
+    UnspecifiedReason = "unspecifiedReason",
   }
 
   export interface ServiceWorkerRouterInfo {
@@ -8362,12 +8403,12 @@ export namespace Network {
   }
 
   export const enum InitiatorType {
-    Parser = 'parser',
-    Script = 'script',
-    Preload = 'preload',
-    SignedExchange = 'SignedExchange',
-    Preflight = 'preflight',
-    Other = 'other',
+    Parser = "parser",
+    Script = "script",
+    Preload = "preload",
+    SignedExchange = "SignedExchange",
+    Preflight = "preflight",
+    Other = "other",
   }
 
   /**
@@ -8479,50 +8520,50 @@ export namespace Network {
    * Types of reasons why a cookie may not be stored from a response.
    */
   export const enum SetCookieBlockedReason {
-    SecureOnly = 'SecureOnly',
-    SameSiteStrict = 'SameSiteStrict',
-    SameSiteLax = 'SameSiteLax',
-    SameSiteUnspecifiedTreatedAsLax = 'SameSiteUnspecifiedTreatedAsLax',
-    SameSiteNoneInsecure = 'SameSiteNoneInsecure',
-    UserPreferences = 'UserPreferences',
-    ThirdPartyPhaseout = 'ThirdPartyPhaseout',
-    ThirdPartyBlockedInFirstPartySet = 'ThirdPartyBlockedInFirstPartySet',
-    SyntaxError = 'SyntaxError',
-    SchemeNotSupported = 'SchemeNotSupported',
-    OverwriteSecure = 'OverwriteSecure',
-    InvalidDomain = 'InvalidDomain',
-    InvalidPrefix = 'InvalidPrefix',
-    UnknownError = 'UnknownError',
-    SchemefulSameSiteStrict = 'SchemefulSameSiteStrict',
-    SchemefulSameSiteLax = 'SchemefulSameSiteLax',
-    SchemefulSameSiteUnspecifiedTreatedAsLax = 'SchemefulSameSiteUnspecifiedTreatedAsLax',
-    SamePartyFromCrossPartyContext = 'SamePartyFromCrossPartyContext',
-    SamePartyConflictsWithOtherAttributes = 'SamePartyConflictsWithOtherAttributes',
-    NameValuePairExceedsMaxSize = 'NameValuePairExceedsMaxSize',
-    DisallowedCharacter = 'DisallowedCharacter',
-    NoCookieContent = 'NoCookieContent',
+    SecureOnly = "SecureOnly",
+    SameSiteStrict = "SameSiteStrict",
+    SameSiteLax = "SameSiteLax",
+    SameSiteUnspecifiedTreatedAsLax = "SameSiteUnspecifiedTreatedAsLax",
+    SameSiteNoneInsecure = "SameSiteNoneInsecure",
+    UserPreferences = "UserPreferences",
+    ThirdPartyPhaseout = "ThirdPartyPhaseout",
+    ThirdPartyBlockedInFirstPartySet = "ThirdPartyBlockedInFirstPartySet",
+    SyntaxError = "SyntaxError",
+    SchemeNotSupported = "SchemeNotSupported",
+    OverwriteSecure = "OverwriteSecure",
+    InvalidDomain = "InvalidDomain",
+    InvalidPrefix = "InvalidPrefix",
+    UnknownError = "UnknownError",
+    SchemefulSameSiteStrict = "SchemefulSameSiteStrict",
+    SchemefulSameSiteLax = "SchemefulSameSiteLax",
+    SchemefulSameSiteUnspecifiedTreatedAsLax = "SchemefulSameSiteUnspecifiedTreatedAsLax",
+    SamePartyFromCrossPartyContext = "SamePartyFromCrossPartyContext",
+    SamePartyConflictsWithOtherAttributes = "SamePartyConflictsWithOtherAttributes",
+    NameValuePairExceedsMaxSize = "NameValuePairExceedsMaxSize",
+    DisallowedCharacter = "DisallowedCharacter",
+    NoCookieContent = "NoCookieContent",
   }
 
   /**
    * Types of reasons why a cookie may not be sent with a request.
    */
   export const enum CookieBlockedReason {
-    SecureOnly = 'SecureOnly',
-    NotOnPath = 'NotOnPath',
-    DomainMismatch = 'DomainMismatch',
-    SameSiteStrict = 'SameSiteStrict',
-    SameSiteLax = 'SameSiteLax',
-    SameSiteUnspecifiedTreatedAsLax = 'SameSiteUnspecifiedTreatedAsLax',
-    SameSiteNoneInsecure = 'SameSiteNoneInsecure',
-    UserPreferences = 'UserPreferences',
-    ThirdPartyPhaseout = 'ThirdPartyPhaseout',
-    ThirdPartyBlockedInFirstPartySet = 'ThirdPartyBlockedInFirstPartySet',
-    UnknownError = 'UnknownError',
-    SchemefulSameSiteStrict = 'SchemefulSameSiteStrict',
-    SchemefulSameSiteLax = 'SchemefulSameSiteLax',
-    SchemefulSameSiteUnspecifiedTreatedAsLax = 'SchemefulSameSiteUnspecifiedTreatedAsLax',
-    SamePartyFromCrossPartyContext = 'SamePartyFromCrossPartyContext',
-    NameValuePairExceedsMaxSize = 'NameValuePairExceedsMaxSize',
+    SecureOnly = "SecureOnly",
+    NotOnPath = "NotOnPath",
+    DomainMismatch = "DomainMismatch",
+    SameSiteStrict = "SameSiteStrict",
+    SameSiteLax = "SameSiteLax",
+    SameSiteUnspecifiedTreatedAsLax = "SameSiteUnspecifiedTreatedAsLax",
+    SameSiteNoneInsecure = "SameSiteNoneInsecure",
+    UserPreferences = "UserPreferences",
+    ThirdPartyPhaseout = "ThirdPartyPhaseout",
+    ThirdPartyBlockedInFirstPartySet = "ThirdPartyBlockedInFirstPartySet",
+    UnknownError = "UnknownError",
+    SchemefulSameSiteStrict = "SchemefulSameSiteStrict",
+    SchemefulSameSiteLax = "SchemefulSameSiteLax",
+    SchemefulSameSiteUnspecifiedTreatedAsLax = "SchemefulSameSiteUnspecifiedTreatedAsLax",
+    SamePartyFromCrossPartyContext = "SamePartyFromCrossPartyContext",
+    NameValuePairExceedsMaxSize = "NameValuePairExceedsMaxSize",
   }
 
   /**
@@ -8628,8 +8669,8 @@ export namespace Network {
   }
 
   export const enum AuthChallengeSource {
-    Server = 'Server',
-    Proxy = 'Proxy',
+    Server = "Server",
+    Proxy = "Proxy",
   }
 
   /**
@@ -8655,9 +8696,9 @@ export namespace Network {
   }
 
   export const enum AuthChallengeResponseResponse {
-    Default = 'Default',
-    CancelAuth = 'CancelAuth',
-    ProvideCredentials = 'ProvideCredentials',
+    Default = "Default",
+    CancelAuth = "CancelAuth",
+    ProvideCredentials = "ProvideCredentials",
   }
 
   /**
@@ -8687,8 +8728,8 @@ export namespace Network {
    * sent. Response will intercept after the response is received.
    */
   export const enum InterceptionStage {
-    Request = 'Request',
-    HeadersReceived = 'HeadersReceived',
+    Request = "Request",
+    HeadersReceived = "HeadersReceived",
   }
 
   /**
@@ -8784,12 +8825,12 @@ export namespace Network {
    * Field type for a signed exchange related error.
    */
   export const enum SignedExchangeErrorField {
-    SignatureSig = 'signatureSig',
-    SignatureIntegrity = 'signatureIntegrity',
-    SignatureCertUrl = 'signatureCertUrl',
-    SignatureCertSha256 = 'signatureCertSha256',
-    SignatureValidityUrl = 'signatureValidityUrl',
-    SignatureTimestamps = 'signatureTimestamps',
+    SignatureSig = "signatureSig",
+    SignatureIntegrity = "signatureIntegrity",
+    SignatureCertUrl = "signatureCertUrl",
+    SignatureCertSha256 = "signatureCertSha256",
+    SignatureValidityUrl = "signatureValidityUrl",
+    SignatureTimestamps = "signatureTimestamps",
   }
 
   /**
@@ -8836,25 +8877,25 @@ export namespace Network {
    * List of content encodings supported by the backend.
    */
   export const enum ContentEncoding {
-    Deflate = 'deflate',
-    Gzip = 'gzip',
-    Br = 'br',
-    Zstd = 'zstd',
+    Deflate = "deflate",
+    Gzip = "gzip",
+    Br = "br",
+    Zstd = "zstd",
   }
 
   export const enum PrivateNetworkRequestPolicy {
-    Allow = 'Allow',
-    BlockFromInsecureToMorePrivate = 'BlockFromInsecureToMorePrivate',
-    WarnFromInsecureToMorePrivate = 'WarnFromInsecureToMorePrivate',
-    PreflightBlock = 'PreflightBlock',
-    PreflightWarn = 'PreflightWarn',
+    Allow = "Allow",
+    BlockFromInsecureToMorePrivate = "BlockFromInsecureToMorePrivate",
+    WarnFromInsecureToMorePrivate = "WarnFromInsecureToMorePrivate",
+    PreflightBlock = "PreflightBlock",
+    PreflightWarn = "PreflightWarn",
   }
 
   export const enum IPAddressSpace {
-    Local = 'Local',
-    Private = 'Private',
-    Public = 'Public',
-    Unknown = 'Unknown',
+    Local = "Local",
+    Private = "Private",
+    Public = "Public",
+    Unknown = "Unknown",
   }
 
   export interface ConnectTiming {
@@ -8873,12 +8914,12 @@ export namespace Network {
   }
 
   export const enum CrossOriginOpenerPolicyValue {
-    SameOrigin = 'SameOrigin',
-    SameOriginAllowPopups = 'SameOriginAllowPopups',
-    RestrictProperties = 'RestrictProperties',
-    UnsafeNone = 'UnsafeNone',
-    SameOriginPlusCoep = 'SameOriginPlusCoep',
-    RestrictPropertiesPlusCoep = 'RestrictPropertiesPlusCoep',
+    SameOrigin = "SameOrigin",
+    SameOriginAllowPopups = "SameOriginAllowPopups",
+    RestrictProperties = "RestrictProperties",
+    UnsafeNone = "UnsafeNone",
+    SameOriginPlusCoep = "SameOriginPlusCoep",
+    RestrictPropertiesPlusCoep = "RestrictPropertiesPlusCoep",
   }
 
   export interface CrossOriginOpenerPolicyStatus {
@@ -8889,9 +8930,9 @@ export namespace Network {
   }
 
   export const enum CrossOriginEmbedderPolicyValue {
-    None = 'None',
-    Credentialless = 'Credentialless',
-    RequireCorp = 'RequireCorp',
+    None = "None",
+    Credentialless = "Credentialless",
+    RequireCorp = "RequireCorp",
   }
 
   export interface CrossOriginEmbedderPolicyStatus {
@@ -8902,8 +8943,8 @@ export namespace Network {
   }
 
   export const enum ContentSecurityPolicySource {
-    HTTP = 'HTTP',
-    Meta = 'Meta',
+    HTTP = "HTTP",
+    Meta = "Meta",
   }
 
   export interface ContentSecurityPolicyStatus {
@@ -8922,13 +8963,13 @@ export namespace Network {
    * The status of a Reporting API report.
    */
   export const enum ReportStatus {
-    Queued = 'Queued',
-    Pending = 'Pending',
-    MarkedForRemoval = 'MarkedForRemoval',
-    Success = 'Success',
+    Queued = "Queued",
+    Pending = "Pending",
+    MarkedForRemoval = "MarkedForRemoval",
+    Success = "Success",
   }
 
-  export type ReportId = OpaqueIdentifier<string, 'Protocol.Network.ReportId'>;
+  export type ReportId = OpaqueIdentifier<string, "Protocol.Network.ReportId">;
 
   /**
    * An object representing a report generated by the Reporting API.
@@ -9011,21 +9052,24 @@ export namespace Network {
     encodings: ContentEncoding[];
   }
 
-  export interface CanClearBrowserCacheResponse extends ProtocolResponseWithError {
+  export interface CanClearBrowserCacheResponse
+    extends ProtocolResponseWithError {
     /**
      * True if browser cache can be cleared.
      */
     result: boolean;
   }
 
-  export interface CanClearBrowserCookiesResponse extends ProtocolResponseWithError {
+  export interface CanClearBrowserCookiesResponse
+    extends ProtocolResponseWithError {
     /**
      * True if browser cookies can be cleared.
      */
     result: boolean;
   }
 
-  export interface CanEmulateNetworkConditionsResponse extends ProtocolResponseWithError {
+  export interface CanEmulateNetworkConditionsResponse
+    extends ProtocolResponseWithError {
     /**
      * True if emulation of network conditions is supported.
      */
@@ -9187,7 +9231,8 @@ export namespace Network {
     requestId: RequestId;
   }
 
-  export interface GetRequestPostDataResponse extends ProtocolResponseWithError {
+  export interface GetRequestPostDataResponse
+    extends ProtocolResponseWithError {
     /**
      * Request body string, omitting files from multipart requests
      */
@@ -9201,7 +9246,8 @@ export namespace Network {
     interceptionId: InterceptionId;
   }
 
-  export interface GetResponseBodyForInterceptionResponse extends ProtocolResponseWithError {
+  export interface GetResponseBodyForInterceptionResponse
+    extends ProtocolResponseWithError {
     /**
      * Response body.
      */
@@ -9216,7 +9262,8 @@ export namespace Network {
     interceptionId: InterceptionId;
   }
 
-  export interface TakeResponseBodyForInterceptionAsStreamResponse extends ProtocolResponseWithError {
+  export interface TakeResponseBodyForInterceptionAsStreamResponse
+    extends ProtocolResponseWithError {
     stream: IO.StreamHandle;
   }
 
@@ -9246,7 +9293,8 @@ export namespace Network {
     isRegex?: boolean;
   }
 
-  export interface SearchInResponseBodyResponse extends ProtocolResponseWithError {
+  export interface SearchInResponseBodyResponse
+    extends ProtocolResponseWithError {
     /**
      * List of search matches.
      */
@@ -9400,7 +9448,8 @@ export namespace Network {
     requestId: RequestId;
   }
 
-  export interface StreamResourceContentResponse extends ProtocolResponseWithError {
+  export interface StreamResourceContentResponse
+    extends ProtocolResponseWithError {
     /**
      * Data that has been buffered until streaming is enabled.
      */
@@ -9414,7 +9463,8 @@ export namespace Network {
     frameId?: Page.FrameId;
   }
 
-  export interface GetSecurityIsolationStatusResponse extends ProtocolResponseWithError {
+  export interface GetSecurityIsolationStatusResponse
+    extends ProtocolResponseWithError {
     status: SecurityIsolationStatus;
   }
 
@@ -9441,7 +9491,8 @@ export namespace Network {
     options: LoadNetworkResourceOptions;
   }
 
-  export interface LoadNetworkResourceResponse extends ProtocolResponseWithError {
+  export interface LoadNetworkResourceResponse
+    extends ProtocolResponseWithError {
     resource: LoadNetworkResourcePageResult;
   }
 
@@ -10001,18 +10052,18 @@ export namespace Network {
   }
 
   export const enum TrustTokenOperationDoneEventStatus {
-    Ok = 'Ok',
-    InvalidArgument = 'InvalidArgument',
-    MissingIssuerKeys = 'MissingIssuerKeys',
-    FailedPrecondition = 'FailedPrecondition',
-    ResourceExhausted = 'ResourceExhausted',
-    AlreadyExists = 'AlreadyExists',
-    Unavailable = 'Unavailable',
-    Unauthorized = 'Unauthorized',
-    BadResponse = 'BadResponse',
-    InternalError = 'InternalError',
-    UnknownError = 'UnknownError',
-    FulfilledLocally = 'FulfilledLocally',
+    Ok = "Ok",
+    InvalidArgument = "InvalidArgument",
+    MissingIssuerKeys = "MissingIssuerKeys",
+    FailedPrecondition = "FailedPrecondition",
+    ResourceExhausted = "ResourceExhausted",
+    AlreadyExists = "AlreadyExists",
+    Unavailable = "Unavailable",
+    Unauthorized = "Unauthorized",
+    BadResponse = "BadResponse",
+    InternalError = "InternalError",
+    UnknownError = "UnknownError",
+    FulfilledLocally = "FulfilledLocally",
   }
 
   /**
@@ -10144,7 +10195,6 @@ export namespace Network {
  * This domain provides various functionality related to drawing atop the inspected page.
  */
 export namespace Overlay {
-
   /**
    * Configuration data for drawing the source order of an elements children.
    */
@@ -10302,8 +10352,8 @@ export namespace Overlay {
   }
 
   export const enum LineStylePattern {
-    Dashed = 'dashed',
-    Dotted = 'dotted',
+    Dashed = "dashed",
+    Dotted = "dotted",
   }
 
   /**
@@ -10335,9 +10385,9 @@ export namespace Overlay {
   }
 
   export const enum ContrastAlgorithm {
-    Aa = 'aa',
-    Aaa = 'aaa',
-    Apca = 'apca',
+    Aa = "aa",
+    Aaa = "aaa",
+    Apca = "apca",
   }
 
   /**
@@ -10423,10 +10473,10 @@ export namespace Overlay {
   }
 
   export const enum ColorFormat {
-    Rgb = 'rgb',
-    Hsl = 'hsl',
-    Hwb = 'hwb',
-    Hex = 'hex',
+    Rgb = "rgb",
+    Hsl = "hsl",
+    Hwb = "hwb",
+    Hex = "hex",
   }
 
   /**
@@ -10569,11 +10619,11 @@ export namespace Overlay {
   }
 
   export const enum InspectMode {
-    SearchForNode = 'searchForNode',
-    SearchForUAShadowDOM = 'searchForUAShadowDOM',
-    CaptureAreaScreenshot = 'captureAreaScreenshot',
-    ShowDistances = 'showDistances',
-    None = 'none',
+    SearchForNode = "searchForNode",
+    SearchForUAShadowDOM = "searchForUAShadowDOM",
+    CaptureAreaScreenshot = "captureAreaScreenshot",
+    ShowDistances = "showDistances",
+    None = "none",
   }
 
   export interface GetHighlightObjectForTestRequest {
@@ -10599,7 +10649,8 @@ export namespace Overlay {
     showAccessibilityInfo?: boolean;
   }
 
-  export interface GetHighlightObjectForTestResponse extends ProtocolResponseWithError {
+  export interface GetHighlightObjectForTestResponse
+    extends ProtocolResponseWithError {
     /**
      * Highlight data for the node.
      */
@@ -10613,7 +10664,8 @@ export namespace Overlay {
     nodeIds: DOM.NodeId[];
   }
 
-  export interface GetGridHighlightObjectsForTestResponse extends ProtocolResponseWithError {
+  export interface GetGridHighlightObjectsForTestResponse
+    extends ProtocolResponseWithError {
     /**
      * Grid Highlight data for the node ids provided.
      */
@@ -10627,7 +10679,8 @@ export namespace Overlay {
     nodeId: DOM.NodeId;
   }
 
-  export interface GetSourceOrderHighlightObjectForTestResponse extends ProtocolResponseWithError {
+  export interface GetSourceOrderHighlightObjectForTestResponse
+    extends ProtocolResponseWithError {
     /**
      * Source order highlight data for the node id provided.
      */
@@ -10894,25 +10947,24 @@ export namespace Overlay {
  * Actions and events related to the inspected page belong to the page domain.
  */
 export namespace Page {
-
   /**
    * Unique frame identifier.
    */
-  export type FrameId = OpaqueIdentifier<string, 'Protocol.Page.FrameId'>;
+  export type FrameId = OpaqueIdentifier<string, "Protocol.Page.FrameId">;
 
   /**
    * Indicates whether a frame has been identified as an ad.
    */
   export const enum AdFrameType {
-    None = 'none',
-    Child = 'child',
-    Root = 'root',
+    None = "none",
+    Child = "child",
+    Root = "root",
   }
 
   export const enum AdFrameExplanation {
-    ParentIsAd = 'ParentIsAd',
-    CreatedByAdScript = 'CreatedByAdScript',
-    MatchedBlockingRule = 'MatchedBlockingRule',
+    ParentIsAd = "ParentIsAd",
+    CreatedByAdScript = "CreatedByAdScript",
+    MatchedBlockingRule = "MatchedBlockingRule",
   }
 
   /**
@@ -10943,26 +10995,26 @@ export namespace Page {
    * Indicates whether the frame is a secure context and why it is the case.
    */
   export const enum SecureContextType {
-    Secure = 'Secure',
-    SecureLocalhost = 'SecureLocalhost',
-    InsecureScheme = 'InsecureScheme',
-    InsecureAncestor = 'InsecureAncestor',
+    Secure = "Secure",
+    SecureLocalhost = "SecureLocalhost",
+    InsecureScheme = "InsecureScheme",
+    InsecureAncestor = "InsecureAncestor",
   }
 
   /**
    * Indicates whether the frame is cross-origin isolated and why it is the case.
    */
   export const enum CrossOriginIsolatedContextType {
-    Isolated = 'Isolated',
-    NotIsolated = 'NotIsolated',
-    NotIsolatedFeatureDisabled = 'NotIsolatedFeatureDisabled',
+    Isolated = "Isolated",
+    NotIsolated = "NotIsolated",
+    NotIsolatedFeatureDisabled = "NotIsolatedFeatureDisabled",
   }
 
   export const enum GatedAPIFeatures {
-    SharedArrayBuffers = 'SharedArrayBuffers',
-    SharedArrayBuffersTransferAllowed = 'SharedArrayBuffersTransferAllowed',
-    PerformanceMeasureMemory = 'PerformanceMeasureMemory',
-    PerformanceProfile = 'PerformanceProfile',
+    SharedArrayBuffers = "SharedArrayBuffers",
+    SharedArrayBuffersTransferAllowed = "SharedArrayBuffersTransferAllowed",
+    PerformanceMeasureMemory = "PerformanceMeasureMemory",
+    PerformanceProfile = "PerformanceProfile",
   }
 
   /**
@@ -10970,97 +11022,97 @@ export namespace Page {
    * in third_party/blink/renderer/core/permissions_policy/permissions_policy_features.json5.
    */
   export const enum PermissionsPolicyFeature {
-    Accelerometer = 'accelerometer',
-    AmbientLightSensor = 'ambient-light-sensor',
-    AttributionReporting = 'attribution-reporting',
-    Autoplay = 'autoplay',
-    Bluetooth = 'bluetooth',
-    BrowsingTopics = 'browsing-topics',
-    Camera = 'camera',
-    ChDpr = 'ch-dpr',
-    ChDeviceMemory = 'ch-device-memory',
-    ChDownlink = 'ch-downlink',
-    ChEct = 'ch-ect',
-    ChPrefersColorScheme = 'ch-prefers-color-scheme',
-    ChPrefersReducedMotion = 'ch-prefers-reduced-motion',
-    ChPrefersReducedTransparency = 'ch-prefers-reduced-transparency',
-    ChRtt = 'ch-rtt',
-    ChSaveData = 'ch-save-data',
-    ChUa = 'ch-ua',
-    ChUaArch = 'ch-ua-arch',
-    ChUaBitness = 'ch-ua-bitness',
-    ChUaPlatform = 'ch-ua-platform',
-    ChUaModel = 'ch-ua-model',
-    ChUaMobile = 'ch-ua-mobile',
-    ChUaFormFactor = 'ch-ua-form-factor',
-    ChUaFullVersion = 'ch-ua-full-version',
-    ChUaFullVersionList = 'ch-ua-full-version-list',
-    ChUaPlatformVersion = 'ch-ua-platform-version',
-    ChUaWow64 = 'ch-ua-wow64',
-    ChViewportHeight = 'ch-viewport-height',
-    ChViewportWidth = 'ch-viewport-width',
-    ChWidth = 'ch-width',
-    ClipboardRead = 'clipboard-read',
-    ClipboardWrite = 'clipboard-write',
-    ComputePressure = 'compute-pressure',
-    CrossOriginIsolated = 'cross-origin-isolated',
-    DirectSockets = 'direct-sockets',
-    DisplayCapture = 'display-capture',
-    DocumentDomain = 'document-domain',
-    EncryptedMedia = 'encrypted-media',
-    ExecutionWhileOutOfViewport = 'execution-while-out-of-viewport',
-    ExecutionWhileNotRendered = 'execution-while-not-rendered',
-    FocusWithoutUserActivation = 'focus-without-user-activation',
-    Fullscreen = 'fullscreen',
-    Frobulate = 'frobulate',
-    Gamepad = 'gamepad',
-    Geolocation = 'geolocation',
-    Gyroscope = 'gyroscope',
-    Hid = 'hid',
-    IdentityCredentialsGet = 'identity-credentials-get',
-    IdleDetection = 'idle-detection',
-    InterestCohort = 'interest-cohort',
-    JoinAdInterestGroup = 'join-ad-interest-group',
-    KeyboardMap = 'keyboard-map',
-    LocalFonts = 'local-fonts',
-    Magnetometer = 'magnetometer',
-    Microphone = 'microphone',
-    Midi = 'midi',
-    OtpCredentials = 'otp-credentials',
-    Payment = 'payment',
-    PictureInPicture = 'picture-in-picture',
-    PrivateAggregation = 'private-aggregation',
-    PrivateStateTokenIssuance = 'private-state-token-issuance',
-    PrivateStateTokenRedemption = 'private-state-token-redemption',
-    PublickeyCredentialsGet = 'publickey-credentials-get',
-    RunAdAuction = 'run-ad-auction',
-    ScreenWakeLock = 'screen-wake-lock',
-    Serial = 'serial',
-    SharedAutofill = 'shared-autofill',
-    SharedStorage = 'shared-storage',
-    SharedStorageSelectUrl = 'shared-storage-select-url',
-    SmartCard = 'smart-card',
-    StorageAccess = 'storage-access',
-    SyncXhr = 'sync-xhr',
-    Unload = 'unload',
-    Usb = 'usb',
-    UsbUnrestricted = 'usb-unrestricted',
-    VerticalScroll = 'vertical-scroll',
-    WebPrinting = 'web-printing',
-    WebShare = 'web-share',
-    WindowManagement = 'window-management',
-    WindowPlacement = 'window-placement',
-    XrSpatialTracking = 'xr-spatial-tracking',
+    Accelerometer = "accelerometer",
+    AmbientLightSensor = "ambient-light-sensor",
+    AttributionReporting = "attribution-reporting",
+    Autoplay = "autoplay",
+    Bluetooth = "bluetooth",
+    BrowsingTopics = "browsing-topics",
+    Camera = "camera",
+    ChDpr = "ch-dpr",
+    ChDeviceMemory = "ch-device-memory",
+    ChDownlink = "ch-downlink",
+    ChEct = "ch-ect",
+    ChPrefersColorScheme = "ch-prefers-color-scheme",
+    ChPrefersReducedMotion = "ch-prefers-reduced-motion",
+    ChPrefersReducedTransparency = "ch-prefers-reduced-transparency",
+    ChRtt = "ch-rtt",
+    ChSaveData = "ch-save-data",
+    ChUa = "ch-ua",
+    ChUaArch = "ch-ua-arch",
+    ChUaBitness = "ch-ua-bitness",
+    ChUaPlatform = "ch-ua-platform",
+    ChUaModel = "ch-ua-model",
+    ChUaMobile = "ch-ua-mobile",
+    ChUaFormFactor = "ch-ua-form-factor",
+    ChUaFullVersion = "ch-ua-full-version",
+    ChUaFullVersionList = "ch-ua-full-version-list",
+    ChUaPlatformVersion = "ch-ua-platform-version",
+    ChUaWow64 = "ch-ua-wow64",
+    ChViewportHeight = "ch-viewport-height",
+    ChViewportWidth = "ch-viewport-width",
+    ChWidth = "ch-width",
+    ClipboardRead = "clipboard-read",
+    ClipboardWrite = "clipboard-write",
+    ComputePressure = "compute-pressure",
+    CrossOriginIsolated = "cross-origin-isolated",
+    DirectSockets = "direct-sockets",
+    DisplayCapture = "display-capture",
+    DocumentDomain = "document-domain",
+    EncryptedMedia = "encrypted-media",
+    ExecutionWhileOutOfViewport = "execution-while-out-of-viewport",
+    ExecutionWhileNotRendered = "execution-while-not-rendered",
+    FocusWithoutUserActivation = "focus-without-user-activation",
+    Fullscreen = "fullscreen",
+    Frobulate = "frobulate",
+    Gamepad = "gamepad",
+    Geolocation = "geolocation",
+    Gyroscope = "gyroscope",
+    Hid = "hid",
+    IdentityCredentialsGet = "identity-credentials-get",
+    IdleDetection = "idle-detection",
+    InterestCohort = "interest-cohort",
+    JoinAdInterestGroup = "join-ad-interest-group",
+    KeyboardMap = "keyboard-map",
+    LocalFonts = "local-fonts",
+    Magnetometer = "magnetometer",
+    Microphone = "microphone",
+    Midi = "midi",
+    OtpCredentials = "otp-credentials",
+    Payment = "payment",
+    PictureInPicture = "picture-in-picture",
+    PrivateAggregation = "private-aggregation",
+    PrivateStateTokenIssuance = "private-state-token-issuance",
+    PrivateStateTokenRedemption = "private-state-token-redemption",
+    PublickeyCredentialsGet = "publickey-credentials-get",
+    RunAdAuction = "run-ad-auction",
+    ScreenWakeLock = "screen-wake-lock",
+    Serial = "serial",
+    SharedAutofill = "shared-autofill",
+    SharedStorage = "shared-storage",
+    SharedStorageSelectUrl = "shared-storage-select-url",
+    SmartCard = "smart-card",
+    StorageAccess = "storage-access",
+    SyncXhr = "sync-xhr",
+    Unload = "unload",
+    Usb = "usb",
+    UsbUnrestricted = "usb-unrestricted",
+    VerticalScroll = "vertical-scroll",
+    WebPrinting = "web-printing",
+    WebShare = "web-share",
+    WindowManagement = "window-management",
+    WindowPlacement = "window-placement",
+    XrSpatialTracking = "xr-spatial-tracking",
   }
 
   /**
    * Reason for a permissions policy feature to be disabled.
    */
   export const enum PermissionsPolicyBlockReason {
-    Header = 'Header',
-    IframeAttribute = 'IframeAttribute',
-    InFencedFrameTree = 'InFencedFrameTree',
-    InIsolatedApp = 'InIsolatedApp',
+    Header = "Header",
+    IframeAttribute = "IframeAttribute",
+    InFencedFrameTree = "InFencedFrameTree",
+    InIsolatedApp = "InIsolatedApp",
   }
 
   export interface PermissionsPolicyBlockLocator {
@@ -11079,33 +11131,33 @@ export namespace Page {
    * Status for an Origin Trial token.
    */
   export const enum OriginTrialTokenStatus {
-    Success = 'Success',
-    NotSupported = 'NotSupported',
-    Insecure = 'Insecure',
-    Expired = 'Expired',
-    WrongOrigin = 'WrongOrigin',
-    InvalidSignature = 'InvalidSignature',
-    Malformed = 'Malformed',
-    WrongVersion = 'WrongVersion',
-    FeatureDisabled = 'FeatureDisabled',
-    TokenDisabled = 'TokenDisabled',
-    FeatureDisabledForUser = 'FeatureDisabledForUser',
-    UnknownTrial = 'UnknownTrial',
+    Success = "Success",
+    NotSupported = "NotSupported",
+    Insecure = "Insecure",
+    Expired = "Expired",
+    WrongOrigin = "WrongOrigin",
+    InvalidSignature = "InvalidSignature",
+    Malformed = "Malformed",
+    WrongVersion = "WrongVersion",
+    FeatureDisabled = "FeatureDisabled",
+    TokenDisabled = "TokenDisabled",
+    FeatureDisabledForUser = "FeatureDisabledForUser",
+    UnknownTrial = "UnknownTrial",
   }
 
   /**
    * Status for an Origin Trial.
    */
   export const enum OriginTrialStatus {
-    Enabled = 'Enabled',
-    ValidTokenNotProvided = 'ValidTokenNotProvided',
-    OSNotSupported = 'OSNotSupported',
-    TrialNotAllowed = 'TrialNotAllowed',
+    Enabled = "Enabled",
+    ValidTokenNotProvided = "ValidTokenNotProvided",
+    OSNotSupported = "OSNotSupported",
+    TrialNotAllowed = "TrialNotAllowed",
   }
 
   export const enum OriginTrialUsageRestriction {
-    None = 'None',
-    Subset = 'Subset',
+    None = "None",
+    Subset = "Subset",
   }
 
   export interface OriginTrialToken {
@@ -11267,25 +11319,28 @@ export namespace Page {
   /**
    * Unique script identifier.
    */
-  export type ScriptIdentifier = OpaqueIdentifier<string, 'Protocol.Page.ScriptIdentifier'>;
+  export type ScriptIdentifier = OpaqueIdentifier<
+    string,
+    "Protocol.Page.ScriptIdentifier"
+  >;
 
   /**
    * Transition type.
    */
   export const enum TransitionType {
-    Link = 'link',
-    Typed = 'typed',
-    Address_bar = 'address_bar',
-    Auto_bookmark = 'auto_bookmark',
-    Auto_subframe = 'auto_subframe',
-    Manual_subframe = 'manual_subframe',
-    Generated = 'generated',
-    Auto_toplevel = 'auto_toplevel',
-    Form_submit = 'form_submit',
-    Reload = 'reload',
-    Keyword = 'keyword',
-    Keyword_generated = 'keyword_generated',
-    Other = 'other',
+    Link = "link",
+    Typed = "typed",
+    Address_bar = "address_bar",
+    Auto_bookmark = "auto_bookmark",
+    Auto_subframe = "auto_subframe",
+    Manual_subframe = "manual_subframe",
+    Generated = "generated",
+    Auto_toplevel = "auto_toplevel",
+    Form_submit = "form_submit",
+    Reload = "reload",
+    Keyword = "keyword",
+    Keyword_generated = "keyword_generated",
+    Other = "other",
   }
 
   /**
@@ -11352,10 +11407,10 @@ export namespace Page {
    * Javascript dialog type.
    */
   export const enum DialogType {
-    Alert = 'alert',
-    Confirm = 'confirm',
-    Prompt = 'prompt',
-    Beforeunload = 'beforeunload',
+    Alert = "alert",
+    Confirm = "confirm",
+    Prompt = "prompt",
+    Beforeunload = "beforeunload",
   }
 
   /**
@@ -11539,21 +11594,21 @@ export namespace Page {
   }
 
   export const enum ClientNavigationReason {
-    FormSubmissionGet = 'formSubmissionGet',
-    FormSubmissionPost = 'formSubmissionPost',
-    HttpHeaderRefresh = 'httpHeaderRefresh',
-    ScriptInitiated = 'scriptInitiated',
-    MetaTagRefresh = 'metaTagRefresh',
-    PageBlockInterstitial = 'pageBlockInterstitial',
-    Reload = 'reload',
-    AnchorClick = 'anchorClick',
+    FormSubmissionGet = "formSubmissionGet",
+    FormSubmissionPost = "formSubmissionPost",
+    HttpHeaderRefresh = "httpHeaderRefresh",
+    ScriptInitiated = "scriptInitiated",
+    MetaTagRefresh = "metaTagRefresh",
+    PageBlockInterstitial = "pageBlockInterstitial",
+    Reload = "reload",
+    AnchorClick = "anchorClick",
   }
 
   export const enum ClientNavigationDisposition {
-    CurrentTab = 'currentTab',
-    NewTab = 'newTab',
-    NewWindow = 'newWindow',
-    Download = 'download',
+    CurrentTab = "currentTab",
+    NewTab = "newTab",
+    NewWindow = "newWindow",
+    Download = "download",
   }
 
   export interface InstallabilityErrorArgument {
@@ -11585,14 +11640,14 @@ export namespace Page {
    * The referring-policy used for the navigation.
    */
   export const enum ReferrerPolicy {
-    NoReferrer = 'noReferrer',
-    NoReferrerWhenDowngrade = 'noReferrerWhenDowngrade',
-    Origin = 'origin',
-    OriginWhenCrossOrigin = 'originWhenCrossOrigin',
-    SameOrigin = 'sameOrigin',
-    StrictOrigin = 'strictOrigin',
-    StrictOriginWhenCrossOrigin = 'strictOriginWhenCrossOrigin',
-    UnsafeUrl = 'unsafeUrl',
+    NoReferrer = "noReferrer",
+    NoReferrerWhenDowngrade = "noReferrerWhenDowngrade",
+    Origin = "origin",
+    OriginWhenCrossOrigin = "originWhenCrossOrigin",
+    SameOrigin = "sameOrigin",
+    StrictOrigin = "strictOrigin",
+    StrictOriginWhenCrossOrigin = "strictOriginWhenCrossOrigin",
+    UnsafeUrl = "unsafeUrl",
   }
 
   /**
@@ -11614,161 +11669,161 @@ export namespace Page {
    * Enum of possible auto-reponse for permisison / prompt dialogs.
    */
   export const enum AutoResponseMode {
-    None = 'none',
-    AutoAccept = 'autoAccept',
-    AutoReject = 'autoReject',
-    AutoOptOut = 'autoOptOut',
+    None = "none",
+    AutoAccept = "autoAccept",
+    AutoReject = "autoReject",
+    AutoOptOut = "autoOptOut",
   }
 
   /**
    * The type of a frameNavigated event.
    */
   export const enum NavigationType {
-    Navigation = 'Navigation',
-    BackForwardCacheRestore = 'BackForwardCacheRestore',
+    Navigation = "Navigation",
+    BackForwardCacheRestore = "BackForwardCacheRestore",
   }
 
   /**
    * List of not restored reasons for back-forward cache.
    */
   export const enum BackForwardCacheNotRestoredReason {
-    NotPrimaryMainFrame = 'NotPrimaryMainFrame',
-    BackForwardCacheDisabled = 'BackForwardCacheDisabled',
-    RelatedActiveContentsExist = 'RelatedActiveContentsExist',
-    HTTPStatusNotOK = 'HTTPStatusNotOK',
-    SchemeNotHTTPOrHTTPS = 'SchemeNotHTTPOrHTTPS',
-    Loading = 'Loading',
-    WasGrantedMediaAccess = 'WasGrantedMediaAccess',
-    DisableForRenderFrameHostCalled = 'DisableForRenderFrameHostCalled',
-    DomainNotAllowed = 'DomainNotAllowed',
-    HTTPMethodNotGET = 'HTTPMethodNotGET',
-    SubframeIsNavigating = 'SubframeIsNavigating',
-    Timeout = 'Timeout',
-    CacheLimit = 'CacheLimit',
-    JavaScriptExecution = 'JavaScriptExecution',
-    RendererProcessKilled = 'RendererProcessKilled',
-    RendererProcessCrashed = 'RendererProcessCrashed',
-    SchedulerTrackedFeatureUsed = 'SchedulerTrackedFeatureUsed',
-    ConflictingBrowsingInstance = 'ConflictingBrowsingInstance',
-    CacheFlushed = 'CacheFlushed',
-    ServiceWorkerVersionActivation = 'ServiceWorkerVersionActivation',
-    SessionRestored = 'SessionRestored',
-    ServiceWorkerPostMessage = 'ServiceWorkerPostMessage',
-    EnteredBackForwardCacheBeforeServiceWorkerHostAdded = 'EnteredBackForwardCacheBeforeServiceWorkerHostAdded',
-    RenderFrameHostReused_SameSite = 'RenderFrameHostReused_SameSite',
-    RenderFrameHostReused_CrossSite = 'RenderFrameHostReused_CrossSite',
-    ServiceWorkerClaim = 'ServiceWorkerClaim',
-    IgnoreEventAndEvict = 'IgnoreEventAndEvict',
-    HaveInnerContents = 'HaveInnerContents',
-    TimeoutPuttingInCache = 'TimeoutPuttingInCache',
-    BackForwardCacheDisabledByLowMemory = 'BackForwardCacheDisabledByLowMemory',
-    BackForwardCacheDisabledByCommandLine = 'BackForwardCacheDisabledByCommandLine',
-    NetworkRequestDatAPIpeDrainedAsBytesConsumer = 'NetworkRequestDatapipeDrainedAsBytesConsumer',
-    NetworkRequestRedirected = 'NetworkRequestRedirected',
-    NetworkRequestTimeout = 'NetworkRequestTimeout',
-    NetworkExceedsBufferLimit = 'NetworkExceedsBufferLimit',
-    NavigationCancelledWhileRestoring = 'NavigationCancelledWhileRestoring',
-    NotMostRecentNavigationEntry = 'NotMostRecentNavigationEntry',
-    BackForwardCacheDisabledForPrerender = 'BackForwardCacheDisabledForPrerender',
-    UserAgentOverrideDiffers = 'UserAgentOverrideDiffers',
-    ForegroundCacheLimit = 'ForegroundCacheLimit',
-    BrowsingInstanceNotSwapped = 'BrowsingInstanceNotSwapped',
-    BackForwardCacheDisabledForDelegate = 'BackForwardCacheDisabledForDelegate',
-    UnloadHandlerExistsInMainFrame = 'UnloadHandlerExistsInMainFrame',
-    UnloadHandlerExistsInSubFrame = 'UnloadHandlerExistsInSubFrame',
-    ServiceWorkerUnregistration = 'ServiceWorkerUnregistration',
-    CacheControlNoStore = 'CacheControlNoStore',
-    CacheControlNoStoreCookieModified = 'CacheControlNoStoreCookieModified',
-    CacheControlNoStoreHTTPOnlyCookieModified = 'CacheControlNoStoreHTTPOnlyCookieModified',
-    NoResponseHead = 'NoResponseHead',
-    Unknown = 'Unknown',
-    ActivationNavigationsDisallowedForBug1234857 = 'ActivationNavigationsDisallowedForBug1234857',
-    ErrorDocument = 'ErrorDocument',
-    FencedFramesEmbedder = 'FencedFramesEmbedder',
-    CookieDisabled = 'CookieDisabled',
-    HTTPAuthRequired = 'HTTPAuthRequired',
-    CookieFlushed = 'CookieFlushed',
-    WebSocket = 'WebSocket',
-    WebTransport = 'WebTransport',
-    WebRTC = 'WebRTC',
-    MainResourceHasCacheControlNoStore = 'MainResourceHasCacheControlNoStore',
-    MainResourceHasCacheControlNoCache = 'MainResourceHasCacheControlNoCache',
-    SubresourceHasCacheControlNoStore = 'SubresourceHasCacheControlNoStore',
-    SubresourceHasCacheControlNoCache = 'SubresourceHasCacheControlNoCache',
-    ContainsPlugins = 'ContainsPlugins',
-    DocumentLoaded = 'DocumentLoaded',
-    DedicatedWorkerOrWorklet = 'DedicatedWorkerOrWorklet',
-    OutstandingNetworkRequestOthers = 'OutstandingNetworkRequestOthers',
-    RequestedMIDIPermission = 'RequestedMIDIPermission',
-    RequestedAudioCapturePermission = 'RequestedAudioCapturePermission',
-    RequestedVideoCapturePermission = 'RequestedVideoCapturePermission',
-    RequestedBackForwardCacheBlockedSensors = 'RequestedBackForwardCacheBlockedSensors',
-    RequestedBackgroundWorkPermission = 'RequestedBackgroundWorkPermission',
-    BroadcastChannel = 'BroadcastChannel',
-    WebXR = 'WebXR',
-    SharedWorker = 'SharedWorker',
-    WebLocks = 'WebLocks',
-    WebHID = 'WebHID',
-    WebShare = 'WebShare',
-    RequestedStorageAccessGrant = 'RequestedStorageAccessGrant',
-    WebNfc = 'WebNfc',
-    OutstandingNetworkRequestFetch = 'OutstandingNetworkRequestFetch',
-    OutstandingNetworkRequestXHR = 'OutstandingNetworkRequestXHR',
-    AppBanner = 'AppBanner',
-    Printing = 'Printing',
-    WebDatabase = 'WebDatabase',
-    PictureInPicture = 'PictureInPicture',
-    Portal = 'Portal',
-    SpeechRecognizer = 'SpeechRecognizer',
-    IdleManager = 'IdleManager',
-    PaymentManager = 'PaymentManager',
-    SpeechSynthesis = 'SpeechSynthesis',
-    KeyboardLock = 'KeyboardLock',
-    WebOTPService = 'WebOTPService',
-    OutstandingNetworkRequestDirectSocket = 'OutstandingNetworkRequestDirectSocket',
-    InjectedJavascript = 'InjectedJavascript',
-    InjectedStyleSheet = 'InjectedStyleSheet',
-    KeepaliveRequest = 'KeepaliveRequest',
-    IndexedDBEvent = 'IndexedDBEvent',
-    Dummy = 'Dummy',
-    JsNetworkRequestReceivedCacheControlNoStoreResource = 'JsNetworkRequestReceivedCacheControlNoStoreResource',
-    WebRTCSticky = 'WebRTCSticky',
-    WebTransportSticky = 'WebTransportSticky',
-    WebSocketSticky = 'WebSocketSticky',
-    ContentSecurityHandler = 'ContentSecurityHandler',
-    ContentWebAuthenticationAPI = 'ContentWebAuthenticationAPI',
-    ContentFileChooser = 'ContentFileChooser',
-    ContentSerial = 'ContentSerial',
-    ContentFileSystemAccess = 'ContentFileSystemAccess',
-    ContentMediaDevicesDispatcherHost = 'ContentMediaDevicesDispatcherHost',
-    ContentWebBluetooth = 'ContentWebBluetooth',
-    ContentWebUSB = 'ContentWebUSB',
-    ContentMediaSessionService = 'ContentMediaSessionService',
-    ContentScreenReader = 'ContentScreenReader',
-    EmbedderPopupBlockerTabHelper = 'EmbedderPopupBlockerTabHelper',
-    EmbedderSafeBrowsingTriggeredPopupBlocker = 'EmbedderSafeBrowsingTriggeredPopupBlocker',
-    EmbedderSafeBrowsingThreatDetails = 'EmbedderSafeBrowsingThreatDetails',
-    EmbedderAppBannerManager = 'EmbedderAppBannerManager',
-    EmbedderDomDistillerViewerSource = 'EmbedderDomDistillerViewerSource',
-    EmbedderDomDistillerSelfDeletingRequestDelegate = 'EmbedderDomDistillerSelfDeletingRequestDelegate',
-    EmbedderOomInterventionTabHelper = 'EmbedderOomInterventionTabHelper',
-    EmbedderOfflinePage = 'EmbedderOfflinePage',
-    EmbedderChromePasswordManagerClientBindCredentialManager = 'EmbedderChromePasswordManagerClientBindCredentialManager',
-    EmbedderPermissionRequestManager = 'EmbedderPermissionRequestManager',
-    EmbedderModalDialog = 'EmbedderModalDialog',
-    EmbedderExtensions = 'EmbedderExtensions',
-    EmbedderExtensionMessaging = 'EmbedderExtensionMessaging',
-    EmbedderExtensionMessagingForOpenPort = 'EmbedderExtensionMessagingForOpenPort',
-    EmbedderExtensionSentMessageToCachedFrame = 'EmbedderExtensionSentMessageToCachedFrame',
+    NotPrimaryMainFrame = "NotPrimaryMainFrame",
+    BackForwardCacheDisabled = "BackForwardCacheDisabled",
+    RelatedActiveContentsExist = "RelatedActiveContentsExist",
+    HTTPStatusNotOK = "HTTPStatusNotOK",
+    SchemeNotHTTPOrHTTPS = "SchemeNotHTTPOrHTTPS",
+    Loading = "Loading",
+    WasGrantedMediaAccess = "WasGrantedMediaAccess",
+    DisableForRenderFrameHostCalled = "DisableForRenderFrameHostCalled",
+    DomainNotAllowed = "DomainNotAllowed",
+    HTTPMethodNotGET = "HTTPMethodNotGET",
+    SubframeIsNavigating = "SubframeIsNavigating",
+    Timeout = "Timeout",
+    CacheLimit = "CacheLimit",
+    JavaScriptExecution = "JavaScriptExecution",
+    RendererProcessKilled = "RendererProcessKilled",
+    RendererProcessCrashed = "RendererProcessCrashed",
+    SchedulerTrackedFeatureUsed = "SchedulerTrackedFeatureUsed",
+    ConflictingBrowsingInstance = "ConflictingBrowsingInstance",
+    CacheFlushed = "CacheFlushed",
+    ServiceWorkerVersionActivation = "ServiceWorkerVersionActivation",
+    SessionRestored = "SessionRestored",
+    ServiceWorkerPostMessage = "ServiceWorkerPostMessage",
+    EnteredBackForwardCacheBeforeServiceWorkerHostAdded = "EnteredBackForwardCacheBeforeServiceWorkerHostAdded",
+    RenderFrameHostReused_SameSite = "RenderFrameHostReused_SameSite",
+    RenderFrameHostReused_CrossSite = "RenderFrameHostReused_CrossSite",
+    ServiceWorkerClaim = "ServiceWorkerClaim",
+    IgnoreEventAndEvict = "IgnoreEventAndEvict",
+    HaveInnerContents = "HaveInnerContents",
+    TimeoutPuttingInCache = "TimeoutPuttingInCache",
+    BackForwardCacheDisabledByLowMemory = "BackForwardCacheDisabledByLowMemory",
+    BackForwardCacheDisabledByCommandLine = "BackForwardCacheDisabledByCommandLine",
+    NetworkRequestDatAPIpeDrainedAsBytesConsumer = "NetworkRequestDatapipeDrainedAsBytesConsumer",
+    NetworkRequestRedirected = "NetworkRequestRedirected",
+    NetworkRequestTimeout = "NetworkRequestTimeout",
+    NetworkExceedsBufferLimit = "NetworkExceedsBufferLimit",
+    NavigationCancelledWhileRestoring = "NavigationCancelledWhileRestoring",
+    NotMostRecentNavigationEntry = "NotMostRecentNavigationEntry",
+    BackForwardCacheDisabledForPrerender = "BackForwardCacheDisabledForPrerender",
+    UserAgentOverrideDiffers = "UserAgentOverrideDiffers",
+    ForegroundCacheLimit = "ForegroundCacheLimit",
+    BrowsingInstanceNotSwapped = "BrowsingInstanceNotSwapped",
+    BackForwardCacheDisabledForDelegate = "BackForwardCacheDisabledForDelegate",
+    UnloadHandlerExistsInMainFrame = "UnloadHandlerExistsInMainFrame",
+    UnloadHandlerExistsInSubFrame = "UnloadHandlerExistsInSubFrame",
+    ServiceWorkerUnregistration = "ServiceWorkerUnregistration",
+    CacheControlNoStore = "CacheControlNoStore",
+    CacheControlNoStoreCookieModified = "CacheControlNoStoreCookieModified",
+    CacheControlNoStoreHTTPOnlyCookieModified = "CacheControlNoStoreHTTPOnlyCookieModified",
+    NoResponseHead = "NoResponseHead",
+    Unknown = "Unknown",
+    ActivationNavigationsDisallowedForBug1234857 = "ActivationNavigationsDisallowedForBug1234857",
+    ErrorDocument = "ErrorDocument",
+    FencedFramesEmbedder = "FencedFramesEmbedder",
+    CookieDisabled = "CookieDisabled",
+    HTTPAuthRequired = "HTTPAuthRequired",
+    CookieFlushed = "CookieFlushed",
+    WebSocket = "WebSocket",
+    WebTransport = "WebTransport",
+    WebRTC = "WebRTC",
+    MainResourceHasCacheControlNoStore = "MainResourceHasCacheControlNoStore",
+    MainResourceHasCacheControlNoCache = "MainResourceHasCacheControlNoCache",
+    SubresourceHasCacheControlNoStore = "SubresourceHasCacheControlNoStore",
+    SubresourceHasCacheControlNoCache = "SubresourceHasCacheControlNoCache",
+    ContainsPlugins = "ContainsPlugins",
+    DocumentLoaded = "DocumentLoaded",
+    DedicatedWorkerOrWorklet = "DedicatedWorkerOrWorklet",
+    OutstandingNetworkRequestOthers = "OutstandingNetworkRequestOthers",
+    RequestedMIDIPermission = "RequestedMIDIPermission",
+    RequestedAudioCapturePermission = "RequestedAudioCapturePermission",
+    RequestedVideoCapturePermission = "RequestedVideoCapturePermission",
+    RequestedBackForwardCacheBlockedSensors = "RequestedBackForwardCacheBlockedSensors",
+    RequestedBackgroundWorkPermission = "RequestedBackgroundWorkPermission",
+    BroadcastChannel = "BroadcastChannel",
+    WebXR = "WebXR",
+    SharedWorker = "SharedWorker",
+    WebLocks = "WebLocks",
+    WebHID = "WebHID",
+    WebShare = "WebShare",
+    RequestedStorageAccessGrant = "RequestedStorageAccessGrant",
+    WebNfc = "WebNfc",
+    OutstandingNetworkRequestFetch = "OutstandingNetworkRequestFetch",
+    OutstandingNetworkRequestXHR = "OutstandingNetworkRequestXHR",
+    AppBanner = "AppBanner",
+    Printing = "Printing",
+    WebDatabase = "WebDatabase",
+    PictureInPicture = "PictureInPicture",
+    Portal = "Portal",
+    SpeechRecognizer = "SpeechRecognizer",
+    IdleManager = "IdleManager",
+    PaymentManager = "PaymentManager",
+    SpeechSynthesis = "SpeechSynthesis",
+    KeyboardLock = "KeyboardLock",
+    WebOTPService = "WebOTPService",
+    OutstandingNetworkRequestDirectSocket = "OutstandingNetworkRequestDirectSocket",
+    InjectedJavascript = "InjectedJavascript",
+    InjectedStyleSheet = "InjectedStyleSheet",
+    KeepaliveRequest = "KeepaliveRequest",
+    IndexedDBEvent = "IndexedDBEvent",
+    Dummy = "Dummy",
+    JsNetworkRequestReceivedCacheControlNoStoreResource = "JsNetworkRequestReceivedCacheControlNoStoreResource",
+    WebRTCSticky = "WebRTCSticky",
+    WebTransportSticky = "WebTransportSticky",
+    WebSocketSticky = "WebSocketSticky",
+    ContentSecurityHandler = "ContentSecurityHandler",
+    ContentWebAuthenticationAPI = "ContentWebAuthenticationAPI",
+    ContentFileChooser = "ContentFileChooser",
+    ContentSerial = "ContentSerial",
+    ContentFileSystemAccess = "ContentFileSystemAccess",
+    ContentMediaDevicesDispatcherHost = "ContentMediaDevicesDispatcherHost",
+    ContentWebBluetooth = "ContentWebBluetooth",
+    ContentWebUSB = "ContentWebUSB",
+    ContentMediaSessionService = "ContentMediaSessionService",
+    ContentScreenReader = "ContentScreenReader",
+    EmbedderPopupBlockerTabHelper = "EmbedderPopupBlockerTabHelper",
+    EmbedderSafeBrowsingTriggeredPopupBlocker = "EmbedderSafeBrowsingTriggeredPopupBlocker",
+    EmbedderSafeBrowsingThreatDetails = "EmbedderSafeBrowsingThreatDetails",
+    EmbedderAppBannerManager = "EmbedderAppBannerManager",
+    EmbedderDomDistillerViewerSource = "EmbedderDomDistillerViewerSource",
+    EmbedderDomDistillerSelfDeletingRequestDelegate = "EmbedderDomDistillerSelfDeletingRequestDelegate",
+    EmbedderOomInterventionTabHelper = "EmbedderOomInterventionTabHelper",
+    EmbedderOfflinePage = "EmbedderOfflinePage",
+    EmbedderChromePasswordManagerClientBindCredentialManager = "EmbedderChromePasswordManagerClientBindCredentialManager",
+    EmbedderPermissionRequestManager = "EmbedderPermissionRequestManager",
+    EmbedderModalDialog = "EmbedderModalDialog",
+    EmbedderExtensions = "EmbedderExtensions",
+    EmbedderExtensionMessaging = "EmbedderExtensionMessaging",
+    EmbedderExtensionMessagingForOpenPort = "EmbedderExtensionMessagingForOpenPort",
+    EmbedderExtensionSentMessageToCachedFrame = "EmbedderExtensionSentMessageToCachedFrame",
   }
 
   /**
    * Types of not restored reasons for back-forward cache.
    */
   export const enum BackForwardCacheNotRestoredReasonType {
-    SupportPending = 'SupportPending',
-    PageSupportNeeded = 'PageSupportNeeded',
-    Circumstantial = 'Circumstantial',
+    SupportPending = "SupportPending",
+    PageSupportNeeded = "PageSupportNeeded",
+    Circumstantial = "Circumstantial",
   }
 
   export interface BackForwardCacheBlockingDetails {
@@ -11827,7 +11882,8 @@ export namespace Page {
     scriptSource: string;
   }
 
-  export interface AddScriptToEvaluateOnLoadResponse extends ProtocolResponseWithError {
+  export interface AddScriptToEvaluateOnLoadResponse
+    extends ProtocolResponseWithError {
     /**
      * Identifier of the added script.
      */
@@ -11854,7 +11910,8 @@ export namespace Page {
     runImmediately?: boolean;
   }
 
-  export interface AddScriptToEvaluateOnNewDocumentResponse extends ProtocolResponseWithError {
+  export interface AddScriptToEvaluateOnNewDocumentResponse
+    extends ProtocolResponseWithError {
     /**
      * Identifier of the added script.
      */
@@ -11862,9 +11919,9 @@ export namespace Page {
   }
 
   export const enum CaptureScreenshotRequestFormat {
-    Jpeg = 'jpeg',
-    Png = 'png',
-    Webp = 'webp',
+    Jpeg = "jpeg",
+    Png = "png",
+    Webp = "webp",
   }
 
   export interface CaptureScreenshotRequest {
@@ -11902,7 +11959,7 @@ export namespace Page {
   }
 
   export const enum CaptureSnapshotRequestFormat {
-    MHTML = 'mhtml',
+    MHTML = "mhtml",
   }
 
   export interface CaptureSnapshotRequest {
@@ -11935,7 +11992,8 @@ export namespace Page {
     grantUniveralAccess?: boolean;
   }
 
-  export interface CreateIsolatedWorldResponse extends ProtocolResponseWithError {
+  export interface CreateIsolatedWorldResponse
+    extends ProtocolResponseWithError {
     /**
      * Execution context of the isolated world.
      */
@@ -11969,7 +12027,8 @@ export namespace Page {
     parsed?: AppManifestParsedProperties;
   }
 
-  export interface GetInstallabilityErrorsResponse extends ProtocolResponseWithError {
+  export interface GetInstallabilityErrorsResponse
+    extends ProtocolResponseWithError {
     installabilityErrors: InstallabilityError[];
   }
 
@@ -12034,7 +12093,8 @@ export namespace Page {
     cssContentSize: DOM.Rect;
   }
 
-  export interface GetNavigationHistoryResponse extends ProtocolResponseWithError {
+  export interface GetNavigationHistoryResponse
+    extends ProtocolResponseWithError {
     /**
      * Index of the current navigation history entry.
      */
@@ -12056,7 +12116,8 @@ export namespace Page {
     url: string;
   }
 
-  export interface GetResourceContentResponse extends ProtocolResponseWithError {
+  export interface GetResourceContentResponse
+    extends ProtocolResponseWithError {
     /**
      * Resource content.
      */
@@ -12133,8 +12194,8 @@ export namespace Page {
   }
 
   export const enum PrintToPDFRequestTransferMode {
-    ReturnAsBase64 = 'ReturnAsBase64',
-    ReturnAsStream = 'ReturnAsStream',
+    ReturnAsBase64 = "ReturnAsBase64",
+    ReturnAsStream = "ReturnAsStream",
   }
 
   export interface PrintToPDFRequest {
@@ -12310,7 +12371,8 @@ export namespace Page {
     frameId: FrameId;
   }
 
-  export interface GetPermissionsPolicyStateResponse extends ProtocolResponseWithError {
+  export interface GetPermissionsPolicyStateResponse
+    extends ProtocolResponseWithError {
     states: PermissionsPolicyFeatureState[];
   }
 
@@ -12419,9 +12481,9 @@ export namespace Page {
   }
 
   export const enum SetDownloadBehaviorRequestBehavior {
-    Deny = 'deny',
-    Allow = 'allow',
-    Default = 'default',
+    Deny = "deny",
+    Allow = "allow",
+    Default = "default",
   }
 
   export interface SetDownloadBehaviorRequest {
@@ -12459,8 +12521,8 @@ export namespace Page {
   }
 
   export const enum SetTouchEmulationEnabledRequestConfiguration {
-    Mobile = 'mobile',
-    Desktop = 'desktop',
+    Mobile = "mobile",
+    Desktop = "desktop",
   }
 
   export interface SetTouchEmulationEnabledRequest {
@@ -12475,8 +12537,8 @@ export namespace Page {
   }
 
   export const enum StartScreencastRequestFormat {
-    Jpeg = 'jpeg',
-    Png = 'png',
+    Jpeg = "jpeg",
+    Png = "png",
   }
 
   export interface StartScreencastRequest {
@@ -12503,8 +12565,8 @@ export namespace Page {
   }
 
   export const enum SetWebLifecycleStateRequestState {
-    Frozen = 'frozen',
-    Active = 'active',
+    Frozen = "frozen",
+    Active = "active",
   }
 
   export interface SetWebLifecycleStateRequest {
@@ -12558,8 +12620,8 @@ export namespace Page {
   }
 
   export const enum FileChooserOpenedEventMode {
-    SelectSingle = 'selectSingle',
-    SelectMultiple = 'selectMultiple',
+    SelectSingle = "selectSingle",
+    SelectMultiple = "selectMultiple",
   }
 
   /**
@@ -12609,8 +12671,8 @@ export namespace Page {
   }
 
   export const enum FrameDetachedEventReason {
-    Remove = 'remove',
-    Swap = 'swap',
+    Remove = "remove",
+    Swap = "swap",
   }
 
   /**
@@ -12735,9 +12797,9 @@ export namespace Page {
   }
 
   export const enum DownloadProgressEventState {
-    InProgress = 'inProgress',
-    Completed = 'completed',
-    Canceled = 'canceled',
+    InProgress = "inProgress",
+    Completed = "completed",
+    Canceled = "canceled",
   }
 
   /**
@@ -12931,7 +12993,6 @@ export namespace Page {
 }
 
 export namespace Performance {
-
   /**
    * Run-time execution metric.
    */
@@ -12947,8 +13008,8 @@ export namespace Performance {
   }
 
   export const enum EnableRequestTimeDomain {
-    TimeTicks = 'timeTicks',
-    ThreadTicks = 'threadTicks',
+    TimeTicks = "timeTicks",
+    ThreadTicks = "threadTicks",
   }
 
   export interface EnableRequest {
@@ -12959,8 +13020,8 @@ export namespace Performance {
   }
 
   export const enum SetTimeDomainRequestTimeDomain {
-    TimeTicks = 'timeTicks',
-    ThreadTicks = 'threadTicks',
+    TimeTicks = "timeTicks",
+    ThreadTicks = "threadTicks",
   }
 
   export interface SetTimeDomainRequest {
@@ -12997,7 +13058,6 @@ export namespace Performance {
  * https://w3c.github.io/performance-timeline/#dom-performanceobserver.
  */
 export namespace PerformanceTimeline {
-
   /**
    * See https://github.com/WICG/LargestContentfulPaint and largest_contentful_paint.idl
    */
@@ -13087,32 +13147,34 @@ export namespace PerformanceTimeline {
  * Security
  */
 export namespace Security {
-
   /**
    * An internal certificate ID value.
    */
-  export type CertificateId = OpaqueIdentifier<integer, 'Protocol.Security.CertificateId'>;
+  export type CertificateId = OpaqueIdentifier<
+    integer,
+    "Protocol.Security.CertificateId"
+  >;
 
   /**
    * A description of mixed content (HTTP resources on HTTPS pages), as defined by
    * https://www.w3.org/TR/mixed-content/#categories
    */
   export const enum MixedContentType {
-    Blockable = 'blockable',
-    OptionallyBlockable = 'optionally-blockable',
-    None = 'none',
+    Blockable = "blockable",
+    OptionallyBlockable = "optionally-blockable",
+    None = "none",
   }
 
   /**
    * The security level of a page or resource.
    */
   export const enum SecurityState {
-    Unknown = 'unknown',
-    Neutral = 'neutral',
-    Insecure = 'insecure',
-    Secure = 'secure',
-    Info = 'info',
-    InsecureBroken = 'insecure-broken',
+    Unknown = "unknown",
+    Neutral = "neutral",
+    Insecure = "insecure",
+    Secure = "secure",
+    Info = "info",
+    InsecureBroken = "insecure-broken",
   }
 
   /**
@@ -13194,8 +13256,8 @@ export namespace Security {
   }
 
   export const enum SafetyTipStatus {
-    BadReputation = 'badReputation',
-    Lookalike = 'lookalike',
+    BadReputation = "badReputation",
+    Lookalike = "lookalike",
   }
 
   export interface SafetyTipInfo {
@@ -13304,8 +13366,8 @@ export namespace Security {
    * request and cancel will cancel the request.
    */
   export const enum CertificateErrorAction {
-    Continue = 'continue',
-    Cancel = 'cancel',
+    Continue = "continue",
+    Cancel = "cancel",
   }
 
   export interface SetIgnoreCertificateErrorsRequest {
@@ -13393,8 +13455,10 @@ export namespace Security {
 }
 
 export namespace ServiceWorker {
-
-  export type RegistrationID = OpaqueIdentifier<string, 'Protocol.ServiceWorker.RegistrationID'>;
+  export type RegistrationID = OpaqueIdentifier<
+    string,
+    "Protocol.ServiceWorker.RegistrationID"
+  >;
 
   /**
    * ServiceWorker registration.
@@ -13406,19 +13470,19 @@ export namespace ServiceWorker {
   }
 
   export const enum ServiceWorkerVersionRunningStatus {
-    Stopped = 'stopped',
-    Starting = 'starting',
-    Running = 'running',
-    Stopping = 'stopping',
+    Stopped = "stopped",
+    Starting = "starting",
+    Running = "running",
+    Stopping = "stopping",
   }
 
   export const enum ServiceWorkerVersionStatus {
-    New = 'new',
-    Installing = 'installing',
-    Installed = 'installed',
-    Activating = 'activating',
-    Activated = 'activated',
-    Redundant = 'redundant',
+    New = "new",
+    Installing = "installing",
+    Installed = "installed",
+    Activating = "activating",
+    Activated = "activated",
+    Redundant = "redundant",
   }
 
   /**
@@ -13517,27 +13581,26 @@ export namespace ServiceWorker {
 }
 
 export namespace Storage {
-
   export type SerializedStorageKey = string;
 
   /**
    * Enum of possible storage types.
    */
   export const enum StorageType {
-    Appcache = 'appcache',
-    Cookies = 'cookies',
-    File_systems = 'file_systems',
-    Indexeddb = 'indexeddb',
-    Local_storage = 'local_storage',
-    Shader_cache = 'shader_cache',
-    Websql = 'websql',
-    Service_workers = 'service_workers',
-    Cache_storage = 'cache_storage',
-    Interest_groups = 'interest_groups',
-    Shared_storage = 'shared_storage',
-    Storage_buckets = 'storage_buckets',
-    All = 'all',
-    Other = 'other',
+    Appcache = "appcache",
+    Cookies = "cookies",
+    File_systems = "file_systems",
+    Indexeddb = "indexeddb",
+    Local_storage = "local_storage",
+    Shader_cache = "shader_cache",
+    Websql = "websql",
+    Service_workers = "service_workers",
+    Cache_storage = "cache_storage",
+    Interest_groups = "interest_groups",
+    Shared_storage = "shared_storage",
+    Storage_buckets = "storage_buckets",
+    All = "all",
+    Other = "other",
   }
 
   /**
@@ -13567,15 +13630,15 @@ export namespace Storage {
    * Enum of interest group access types.
    */
   export const enum InterestGroupAccessType {
-    Join = 'join',
-    Leave = 'leave',
-    Update = 'update',
-    Loaded = 'loaded',
-    Bid = 'bid',
-    Win = 'win',
-    AdditionalBid = 'additionalBid',
-    AdditionalBidWin = 'additionalBidWin',
-    Clear = 'clear',
+    Join = "join",
+    Leave = "leave",
+    Update = "update",
+    Loaded = "loaded",
+    Bid = "bid",
+    Win = "win",
+    AdditionalBid = "additionalBid",
+    AdditionalBidWin = "additionalBidWin",
+    Clear = "clear",
   }
 
   /**
@@ -13608,22 +13671,22 @@ export namespace Storage {
    * Enum of shared storage access types.
    */
   export const enum SharedStorageAccessType {
-    DocumentAddModule = 'documentAddModule',
-    DocumentSelectURL = 'documentSelectURL',
-    DocumentRun = 'documentRun',
-    DocumentSet = 'documentSet',
-    DocumentAppend = 'documentAppend',
-    DocumentDelete = 'documentDelete',
-    DocumentClear = 'documentClear',
-    WorkletSet = 'workletSet',
-    WorkletAppend = 'workletAppend',
-    WorkletDelete = 'workletDelete',
-    WorkletClear = 'workletClear',
-    WorkletGet = 'workletGet',
-    WorkletKeys = 'workletKeys',
-    WorkletEntries = 'workletEntries',
-    WorkletLength = 'workletLength',
-    WorkletRemainingBudget = 'workletRemainingBudget',
+    DocumentAddModule = "documentAddModule",
+    DocumentSelectURL = "documentSelectURL",
+    DocumentRun = "documentRun",
+    DocumentSet = "documentSet",
+    DocumentAppend = "documentAppend",
+    DocumentDelete = "documentDelete",
+    DocumentClear = "documentClear",
+    WorkletSet = "workletSet",
+    WorkletAppend = "workletAppend",
+    WorkletDelete = "workletDelete",
+    WorkletClear = "workletClear",
+    WorkletGet = "workletGet",
+    WorkletKeys = "workletKeys",
+    WorkletEntries = "workletEntries",
+    WorkletLength = "workletLength",
+    WorkletRemainingBudget = "workletRemainingBudget",
   }
 
   /**
@@ -13720,8 +13783,8 @@ export namespace Storage {
   }
 
   export const enum StorageBucketsDurability {
-    Relaxed = 'relaxed',
-    Strict = 'strict',
+    Relaxed = "relaxed",
+    Strict = "strict",
   }
 
   export interface StorageBucket {
@@ -13745,8 +13808,8 @@ export namespace Storage {
   }
 
   export const enum AttributionReportingSourceType {
-    Navigation = 'navigation',
-    Event = 'event',
+    Navigation = "navigation",
+    Event = "event",
   }
 
   export type UnsignedInt64AsBase10 = string;
@@ -13786,8 +13849,8 @@ export namespace Storage {
   }
 
   export const enum AttributionReportingTriggerDataMatching {
-    Exact = 'exact',
-    Modulus = 'modulus',
+    Exact = "exact",
+    Modulus = "modulus",
   }
 
   export interface AttributionReportingSourceRegistration {
@@ -13814,25 +13877,26 @@ export namespace Storage {
   }
 
   export const enum AttributionReportingSourceRegistrationResult {
-    Success = 'success',
-    InternalError = 'internalError',
-    InsufficientSourceCapacity = 'insufficientSourceCapacity',
-    InsufficientUniqueDestinationCapacity = 'insufficientUniqueDestinationCapacity',
-    ExcessiveReportingOrigins = 'excessiveReportingOrigins',
-    ProhibitedByBrowserPolicy = 'prohibitedByBrowserPolicy',
-    SuccessNoised = 'successNoised',
-    DestinationReportingLimitReached = 'destinationReportingLimitReached',
-    DestinationGlobalLimitReached = 'destinationGlobalLimitReached',
-    DestinationBothLimitsReached = 'destinationBothLimitsReached',
-    ReportingOriginsPerSiteLimitReached = 'reportingOriginsPerSiteLimitReached',
-    ExceedsMaxChannelCapacity = 'exceedsMaxChannelCapacity',
+    Success = "success",
+    InternalError = "internalError",
+    InsufficientSourceCapacity = "insufficientSourceCapacity",
+    InsufficientUniqueDestinationCapacity = "insufficientUniqueDestinationCapacity",
+    ExcessiveReportingOrigins = "excessiveReportingOrigins",
+    ProhibitedByBrowserPolicy = "prohibitedByBrowserPolicy",
+    SuccessNoised = "successNoised",
+    DestinationReportingLimitReached = "destinationReportingLimitReached",
+    DestinationGlobalLimitReached = "destinationGlobalLimitReached",
+    DestinationBothLimitsReached = "destinationBothLimitsReached",
+    ReportingOriginsPerSiteLimitReached = "reportingOriginsPerSiteLimitReached",
+    ExceedsMaxChannelCapacity = "exceedsMaxChannelCapacity",
   }
 
   export interface GetStorageKeyForFrameRequest {
     frameId: Page.FrameId;
   }
 
-  export interface GetStorageKeyForFrameResponse extends ProtocolResponseWithError {
+  export interface GetStorageKeyForFrameResponse
+    extends ProtocolResponseWithError {
     storageKey: SerializedStorageKey;
   }
 
@@ -14009,7 +14073,8 @@ export namespace Storage {
     name: string;
   }
 
-  export interface GetInterestGroupDetailsResponse extends ProtocolResponseWithError {
+  export interface GetInterestGroupDetailsResponse
+    extends ProtocolResponseWithError {
     details: InterestGroupDetails;
   }
 
@@ -14021,7 +14086,8 @@ export namespace Storage {
     ownerOrigin: string;
   }
 
-  export interface GetSharedStorageMetadataResponse extends ProtocolResponseWithError {
+  export interface GetSharedStorageMetadataResponse
+    extends ProtocolResponseWithError {
     metadata: SharedStorageMetadata;
   }
 
@@ -14029,7 +14095,8 @@ export namespace Storage {
     ownerOrigin: string;
   }
 
-  export interface GetSharedStorageEntriesResponse extends ProtocolResponseWithError {
+  export interface GetSharedStorageEntriesResponse
+    extends ProtocolResponseWithError {
     entries: SharedStorageEntry[];
   }
 
@@ -14070,7 +14137,8 @@ export namespace Storage {
     bucket: StorageBucket;
   }
 
-  export interface RunBounceTrackingMitigationsResponse extends ProtocolResponseWithError {
+  export interface RunBounceTrackingMitigationsResponse
+    extends ProtocolResponseWithError {
     deletedSites: string[];
   }
 
@@ -14229,7 +14297,6 @@ export namespace Storage {
  * The SystemInfo domain defines methods and events for querying low-level system information.
  */
 export namespace SystemInfo {
-
   /**
    * Describes a single graphics processor (GPU).
    */
@@ -14327,18 +14394,18 @@ export namespace SystemInfo {
    * YUV subsampling type of the pixels of a given image.
    */
   export const enum SubsamplingFormat {
-    Yuv420 = 'yuv420',
-    Yuv422 = 'yuv422',
-    Yuv444 = 'yuv444',
+    Yuv420 = "yuv420",
+    Yuv422 = "yuv422",
+    Yuv444 = "yuv444",
   }
 
   /**
    * Image format of a given image.
    */
   export const enum ImageType {
-    Jpeg = 'jpeg',
-    Webp = 'webp',
-    Unknown = 'unknown',
+    Jpeg = "jpeg",
+    Webp = "webp",
+    Unknown = "unknown",
   }
 
   /**
@@ -14459,13 +14526,12 @@ export namespace SystemInfo {
  * Supports additional targets discovery and allows to attach to them.
  */
 export namespace Target {
-
-  export type TargetID = OpaqueIdentifier<string, 'Protocol.Target.TargetID'>;
+  export type TargetID = OpaqueIdentifier<string, "Protocol.Target.TargetID">;
 
   /**
    * Unique identifier of attached debugging session.
    */
-  export type SessionID = OpaqueIdentifier<string, 'Protocol.Target.SessionID'>;
+  export type SessionID = OpaqueIdentifier<string, "Protocol.Target.SessionID">;
 
   export interface TargetInfo {
     targetId: TargetID;
@@ -14546,7 +14612,8 @@ export namespace Target {
     sessionId: SessionID;
   }
 
-  export interface AttachToBrowserTargetResponse extends ProtocolResponseWithError {
+  export interface AttachToBrowserTargetResponse
+    extends ProtocolResponseWithError {
     /**
      * Id assigned to the session.
      */
@@ -14592,14 +14659,16 @@ export namespace Target {
     originsWithUniversalNetworkAccess?: string[];
   }
 
-  export interface CreateBrowserContextResponse extends ProtocolResponseWithError {
+  export interface CreateBrowserContextResponse
+    extends ProtocolResponseWithError {
     /**
      * The id of the context created.
      */
     browserContextId: Browser.BrowserContextID;
   }
 
-  export interface GetBrowserContextsResponse extends ProtocolResponseWithError {
+  export interface GetBrowserContextsResponse
+    extends ProtocolResponseWithError {
     /**
      * An array of browser context ids.
      */
@@ -14840,7 +14909,6 @@ export namespace Target {
  * The Tethering domain defines methods and events for browser port binding.
  */
 export namespace Tethering {
-
   export interface BindRequest {
     /**
      * Port number to bind.
@@ -14871,7 +14939,6 @@ export namespace Tethering {
 }
 
 export namespace Tracing {
-
   /**
    * Configuration for memory dump. Used only when "memory-infra" category is enabled.
    */
@@ -14880,10 +14947,10 @@ export namespace Tracing {
   }
 
   export const enum TraceConfigRecordMode {
-    RecordUntilFull = 'recordUntilFull',
-    RecordContinuously = 'recordContinuously',
-    RecordAsMuchAsPossible = 'recordAsMuchAsPossible',
-    EchoToConsole = 'echoToConsole',
+    RecordUntilFull = "recordUntilFull",
+    RecordContinuously = "recordContinuously",
+    RecordAsMuchAsPossible = "recordAsMuchAsPossible",
+    EchoToConsole = "echoToConsole",
   }
 
   export interface TraceConfig {
@@ -14931,16 +14998,16 @@ export namespace Tracing {
    * protocol buffer format. Note that the JSON format will be deprecated soon.
    */
   export const enum StreamFormat {
-    Json = 'json',
-    Proto = 'proto',
+    Json = "json",
+    Proto = "proto",
   }
 
   /**
    * Compression type to use for traces returned via streams.
    */
   export const enum StreamCompression {
-    None = 'none',
-    Gzip = 'gzip',
+    None = "none",
+    Gzip = "gzip",
   }
 
   /**
@@ -14949,9 +15016,9 @@ export namespace Tracing {
    * memory_instrumentation.mojom
    */
   export const enum MemoryDumpLevelOfDetail {
-    Background = 'background',
-    Light = 'light',
-    Detailed = 'detailed',
+    Background = "background",
+    Light = "light",
+    Detailed = "detailed",
   }
 
   /**
@@ -14962,9 +15029,9 @@ export namespace Tracing {
    * specifies at least one non-Chrome data source; otherwise uses `chrome`.
    */
   export const enum TracingBackend {
-    Auto = 'auto',
-    Chrome = 'chrome',
-    System = 'system',
+    Auto = "auto",
+    Chrome = "chrome",
+    System = "system",
   }
 
   export interface GetCategoriesResponse extends ProtocolResponseWithError {
@@ -15004,8 +15071,8 @@ export namespace Tracing {
   }
 
   export const enum StartRequestTransferMode {
-    ReportEvents = 'ReportEvents',
-    ReturnAsStream = 'ReturnAsStream',
+    ReportEvents = "ReportEvents",
+    ReturnAsStream = "ReturnAsStream",
   }
 
   export interface StartRequest {
@@ -15103,11 +15170,10 @@ export namespace Tracing {
  * A domain for letting clients substitute browser's network layer with client code.
  */
 export namespace Fetch {
-
   /**
    * Unique request identifier.
    */
-  export type RequestId = OpaqueIdentifier<string, 'Protocol.Fetch.RequestId'>;
+  export type RequestId = OpaqueIdentifier<string, "Protocol.Fetch.RequestId">;
 
   /**
    * Stages of the request to handle. Request will intercept before the request is
@@ -15115,8 +15181,8 @@ export namespace Fetch {
    * body is received).
    */
   export const enum RequestStage {
-    Request = 'Request',
-    Response = 'Response',
+    Request = "Request",
+    Response = "Response",
   }
 
   export interface RequestPattern {
@@ -15144,8 +15210,8 @@ export namespace Fetch {
   }
 
   export const enum AuthChallengeSource {
-    Server = 'Server',
-    Proxy = 'Proxy',
+    Server = "Server",
+    Proxy = "Proxy",
   }
 
   /**
@@ -15171,9 +15237,9 @@ export namespace Fetch {
   }
 
   export const enum AuthChallengeResponseResponse {
-    Default = 'Default',
-    CancelAuth = 'CancelAuth',
-    ProvideCredentials = 'ProvideCredentials',
+    Default = "Default",
+    CancelAuth = "CancelAuth",
+    ProvideCredentials = "ProvideCredentials",
   }
 
   /**
@@ -15345,7 +15411,8 @@ export namespace Fetch {
     requestId: RequestId;
   }
 
-  export interface TakeResponseBodyAsStreamResponse extends ProtocolResponseWithError {
+  export interface TakeResponseBodyAsStreamResponse
+    extends ProtocolResponseWithError {
     stream: IO.StreamHandle;
   }
 
@@ -15442,27 +15509,29 @@ export namespace Fetch {
  * https://webaudio.github.io/web-audio-api/
  */
 export namespace WebAudio {
-
   /**
    * An unique ID for a graph object (AudioContext, AudioNode, AudioParam) in Web Audio API
    */
-  export type GraphObjectId = OpaqueIdentifier<string, 'Protocol.WebAudio.GraphObjectId'>;
+  export type GraphObjectId = OpaqueIdentifier<
+    string,
+    "Protocol.WebAudio.GraphObjectId"
+  >;
 
   /**
    * Enum of BaseAudioContext types
    */
   export const enum ContextType {
-    Realtime = 'realtime',
-    Offline = 'offline',
+    Realtime = "realtime",
+    Offline = "offline",
   }
 
   /**
    * Enum of AudioContextState from the spec
    */
   export const enum ContextState {
-    Suspended = 'suspended',
-    Running = 'running',
-    Closed = 'closed',
+    Suspended = "suspended",
+    Running = "running",
+    Closed = "closed",
   }
 
   /**
@@ -15474,17 +15543,17 @@ export namespace WebAudio {
    * Enum of AudioNode::ChannelCountMode from the spec
    */
   export const enum ChannelCountMode {
-    ClampedMax = 'clamped-max',
-    Explicit = 'explicit',
-    Max = 'max',
+    ClampedMax = "clamped-max",
+    Explicit = "explicit",
+    Max = "max",
   }
 
   /**
    * Enum of AudioNode::ChannelInterpretation from the spec
    */
   export const enum ChannelInterpretation {
-    Discrete = 'discrete',
-    Speakers = 'speakers',
+    Discrete = "discrete",
+    Speakers = "speakers",
   }
 
   /**
@@ -15496,8 +15565,8 @@ export namespace WebAudio {
    * Enum of AudioParam::AutomationRate from the spec
    */
   export const enum AutomationRate {
-    ARate = 'a-rate',
-    KRate = 'k-rate',
+    ARate = "a-rate",
+    KRate = "k-rate",
   }
 
   /**
@@ -15705,25 +15774,27 @@ export namespace WebAudio {
  * API.
  */
 export namespace WebAuthn {
-
-  export type AuthenticatorId = OpaqueIdentifier<string, 'Protocol.WebAuthn.AuthenticatorId'>;
+  export type AuthenticatorId = OpaqueIdentifier<
+    string,
+    "Protocol.WebAuthn.AuthenticatorId"
+  >;
 
   export const enum AuthenticatorProtocol {
-    U2f = 'u2f',
-    Ctap2 = 'ctap2',
+    U2f = "u2f",
+    Ctap2 = "ctap2",
   }
 
   export const enum Ctap2Version {
-    Ctap2_0 = 'ctap2_0',
-    Ctap2_1 = 'ctap2_1',
+    Ctap2_0 = "ctap2_0",
+    Ctap2_1 = "ctap2_1",
   }
 
   export const enum AuthenticatorTransport {
-    Usb = 'usb',
-    Nfc = 'nfc',
-    Ble = 'ble',
-    Cable = 'cable',
-    Internal = 'internal',
+    Usb = "usb",
+    Nfc = "nfc",
+    Ble = "ble",
+    Cable = "cable",
+    Internal = "internal",
   }
 
   export interface VirtualAuthenticatorOptions {
@@ -15834,7 +15905,8 @@ export namespace WebAuthn {
     options: VirtualAuthenticatorOptions;
   }
 
-  export interface AddVirtualAuthenticatorResponse extends ProtocolResponseWithError {
+  export interface AddVirtualAuthenticatorResponse
+    extends ProtocolResponseWithError {
     authenticatorId: AuthenticatorId;
   }
 
@@ -15923,19 +15995,18 @@ export namespace WebAuthn {
  * This domain allows detailed inspection of media elements
  */
 export namespace Media {
-
   /**
    * Players will get an ID that is unique within the agent context.
    */
-  export type PlayerId = OpaqueIdentifier<string, 'Protocol.Media.PlayerId'>;
+  export type PlayerId = OpaqueIdentifier<string, "Protocol.Media.PlayerId">;
 
   export type Timestamp = number;
 
   export const enum PlayerMessageLevel {
-    Error = 'error',
-    Warning = 'warning',
-    Info = 'info',
-    Debug = 'debug',
+    Error = "error",
+    Warning = "warning",
+    Info = "info",
+    Debug = "debug",
   }
 
   /**
@@ -16052,17 +16123,30 @@ export namespace Media {
   }
 }
 
-export namespace DeviceAccess {
+export namespace State {
+  export interface SetStateData {
+    state: Record<string, unknown>;
+    iframeUrl: string;
+    messageTimeEpoch: number;
+  }
+}
 
+export namespace DeviceAccess {
   /**
    * Device request id.
    */
-  export type RequestId = OpaqueIdentifier<string, 'Protocol.DeviceAccess.RequestId'>;
+  export type RequestId = OpaqueIdentifier<
+    string,
+    "Protocol.DeviceAccess.RequestId"
+  >;
 
   /**
    * A device id.
    */
-  export type DeviceId = OpaqueIdentifier<string, 'Protocol.DeviceAccess.DeviceId'>;
+  export type DeviceId = OpaqueIdentifier<
+    string,
+    "Protocol.DeviceAccess.DeviceId"
+  >;
 
   /**
    * Device information displayed in a user prompt to select a device.
@@ -16095,11 +16179,13 @@ export namespace DeviceAccess {
 }
 
 export namespace Preload {
-
   /**
    * Unique id
    */
-  export type RuleSetId = OpaqueIdentifier<string, 'Protocol.Preload.RuleSetId'>;
+  export type RuleSetId = OpaqueIdentifier<
+    string,
+    "Protocol.Preload.RuleSetId"
+  >;
 
   /**
    * Corresponds to SpeculationRuleSet
@@ -16147,8 +16233,8 @@ export namespace Preload {
   }
 
   export const enum RuleSetErrorType {
-    SourceIsNotJsonObject = 'SourceIsNotJsonObject',
-    InvalidRulesSkipped = 'InvalidRulesSkipped',
+    SourceIsNotJsonObject = "SourceIsNotJsonObject",
+    InvalidRulesSkipped = "InvalidRulesSkipped",
   }
 
   /**
@@ -16157,8 +16243,8 @@ export namespace Preload {
    * isn't being used by clients).
    */
   export const enum SpeculationAction {
-    Prefetch = 'Prefetch',
-    Prerender = 'Prerender',
+    Prefetch = "Prefetch",
+    Prerender = "Prerender",
   }
 
   /**
@@ -16166,8 +16252,8 @@ export namespace Preload {
    * See https://github.com/WICG/nav-speculation/blob/main/triggers.md#window-name-targeting-hints
    */
   export const enum SpeculationTargetHint {
-    Blank = 'Blank',
-    Self = 'Self',
+    Blank = "Blank",
+    Self = "Self",
   }
 
   /**
@@ -16202,71 +16288,71 @@ export namespace Preload {
    * List of FinalStatus reasons for Prerender2.
    */
   export const enum PrerenderFinalStatus {
-    Activated = 'Activated',
-    Destroyed = 'Destroyed',
-    LowEndDevice = 'LowEndDevice',
-    InvalidSchemeRedirect = 'InvalidSchemeRedirect',
-    InvalidSchemeNavigation = 'InvalidSchemeNavigation',
-    NavigationRequestBlockedByCsp = 'NavigationRequestBlockedByCsp',
-    MainFrameNavigation = 'MainFrameNavigation',
-    MojoBinderPolicy = 'MojoBinderPolicy',
-    RendererProcessCrashed = 'RendererProcessCrashed',
-    RendererProcessKilled = 'RendererProcessKilled',
-    Download = 'Download',
-    TriggerDestroyed = 'TriggerDestroyed',
-    NavigationNotCommitted = 'NavigationNotCommitted',
-    NavigationBadHttpStatus = 'NavigationBadHttpStatus',
-    ClientCertRequested = 'ClientCertRequested',
-    NavigationRequestNetworkError = 'NavigationRequestNetworkError',
-    CancelAllHostsForTesting = 'CancelAllHostsForTesting',
-    DidFailLoad = 'DidFailLoad',
-    Stop = 'Stop',
-    SslCertificateError = 'SslCertificateError',
-    LoginAuthRequested = 'LoginAuthRequested',
-    UaChangeRequiresReload = 'UaChangeRequiresReload',
-    BlockedByClient = 'BlockedByClient',
-    AudioOutputDeviceRequested = 'AudioOutputDeviceRequested',
-    MixedContent = 'MixedContent',
-    TriggerBackgrounded = 'TriggerBackgrounded',
-    MemoryLimitExceeded = 'MemoryLimitExceeded',
-    DataSaverEnabled = 'DataSaverEnabled',
-    TriggerUrlHasEffectiveUrl = 'TriggerUrlHasEffectiveUrl',
-    ActivatedBeforeStarted = 'ActivatedBeforeStarted',
-    InactivePageRestriction = 'InactivePageRestriction',
-    StartFailed = 'StartFailed',
-    TimeoutBackgrounded = 'TimeoutBackgrounded',
-    CrossSiteRedirectInInitialNavigation = 'CrossSiteRedirectInInitialNavigation',
-    CrossSiteNavigationInInitialNavigation = 'CrossSiteNavigationInInitialNavigation',
-    SameSiteCrossOriginRedirectNotOptInInInitialNavigation = 'SameSiteCrossOriginRedirectNotOptInInInitialNavigation',
-    SameSiteCrossOriginNavigationNotOptInInInitialNavigation = 'SameSiteCrossOriginNavigationNotOptInInInitialNavigation',
-    ActivationNavigationParameterMismatch = 'ActivationNavigationParameterMismatch',
-    ActivatedInBackground = 'ActivatedInBackground',
-    EmbedderHostDisallowed = 'EmbedderHostDisallowed',
-    ActivationNavigationDestroyedBeforeSuccess = 'ActivationNavigationDestroyedBeforeSuccess',
-    TabClosedByUserGesture = 'TabClosedByUserGesture',
-    TabClosedWithoutUserGesture = 'TabClosedWithoutUserGesture',
-    PrimaryMainFrameRendererProcessCrashed = 'PrimaryMainFrameRendererProcessCrashed',
-    PrimaryMainFrameRendererProcessKilled = 'PrimaryMainFrameRendererProcessKilled',
-    ActivationFramePolicyNotCompatible = 'ActivationFramePolicyNotCompatible',
-    PreloadingDisabled = 'PreloadingDisabled',
-    BatterySaverEnabled = 'BatterySaverEnabled',
-    ActivatedDuringMainFrameNavigation = 'ActivatedDuringMainFrameNavigation',
-    PreloadingUnsupportedByWebContents = 'PreloadingUnsupportedByWebContents',
-    CrossSiteRedirectInMainFrameNavigation = 'CrossSiteRedirectInMainFrameNavigation',
-    CrossSiteNavigationInMainFrameNavigation = 'CrossSiteNavigationInMainFrameNavigation',
-    SameSiteCrossOriginRedirectNotOptInInMainFrameNavigation = 'SameSiteCrossOriginRedirectNotOptInInMainFrameNavigation',
-    SameSiteCrossOriginNavigationNotOptInInMainFrameNavigation = 'SameSiteCrossOriginNavigationNotOptInInMainFrameNavigation',
-    MemoryPressureOnTrigger = 'MemoryPressureOnTrigger',
-    MemoryPressureAfterTriggered = 'MemoryPressureAfterTriggered',
-    PrerenderingDisabledByDevTools = 'PrerenderingDisabledByDevTools',
-    SpeculationRuleRemoved = 'SpeculationRuleRemoved',
-    ActivatedWithAuxiliaryBrowsingContexts = 'ActivatedWithAuxiliaryBrowsingContexts',
-    MaxNumOfRunningEagerPrerendersExceeded = 'MaxNumOfRunningEagerPrerendersExceeded',
-    MaxNumOfRunningNonEagerPrerendersExceeded = 'MaxNumOfRunningNonEagerPrerendersExceeded',
-    MaxNumOfRunningEmbedderPrerendersExceeded = 'MaxNumOfRunningEmbedderPrerendersExceeded',
-    PrerenderingUrlHasEffectiveUrl = 'PrerenderingUrlHasEffectiveUrl',
-    RedirectedPrerenderingUrlHasEffectiveUrl = 'RedirectedPrerenderingUrlHasEffectiveUrl',
-    ActivationUrlHasEffectiveUrl = 'ActivationUrlHasEffectiveUrl',
+    Activated = "Activated",
+    Destroyed = "Destroyed",
+    LowEndDevice = "LowEndDevice",
+    InvalidSchemeRedirect = "InvalidSchemeRedirect",
+    InvalidSchemeNavigation = "InvalidSchemeNavigation",
+    NavigationRequestBlockedByCsp = "NavigationRequestBlockedByCsp",
+    MainFrameNavigation = "MainFrameNavigation",
+    MojoBinderPolicy = "MojoBinderPolicy",
+    RendererProcessCrashed = "RendererProcessCrashed",
+    RendererProcessKilled = "RendererProcessKilled",
+    Download = "Download",
+    TriggerDestroyed = "TriggerDestroyed",
+    NavigationNotCommitted = "NavigationNotCommitted",
+    NavigationBadHttpStatus = "NavigationBadHttpStatus",
+    ClientCertRequested = "ClientCertRequested",
+    NavigationRequestNetworkError = "NavigationRequestNetworkError",
+    CancelAllHostsForTesting = "CancelAllHostsForTesting",
+    DidFailLoad = "DidFailLoad",
+    Stop = "Stop",
+    SslCertificateError = "SslCertificateError",
+    LoginAuthRequested = "LoginAuthRequested",
+    UaChangeRequiresReload = "UaChangeRequiresReload",
+    BlockedByClient = "BlockedByClient",
+    AudioOutputDeviceRequested = "AudioOutputDeviceRequested",
+    MixedContent = "MixedContent",
+    TriggerBackgrounded = "TriggerBackgrounded",
+    MemoryLimitExceeded = "MemoryLimitExceeded",
+    DataSaverEnabled = "DataSaverEnabled",
+    TriggerUrlHasEffectiveUrl = "TriggerUrlHasEffectiveUrl",
+    ActivatedBeforeStarted = "ActivatedBeforeStarted",
+    InactivePageRestriction = "InactivePageRestriction",
+    StartFailed = "StartFailed",
+    TimeoutBackgrounded = "TimeoutBackgrounded",
+    CrossSiteRedirectInInitialNavigation = "CrossSiteRedirectInInitialNavigation",
+    CrossSiteNavigationInInitialNavigation = "CrossSiteNavigationInInitialNavigation",
+    SameSiteCrossOriginRedirectNotOptInInInitialNavigation = "SameSiteCrossOriginRedirectNotOptInInInitialNavigation",
+    SameSiteCrossOriginNavigationNotOptInInInitialNavigation = "SameSiteCrossOriginNavigationNotOptInInInitialNavigation",
+    ActivationNavigationParameterMismatch = "ActivationNavigationParameterMismatch",
+    ActivatedInBackground = "ActivatedInBackground",
+    EmbedderHostDisallowed = "EmbedderHostDisallowed",
+    ActivationNavigationDestroyedBeforeSuccess = "ActivationNavigationDestroyedBeforeSuccess",
+    TabClosedByUserGesture = "TabClosedByUserGesture",
+    TabClosedWithoutUserGesture = "TabClosedWithoutUserGesture",
+    PrimaryMainFrameRendererProcessCrashed = "PrimaryMainFrameRendererProcessCrashed",
+    PrimaryMainFrameRendererProcessKilled = "PrimaryMainFrameRendererProcessKilled",
+    ActivationFramePolicyNotCompatible = "ActivationFramePolicyNotCompatible",
+    PreloadingDisabled = "PreloadingDisabled",
+    BatterySaverEnabled = "BatterySaverEnabled",
+    ActivatedDuringMainFrameNavigation = "ActivatedDuringMainFrameNavigation",
+    PreloadingUnsupportedByWebContents = "PreloadingUnsupportedByWebContents",
+    CrossSiteRedirectInMainFrameNavigation = "CrossSiteRedirectInMainFrameNavigation",
+    CrossSiteNavigationInMainFrameNavigation = "CrossSiteNavigationInMainFrameNavigation",
+    SameSiteCrossOriginRedirectNotOptInInMainFrameNavigation = "SameSiteCrossOriginRedirectNotOptInInMainFrameNavigation",
+    SameSiteCrossOriginNavigationNotOptInInMainFrameNavigation = "SameSiteCrossOriginNavigationNotOptInInMainFrameNavigation",
+    MemoryPressureOnTrigger = "MemoryPressureOnTrigger",
+    MemoryPressureAfterTriggered = "MemoryPressureAfterTriggered",
+    PrerenderingDisabledByDevTools = "PrerenderingDisabledByDevTools",
+    SpeculationRuleRemoved = "SpeculationRuleRemoved",
+    ActivatedWithAuxiliaryBrowsingContexts = "ActivatedWithAuxiliaryBrowsingContexts",
+    MaxNumOfRunningEagerPrerendersExceeded = "MaxNumOfRunningEagerPrerendersExceeded",
+    MaxNumOfRunningNonEagerPrerendersExceeded = "MaxNumOfRunningNonEagerPrerendersExceeded",
+    MaxNumOfRunningEmbedderPrerendersExceeded = "MaxNumOfRunningEmbedderPrerendersExceeded",
+    PrerenderingUrlHasEffectiveUrl = "PrerenderingUrlHasEffectiveUrl",
+    RedirectedPrerenderingUrlHasEffectiveUrl = "RedirectedPrerenderingUrlHasEffectiveUrl",
+    ActivationUrlHasEffectiveUrl = "ActivationUrlHasEffectiveUrl",
   }
 
   /**
@@ -16274,12 +16360,12 @@ export namespace Preload {
    * status is shared by prefetchStatusUpdated and prerenderStatusUpdated.
    */
   export const enum PreloadingStatus {
-    Pending = 'Pending',
-    Running = 'Running',
-    Ready = 'Ready',
-    Success = 'Success',
-    Failure = 'Failure',
-    NotSupported = 'NotSupported',
+    Pending = "Pending",
+    Running = "Running",
+    Ready = "Ready",
+    Success = "Success",
+    Failure = "Failure",
+    NotSupported = "NotSupported",
   }
 
   /**
@@ -16287,37 +16373,37 @@ export namespace Preload {
    * filter out the ones that aren't necessary to the developers.
    */
   export const enum PrefetchStatus {
-    PrefetchAllowed = 'PrefetchAllowed',
-    PrefetchFailedIneligibleRedirect = 'PrefetchFailedIneligibleRedirect',
-    PrefetchFailedInvalidRedirect = 'PrefetchFailedInvalidRedirect',
-    PrefetchFailedMIMENotSupported = 'PrefetchFailedMIMENotSupported',
-    PrefetchFailedNetError = 'PrefetchFailedNetError',
-    PrefetchFailedNon2XX = 'PrefetchFailedNon2XX',
-    PrefetchFailedPerPageLimitExceeded = 'PrefetchFailedPerPageLimitExceeded',
-    PrefetchEvictedAfterCandidateRemoved = 'PrefetchEvictedAfterCandidateRemoved',
-    PrefetchEvictedForNewerPrefetch = 'PrefetchEvictedForNewerPrefetch',
-    PrefetchHeldback = 'PrefetchHeldback',
-    PrefetchIneligibleRetryAfter = 'PrefetchIneligibleRetryAfter',
-    PrefetchIsPrivacyDecoy = 'PrefetchIsPrivacyDecoy',
-    PrefetchIsStale = 'PrefetchIsStale',
-    PrefetchNotEligibleBrowserContextOffTheRecord = 'PrefetchNotEligibleBrowserContextOffTheRecord',
-    PrefetchNotEligibleDataSaverEnabled = 'PrefetchNotEligibleDataSaverEnabled',
-    PrefetchNotEligibleExistingProxy = 'PrefetchNotEligibleExistingProxy',
-    PrefetchNotEligibleHostIsNonUnique = 'PrefetchNotEligibleHostIsNonUnique',
-    PrefetchNotEligibleNonDefaultStoragePartition = 'PrefetchNotEligibleNonDefaultStoragePartition',
-    PrefetchNotEligibleSameSiteCrossOriginPrefetchRequiredProxy = 'PrefetchNotEligibleSameSiteCrossOriginPrefetchRequiredProxy',
-    PrefetchNotEligibleSchemeIsNotHttps = 'PrefetchNotEligibleSchemeIsNotHttps',
-    PrefetchNotEligibleUserHasCookies = 'PrefetchNotEligibleUserHasCookies',
-    PrefetchNotEligibleUserHasServiceWorker = 'PrefetchNotEligibleUserHasServiceWorker',
-    PrefetchNotEligibleBatterySaverEnabled = 'PrefetchNotEligibleBatterySaverEnabled',
-    PrefetchNotEligiblePreloadingDisabled = 'PrefetchNotEligiblePreloadingDisabled',
-    PrefetchNotFinishedInTime = 'PrefetchNotFinishedInTime',
-    PrefetchNotStarted = 'PrefetchNotStarted',
-    PrefetchNotUsedCookiesChanged = 'PrefetchNotUsedCookiesChanged',
-    PrefetchProxyNotAvailable = 'PrefetchProxyNotAvailable',
-    PrefetchResponseUsed = 'PrefetchResponseUsed',
-    PrefetchSuccessfulButNotUsed = 'PrefetchSuccessfulButNotUsed',
-    PrefetchNotUsedProbeFailed = 'PrefetchNotUsedProbeFailed',
+    PrefetchAllowed = "PrefetchAllowed",
+    PrefetchFailedIneligibleRedirect = "PrefetchFailedIneligibleRedirect",
+    PrefetchFailedInvalidRedirect = "PrefetchFailedInvalidRedirect",
+    PrefetchFailedMIMENotSupported = "PrefetchFailedMIMENotSupported",
+    PrefetchFailedNetError = "PrefetchFailedNetError",
+    PrefetchFailedNon2XX = "PrefetchFailedNon2XX",
+    PrefetchFailedPerPageLimitExceeded = "PrefetchFailedPerPageLimitExceeded",
+    PrefetchEvictedAfterCandidateRemoved = "PrefetchEvictedAfterCandidateRemoved",
+    PrefetchEvictedForNewerPrefetch = "PrefetchEvictedForNewerPrefetch",
+    PrefetchHeldback = "PrefetchHeldback",
+    PrefetchIneligibleRetryAfter = "PrefetchIneligibleRetryAfter",
+    PrefetchIsPrivacyDecoy = "PrefetchIsPrivacyDecoy",
+    PrefetchIsStale = "PrefetchIsStale",
+    PrefetchNotEligibleBrowserContextOffTheRecord = "PrefetchNotEligibleBrowserContextOffTheRecord",
+    PrefetchNotEligibleDataSaverEnabled = "PrefetchNotEligibleDataSaverEnabled",
+    PrefetchNotEligibleExistingProxy = "PrefetchNotEligibleExistingProxy",
+    PrefetchNotEligibleHostIsNonUnique = "PrefetchNotEligibleHostIsNonUnique",
+    PrefetchNotEligibleNonDefaultStoragePartition = "PrefetchNotEligibleNonDefaultStoragePartition",
+    PrefetchNotEligibleSameSiteCrossOriginPrefetchRequiredProxy = "PrefetchNotEligibleSameSiteCrossOriginPrefetchRequiredProxy",
+    PrefetchNotEligibleSchemeIsNotHttps = "PrefetchNotEligibleSchemeIsNotHttps",
+    PrefetchNotEligibleUserHasCookies = "PrefetchNotEligibleUserHasCookies",
+    PrefetchNotEligibleUserHasServiceWorker = "PrefetchNotEligibleUserHasServiceWorker",
+    PrefetchNotEligibleBatterySaverEnabled = "PrefetchNotEligibleBatterySaverEnabled",
+    PrefetchNotEligiblePreloadingDisabled = "PrefetchNotEligiblePreloadingDisabled",
+    PrefetchNotFinishedInTime = "PrefetchNotFinishedInTime",
+    PrefetchNotStarted = "PrefetchNotStarted",
+    PrefetchNotUsedCookiesChanged = "PrefetchNotUsedCookiesChanged",
+    PrefetchProxyNotAvailable = "PrefetchProxyNotAvailable",
+    PrefetchResponseUsed = "PrefetchResponseUsed",
+    PrefetchSuccessfulButNotUsed = "PrefetchSuccessfulButNotUsed",
+    PrefetchNotUsedProbeFailed = "PrefetchNotUsedProbeFailed",
   }
 
   /**
@@ -16394,33 +16480,32 @@ export namespace Preload {
  * This domain allows interacting with the FedCM dialog.
  */
 export namespace FedCm {
-
   /**
    * Whether this is a sign-up or sign-in action for this account, i.e.
    * whether this account has ever been used to sign in to this RP before.
    */
   export const enum LoginState {
-    SignIn = 'SignIn',
-    SignUp = 'SignUp',
+    SignIn = "SignIn",
+    SignUp = "SignUp",
   }
 
   /**
    * The types of FedCM dialogs.
    */
   export const enum DialogType {
-    AccountChooser = 'AccountChooser',
-    AutoReauthn = 'AutoReauthn',
-    ConfirmIdpLogin = 'ConfirmIdpLogin',
-    Error = 'Error',
+    AccountChooser = "AccountChooser",
+    AutoReauthn = "AutoReauthn",
+    ConfirmIdpLogin = "ConfirmIdpLogin",
+    Error = "Error",
   }
 
   /**
    * The buttons on the FedCM dialog.
    */
   export const enum DialogButton {
-    ConfirmIdpLoginContinue = 'ConfirmIdpLoginContinue',
-    ErrorGotIt = 'ErrorGotIt',
-    ErrorMoreDetails = 'ErrorMoreDetails',
+    ConfirmIdpLoginContinue = "ConfirmIdpLoginContinue",
+    ErrorGotIt = "ErrorGotIt",
+    ErrorMoreDetails = "ErrorMoreDetails",
   }
 
   /**
@@ -16492,16 +16577,21 @@ export namespace FedCm {
  * breakpoints, stepping through execution, exploring stack traces, etc.
  */
 export namespace Debugger {
-
   /**
    * Breakpoint identifier.
    */
-  export type BreakpointId = OpaqueIdentifier<string, 'Protocol.Debugger.BreakpointId'>;
+  export type BreakpointId = OpaqueIdentifier<
+    string,
+    "Protocol.Debugger.BreakpointId"
+  >;
 
   /**
    * Call frame identifier.
    */
-  export type CallFrameId = OpaqueIdentifier<string, 'Protocol.Debugger.CallFrameId'>;
+  export type CallFrameId = OpaqueIdentifier<
+    string,
+    "Protocol.Debugger.CallFrameId"
+  >;
 
   /**
    * Location in the source code.
@@ -16586,16 +16676,16 @@ export namespace Debugger {
   }
 
   export const enum ScopeType {
-    Global = 'global',
-    Local = 'local',
-    With = 'with',
-    Closure = 'closure',
-    Catch = 'catch',
-    Block = 'block',
-    Script = 'script',
-    Eval = 'eval',
-    Module = 'module',
-    WasmExpressionStack = 'wasm-expression-stack',
+    Global = "global",
+    Local = "local",
+    With = "with",
+    Closure = "closure",
+    Catch = "catch",
+    Block = "block",
+    Script = "script",
+    Eval = "eval",
+    Module = "module",
+    WasmExpressionStack = "wasm-expression-stack",
   }
 
   /**
@@ -16638,9 +16728,9 @@ export namespace Debugger {
   }
 
   export const enum BreakLocationType {
-    DebuggerStatement = 'debuggerStatement',
-    Call = 'call',
-    Return = 'return',
+    DebuggerStatement = "debuggerStatement",
+    Call = "call",
+    Return = "return",
   }
 
   export interface BreakLocation {
@@ -16674,15 +16764,15 @@ export namespace Debugger {
    * Enum of possible script languages.
    */
   export const enum ScriptLanguage {
-    JavaScript = 'JavaScript',
-    WebAssembly = 'WebAssembly',
+    JavaScript = "JavaScript",
+    WebAssembly = "WebAssembly",
   }
 
   export const enum DebugSymbolsType {
-    None = 'None',
-    SourceMap = 'SourceMap',
-    EmbeddedDWARF = 'EmbeddedDWARF',
-    ExternalDWARF = 'ExternalDWARF',
+    None = "None",
+    SourceMap = "SourceMap",
+    EmbeddedDWARF = "EmbeddedDWARF",
+    ExternalDWARF = "ExternalDWARF",
   }
 
   /**
@@ -16700,8 +16790,8 @@ export namespace Debugger {
   }
 
   export const enum ContinueToLocationRequestTargetCallFrames {
-    Any = 'any',
-    Current = 'current',
+    Any = "any",
+    Current = "current",
   }
 
   export interface ContinueToLocationRequest {
@@ -16769,7 +16859,8 @@ export namespace Debugger {
     timeout?: Runtime.TimeDelta;
   }
 
-  export interface EvaluateOnCallFrameResponse extends ProtocolResponseWithError {
+  export interface EvaluateOnCallFrameResponse
+    extends ProtocolResponseWithError {
     /**
      * Object wrapper for the evaluation result.
      */
@@ -16796,7 +16887,8 @@ export namespace Debugger {
     restrictToFunction?: boolean;
   }
 
-  export interface GetPossibleBreakpointsResponse extends ProtocolResponseWithError {
+  export interface GetPossibleBreakpointsResponse
+    extends ProtocolResponseWithError {
     /**
      * List of the possible breakpoint locations.
      */
@@ -16828,7 +16920,8 @@ export namespace Debugger {
     scriptId: Runtime.ScriptId;
   }
 
-  export interface DisassembleWasmModuleResponse extends ProtocolResponseWithError {
+  export interface DisassembleWasmModuleResponse
+    extends ProtocolResponseWithError {
     /**
      * For large modules, return a stream from which additional chunks of
      * disassembly can be read successively.
@@ -16853,7 +16946,8 @@ export namespace Debugger {
     streamId: string;
   }
 
-  export interface NextWasmDisassemblyChunkResponse extends ProtocolResponseWithError {
+  export interface NextWasmDisassemblyChunkResponse
+    extends ProtocolResponseWithError {
     /**
      * The next chunk of disassembly.
      */
@@ -16894,7 +16988,7 @@ export namespace Debugger {
   }
 
   export const enum RestartFrameRequestMode {
-    StepInto = 'StepInto',
+    StepInto = "StepInto",
   }
 
   export interface RestartFrameRequest {
@@ -17008,8 +17102,8 @@ export namespace Debugger {
   }
 
   export const enum SetInstrumentationBreakpointRequestInstrumentation {
-    BeforeScriptExecution = 'beforeScriptExecution',
-    BeforeScriptWithSourceMapExecution = 'beforeScriptWithSourceMapExecution',
+    BeforeScriptExecution = "beforeScriptExecution",
+    BeforeScriptWithSourceMapExecution = "beforeScriptWithSourceMapExecution",
   }
 
   export interface SetInstrumentationBreakpointRequest {
@@ -17019,7 +17113,8 @@ export namespace Debugger {
     instrumentation: SetInstrumentationBreakpointRequestInstrumentation;
   }
 
-  export interface SetInstrumentationBreakpointResponse extends ProtocolResponseWithError {
+  export interface SetInstrumentationBreakpointResponse
+    extends ProtocolResponseWithError {
     /**
      * Id of the created breakpoint for further reference.
      */
@@ -17055,7 +17150,8 @@ export namespace Debugger {
     condition?: string;
   }
 
-  export interface SetBreakpointByUrlResponse extends ProtocolResponseWithError {
+  export interface SetBreakpointByUrlResponse
+    extends ProtocolResponseWithError {
     /**
      * Id of the created breakpoint for further reference.
      */
@@ -17078,7 +17174,8 @@ export namespace Debugger {
     condition?: string;
   }
 
-  export interface SetBreakpointOnFunctionCallResponse extends ProtocolResponseWithError {
+  export interface SetBreakpointOnFunctionCallResponse
+    extends ProtocolResponseWithError {
     /**
      * Id of the created breakpoint for further reference.
      */
@@ -17093,10 +17190,10 @@ export namespace Debugger {
   }
 
   export const enum SetPauseOnExceptionsRequestState {
-    None = 'none',
-    Caught = 'caught',
-    Uncaught = 'uncaught',
-    All = 'all',
+    None = "none",
+    Caught = "caught",
+    Uncaught = "uncaught",
+    All = "all",
   }
 
   export interface SetPauseOnExceptionsRequest {
@@ -17114,11 +17211,11 @@ export namespace Debugger {
   }
 
   export const enum SetScriptSourceResponseStatus {
-    Ok = 'Ok',
-    CompileError = 'CompileError',
-    BlockedByActiveGenerator = 'BlockedByActiveGenerator',
-    BlockedByActiveFunction = 'BlockedByActiveFunction',
-    BlockedByTopLevelEsModuleChange = 'BlockedByTopLevelEsModuleChange',
+    Ok = "Ok",
+    CompileError = "CompileError",
+    BlockedByActiveGenerator = "BlockedByActiveGenerator",
+    BlockedByActiveFunction = "BlockedByActiveFunction",
+    BlockedByTopLevelEsModuleChange = "BlockedByTopLevelEsModuleChange",
   }
 
   export interface SetScriptSourceRequest {
@@ -17232,19 +17329,19 @@ export namespace Debugger {
   }
 
   export const enum PausedEventReason {
-    Ambiguous = 'ambiguous',
-    Assert = 'assert',
-    CSPViolation = 'CSPViolation',
-    DebugCommand = 'debugCommand',
-    DOM = 'DOM',
-    EventListener = 'EventListener',
-    Exception = 'exception',
-    Instrumentation = 'instrumentation',
-    OOM = 'OOM',
-    Other = 'other',
-    PromiseRejection = 'promiseRejection',
-    XHR = 'XHR',
-    Step = 'step',
+    Ambiguous = "ambiguous",
+    Assert = "assert",
+    CSPViolation = "CSPViolation",
+    DebugCommand = "debugCommand",
+    DOM = "DOM",
+    EventListener = "EventListener",
+    Exception = "exception",
+    Instrumentation = "instrumentation",
+    OOM = "OOM",
+    Other = "other",
+    PromiseRejection = "promiseRejection",
+    XHR = "XHR",
+    Step = "step",
   }
 
   /**
@@ -17440,11 +17537,13 @@ export namespace Debugger {
 }
 
 export namespace HeapProfiler {
-
   /**
    * Heap snapshot object id.
    */
-  export type HeapSnapshotObjectId = OpaqueIdentifier<string, 'Protocol.HeapProfiler.HeapSnapshotObjectId'>;
+  export type HeapSnapshotObjectId = OpaqueIdentifier<
+    string,
+    "Protocol.HeapProfiler.HeapSnapshotObjectId"
+  >;
 
   /**
    * Sampling Heap Profile node. Holds callsite information, allocation statistics and child nodes.
@@ -17524,14 +17623,16 @@ export namespace HeapProfiler {
     objectGroup?: string;
   }
 
-  export interface GetObjectByHeapObjectIdResponse extends ProtocolResponseWithError {
+  export interface GetObjectByHeapObjectIdResponse
+    extends ProtocolResponseWithError {
     /**
      * Evaluation result.
      */
     result: Runtime.RemoteObject;
   }
 
-  export interface GetSamplingProfileResponse extends ProtocolResponseWithError {
+  export interface GetSamplingProfileResponse
+    extends ProtocolResponseWithError {
     /**
      * Return the sampling profile being collected.
      */
@@ -17651,7 +17752,6 @@ export namespace HeapProfiler {
 }
 
 export namespace Profiler {
-
   /**
    * Profile node. Holds callsite information, execution statistics and child nodes.
    */
@@ -17778,7 +17878,8 @@ export namespace Profiler {
     functions: FunctionCoverage[];
   }
 
-  export interface GetBestEffortCoverageResponse extends ProtocolResponseWithError {
+  export interface GetBestEffortCoverageResponse
+    extends ProtocolResponseWithError {
     /**
      * Coverage data for the current isolate.
      */
@@ -17807,7 +17908,8 @@ export namespace Profiler {
     allowTriggeredUpdates?: boolean;
   }
 
-  export interface StartPreciseCoverageResponse extends ProtocolResponseWithError {
+  export interface StartPreciseCoverageResponse
+    extends ProtocolResponseWithError {
     /**
      * Monotonically increasing time (in seconds) when the coverage update was taken in the backend.
      */
@@ -17821,7 +17923,8 @@ export namespace Profiler {
     profile: Profile;
   }
 
-  export interface TakePreciseCoverageResponse extends ProtocolResponseWithError {
+  export interface TakePreciseCoverageResponse
+    extends ProtocolResponseWithError {
     /**
      * Coverage data for the current isolate.
      */
@@ -17890,16 +17993,15 @@ export namespace Profiler {
  * other objects in their object group.
  */
 export namespace Runtime {
-
   /**
    * Unique script identifier.
    */
-  export type ScriptId = OpaqueIdentifier<string, 'Protocol.Runtime.ScriptId'>;
+  export type ScriptId = OpaqueIdentifier<string, "Protocol.Runtime.ScriptId">;
 
   export const enum SerializationOptionsSerialization {
-    Deep = 'deep',
-    Json = 'json',
-    IdOnly = 'idOnly',
+    Deep = "deep",
+    Json = "json",
+    IdOnly = "idOnly",
   }
 
   /**
@@ -17920,30 +18022,30 @@ export namespace Runtime {
   }
 
   export const enum DeepSerializedValueType {
-    Undefined = 'undefined',
-    Null = 'null',
-    String = 'string',
-    Number = 'number',
-    Boolean = 'boolean',
-    Bigint = 'bigint',
-    Regexp = 'regexp',
-    Date = 'date',
-    Symbol = 'symbol',
-    Array = 'array',
-    Object = 'object',
-    Function = 'function',
-    Map = 'map',
-    Set = 'set',
-    Weakmap = 'weakmap',
-    Weakset = 'weakset',
-    Error = 'error',
-    Proxy = 'proxy',
-    Promise = 'promise',
-    Typedarray = 'typedarray',
-    Arraybuffer = 'arraybuffer',
-    Node = 'node',
-    Window = 'window',
-    Generator = 'generator',
+    Undefined = "undefined",
+    Null = "null",
+    String = "string",
+    Number = "number",
+    Boolean = "boolean",
+    Bigint = "bigint",
+    Regexp = "regexp",
+    Date = "date",
+    Symbol = "symbol",
+    Array = "array",
+    Object = "object",
+    Function = "function",
+    Map = "map",
+    Set = "set",
+    Weakmap = "weakmap",
+    Weakset = "weakset",
+    Error = "error",
+    Proxy = "proxy",
+    Promise = "promise",
+    Typedarray = "typedarray",
+    Arraybuffer = "arraybuffer",
+    Node = "node",
+    Window = "window",
+    Generator = "generator",
   }
 
   /**
@@ -17964,7 +18066,10 @@ export namespace Runtime {
   /**
    * Unique object identifier.
    */
-  export type RemoteObjectId = OpaqueIdentifier<string, 'Protocol.Runtime.RemoteObjectId'>;
+  export type RemoteObjectId = OpaqueIdentifier<
+    string,
+    "Protocol.Runtime.RemoteObjectId"
+  >;
 
   /**
    * Primitive value which cannot be JSON-stringified. Includes values `-0`, `NaN`, `Infinity`,
@@ -17973,36 +18078,36 @@ export namespace Runtime {
   export type UnserializableValue = string;
 
   export const enum RemoteObjectType {
-    Object = 'object',
-    Function = 'function',
-    Undefined = 'undefined',
-    String = 'string',
-    Number = 'number',
-    Boolean = 'boolean',
-    Symbol = 'symbol',
-    Bigint = 'bigint',
+    Object = "object",
+    Function = "function",
+    Undefined = "undefined",
+    String = "string",
+    Number = "number",
+    Boolean = "boolean",
+    Symbol = "symbol",
+    Bigint = "bigint",
   }
 
   export const enum RemoteObjectSubtype {
-    Array = 'array',
-    Null = 'null',
-    Node = 'node',
-    Regexp = 'regexp',
-    Date = 'date',
-    Map = 'map',
-    Set = 'set',
-    Weakmap = 'weakmap',
-    Weakset = 'weakset',
-    Iterator = 'iterator',
-    Generator = 'generator',
-    Error = 'error',
-    Proxy = 'proxy',
-    Promise = 'promise',
-    Typedarray = 'typedarray',
-    Arraybuffer = 'arraybuffer',
-    Dataview = 'dataview',
-    Webassemblymemory = 'webassemblymemory',
-    Wasmvalue = 'wasmvalue',
+    Array = "array",
+    Null = "null",
+    Node = "node",
+    Regexp = "regexp",
+    Date = "date",
+    Map = "map",
+    Set = "set",
+    Weakmap = "weakmap",
+    Weakset = "weakset",
+    Iterator = "iterator",
+    Generator = "generator",
+    Error = "error",
+    Proxy = "proxy",
+    Promise = "promise",
+    Typedarray = "typedarray",
+    Arraybuffer = "arraybuffer",
+    Dataview = "dataview",
+    Webassemblymemory = "webassemblymemory",
+    Wasmvalue = "wasmvalue",
   }
 
   /**
@@ -18066,36 +18171,36 @@ export namespace Runtime {
   }
 
   export const enum ObjectPreviewType {
-    Object = 'object',
-    Function = 'function',
-    Undefined = 'undefined',
-    String = 'string',
-    Number = 'number',
-    Boolean = 'boolean',
-    Symbol = 'symbol',
-    Bigint = 'bigint',
+    Object = "object",
+    Function = "function",
+    Undefined = "undefined",
+    String = "string",
+    Number = "number",
+    Boolean = "boolean",
+    Symbol = "symbol",
+    Bigint = "bigint",
   }
 
   export const enum ObjectPreviewSubtype {
-    Array = 'array',
-    Null = 'null',
-    Node = 'node',
-    Regexp = 'regexp',
-    Date = 'date',
-    Map = 'map',
-    Set = 'set',
-    Weakmap = 'weakmap',
-    Weakset = 'weakset',
-    Iterator = 'iterator',
-    Generator = 'generator',
-    Error = 'error',
-    Proxy = 'proxy',
-    Promise = 'promise',
-    Typedarray = 'typedarray',
-    Arraybuffer = 'arraybuffer',
-    Dataview = 'dataview',
-    Webassemblymemory = 'webassemblymemory',
-    Wasmvalue = 'wasmvalue',
+    Array = "array",
+    Null = "null",
+    Node = "node",
+    Regexp = "regexp",
+    Date = "date",
+    Map = "map",
+    Set = "set",
+    Weakmap = "weakmap",
+    Weakset = "weakset",
+    Iterator = "iterator",
+    Generator = "generator",
+    Error = "error",
+    Proxy = "proxy",
+    Promise = "promise",
+    Typedarray = "typedarray",
+    Arraybuffer = "arraybuffer",
+    Dataview = "dataview",
+    Webassemblymemory = "webassemblymemory",
+    Wasmvalue = "wasmvalue",
   }
 
   /**
@@ -18129,37 +18234,37 @@ export namespace Runtime {
   }
 
   export const enum PropertyPreviewType {
-    Object = 'object',
-    Function = 'function',
-    Undefined = 'undefined',
-    String = 'string',
-    Number = 'number',
-    Boolean = 'boolean',
-    Symbol = 'symbol',
-    Accessor = 'accessor',
-    Bigint = 'bigint',
+    Object = "object",
+    Function = "function",
+    Undefined = "undefined",
+    String = "string",
+    Number = "number",
+    Boolean = "boolean",
+    Symbol = "symbol",
+    Accessor = "accessor",
+    Bigint = "bigint",
   }
 
   export const enum PropertyPreviewSubtype {
-    Array = 'array',
-    Null = 'null',
-    Node = 'node',
-    Regexp = 'regexp',
-    Date = 'date',
-    Map = 'map',
-    Set = 'set',
-    Weakmap = 'weakmap',
-    Weakset = 'weakset',
-    Iterator = 'iterator',
-    Generator = 'generator',
-    Error = 'error',
-    Proxy = 'proxy',
-    Promise = 'promise',
-    Typedarray = 'typedarray',
-    Arraybuffer = 'arraybuffer',
-    Dataview = 'dataview',
-    Webassemblymemory = 'webassemblymemory',
-    Wasmvalue = 'wasmvalue',
+    Array = "array",
+    Null = "null",
+    Node = "node",
+    Regexp = "regexp",
+    Date = "date",
+    Map = "map",
+    Set = "set",
+    Weakmap = "weakmap",
+    Weakset = "weakset",
+    Iterator = "iterator",
+    Generator = "generator",
+    Error = "error",
+    Proxy = "proxy",
+    Promise = "promise",
+    Typedarray = "typedarray",
+    Arraybuffer = "arraybuffer",
+    Dataview = "dataview",
+    Webassemblymemory = "webassemblymemory",
+    Wasmvalue = "wasmvalue",
   }
 
   export interface PropertyPreview {
@@ -18306,7 +18411,10 @@ export namespace Runtime {
   /**
    * Id of an execution context.
    */
-  export type ExecutionContextId = OpaqueIdentifier<integer, 'Protocol.Runtime.ExecutionContextId'>;
+  export type ExecutionContextId = OpaqueIdentifier<
+    integer,
+    "Protocol.Runtime.ExecutionContextId"
+  >;
 
   /**
    * Description of an isolated world.
@@ -18448,7 +18556,10 @@ export namespace Runtime {
   /**
    * Unique identifier of current debugger.
    */
-  export type UniqueDebuggerId = OpaqueIdentifier<string, 'Protocol.Runtime.UniqueDebuggerId'>;
+  export type UniqueDebuggerId = OpaqueIdentifier<
+    string,
+    "Protocol.Runtime.UniqueDebuggerId"
+  >;
 
   /**
    * If `debuggerId` is set stack trace comes from another debugger and can be resolved there. This
@@ -18760,7 +18871,8 @@ export namespace Runtime {
     executionContextId?: ExecutionContextId;
   }
 
-  export interface GlobalLexicalScopeNamesResponse extends ProtocolResponseWithError {
+  export interface GlobalLexicalScopeNamesResponse
+    extends ProtocolResponseWithError {
     names: string[];
   }
 
@@ -18894,7 +19006,8 @@ export namespace Runtime {
     errorObjectId: RemoteObjectId;
   }
 
-  export interface GetExceptionDetailsResponse extends ProtocolResponseWithError {
+  export interface GetExceptionDetailsResponse
+    extends ProtocolResponseWithError {
     exceptionDetails?: ExceptionDetails;
   }
 
@@ -18911,24 +19024,24 @@ export namespace Runtime {
   }
 
   export const enum ConsoleAPICalledEventType {
-    Log = 'log',
-    Debug = 'debug',
-    Info = 'info',
-    Error = 'error',
-    Warning = 'warning',
-    Dir = 'dir',
-    DirXML = 'dirxml',
-    Table = 'table',
-    Trace = 'trace',
-    Clear = 'clear',
-    StartGroup = 'startGroup',
-    StartGroupCollapsed = 'startGroupCollapsed',
-    EndGroup = 'endGroup',
-    Assert = 'assert',
-    Profile = 'profile',
-    ProfileEnd = 'profileEnd',
-    Count = 'count',
-    TimeEnd = 'timeEnd',
+    Log = "log",
+    Debug = "debug",
+    Info = "info",
+    Error = "error",
+    Warning = "warning",
+    Dir = "dir",
+    DirXML = "dirxml",
+    Table = "table",
+    Trace = "trace",
+    Clear = "clear",
+    StartGroup = "startGroup",
+    StartGroupCollapsed = "startGroupCollapsed",
+    EndGroup = "endGroup",
+    Assert = "assert",
+    Profile = "profile",
+    ProfileEnd = "profileEnd",
+    Count = "count",
+    TimeEnd = "timeEnd",
   }
 
   /**
@@ -19032,7 +19145,6 @@ export namespace Runtime {
  * This domain is deprecated.
  */
 export namespace Schema {
-
   /**
    * Description of the protocol domain.
    */

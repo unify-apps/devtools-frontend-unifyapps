@@ -2,12 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import * as Common from '../common/common.js';
-import * as Platform from '../platform/platform.js';
-import * as ProtocolClient from '../protocol_client/protocol_client.js';
-import type * as Protocol from '../../generated/protocol.js';
-import {type TargetManager} from './TargetManager.js';
-import {SDKModel} from './SDKModel.js';
+import * as Common from "../common/common.js";
+import * as Platform from "../platform/platform.js";
+import * as ProtocolClient from "../protocol_client/protocol_client.js";
+import type * as Protocol from "../../generated/protocol.js";
+import { type TargetManager } from "./TargetManager.js";
+import { SDKModel } from "./SDKModel.js";
 
 export class Target extends ProtocolClient.InspectorBackend.TargetBase {
   readonly #targetManagerInternal: TargetManager;
@@ -16,35 +16,64 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
   #inspectedURLName: string;
   readonly #capabilitiesMask: number;
   #typeInternal: Type;
-  readonly #parentTargetInternal: Target|null;
-  #idInternal: Protocol.Target.TargetID|'main';
-  #modelByConstructor: Map<new(arg1: Target) => SDKModel, SDKModel>;
+  readonly #parentTargetInternal: Target | null;
+  #idInternal: Protocol.Target.TargetID | "main";
+  #modelByConstructor: Map<new (arg1: Target) => SDKModel, SDKModel>;
   #isSuspended: boolean;
-  #targetInfoInternal: Protocol.Target.TargetInfo|undefined;
+  #targetInfoInternal: Protocol.Target.TargetInfo | undefined;
   #creatingModels?: boolean;
 
   constructor(
-      targetManager: TargetManager, id: Protocol.Target.TargetID|'main', name: string, type: Type,
-      parentTarget: Target|null, sessionId: string, suspended: boolean,
-      connection: ProtocolClient.InspectorBackend.Connection|null, targetInfo?: Protocol.Target.TargetInfo) {
+    targetManager: TargetManager,
+    id: Protocol.Target.TargetID | "main",
+    name: string,
+    type: Type,
+    parentTarget: Target | null,
+    sessionId: string,
+    suspended: boolean,
+    connection: ProtocolClient.InspectorBackend.Connection | null,
+    targetInfo?: Protocol.Target.TargetInfo
+  ) {
     const needsNodeJSPatching = type === Type.Node;
     super(needsNodeJSPatching, parentTarget, sessionId, connection);
     this.#targetManagerInternal = targetManager;
     this.#nameInternal = name;
     this.#inspectedURLInternal = Platform.DevToolsPath.EmptyUrlString;
-    this.#inspectedURLName = '';
+    this.#inspectedURLName = "";
     this.#capabilitiesMask = 0;
     switch (type) {
       case Type.Frame:
-        this.#capabilitiesMask = Capability.Browser | Capability.Storage | Capability.DOM | Capability.JS |
-            Capability.Log | Capability.Network | Capability.Target | Capability.Tracing | Capability.Emulation |
-            Capability.Input | Capability.Inspector | Capability.Audits | Capability.WebAuthn | Capability.IO |
-            Capability.Media | Capability.EventBreakpoints;
+        this.#capabilitiesMask =
+          Capability.Browser |
+          Capability.Storage |
+          Capability.DOM |
+          Capability.JS |
+          Capability.Log |
+          Capability.Network |
+          Capability.Target |
+          Capability.Tracing |
+          Capability.Emulation |
+          Capability.Input |
+          Capability.Inspector |
+          Capability.Audits |
+          Capability.WebAuthn |
+          Capability.IO |
+          Capability.Media |
+          Capability.EventBreakpoints |
+          Capability.State;
         if (parentTarget?.type() !== Type.Frame) {
           // This matches backend exposing certain capabilities only for the main frame.
           this.#capabilitiesMask |=
-              Capability.DeviceEmulation | Capability.ScreenCapture | Capability.Security | Capability.ServiceWorker;
-          if (Common.ParsedURL.schemeIs(targetInfo?.url as Platform.DevToolsPath.UrlString, 'chrome-extension:')) {
+            Capability.DeviceEmulation |
+            Capability.ScreenCapture |
+            Capability.Security |
+            Capability.ServiceWorker;
+          if (
+            Common.ParsedURL.schemeIs(
+              targetInfo?.url as Platform.DevToolsPath.UrlString,
+              "chrome-extension:"
+            )
+          ) {
             this.#capabilitiesMask &= ~Capability.Security;
           }
 
@@ -53,22 +82,46 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
         }
         break;
       case Type.ServiceWorker:
-        this.#capabilitiesMask = Capability.JS | Capability.Log | Capability.Network | Capability.Target |
-            Capability.Inspector | Capability.IO | Capability.EventBreakpoints;
+        this.#capabilitiesMask =
+          Capability.JS |
+          Capability.Log |
+          Capability.Network |
+          Capability.Target |
+          Capability.Inspector |
+          Capability.IO |
+          Capability.EventBreakpoints;
         if (parentTarget?.type() !== Type.Frame) {
           this.#capabilitiesMask |= Capability.Browser;
         }
         break;
       case Type.SharedWorker:
-        this.#capabilitiesMask = Capability.JS | Capability.Log | Capability.Network | Capability.Target |
-            Capability.IO | Capability.Media | Capability.Inspector | Capability.EventBreakpoints;
+        this.#capabilitiesMask =
+          Capability.JS |
+          Capability.Log |
+          Capability.Network |
+          Capability.Target |
+          Capability.IO |
+          Capability.Media |
+          Capability.Inspector |
+          Capability.EventBreakpoints;
         break;
       case Type.SharedStorageWorklet:
-        this.#capabilitiesMask = Capability.JS | Capability.Log | Capability.Inspector | Capability.EventBreakpoints;
+        this.#capabilitiesMask =
+          Capability.JS |
+          Capability.Log |
+          Capability.Inspector |
+          Capability.EventBreakpoints;
         break;
       case Type.Worker:
-        this.#capabilitiesMask = Capability.JS | Capability.Log | Capability.Network | Capability.Target |
-            Capability.IO | Capability.Media | Capability.Emulation | Capability.EventBreakpoints;
+        this.#capabilitiesMask =
+          Capability.JS |
+          Capability.Log |
+          Capability.Network |
+          Capability.Target |
+          Capability.IO |
+          Capability.Media |
+          Capability.Emulation |
+          Capability.EventBreakpoints;
         break;
       case Type.Node:
         this.#capabilitiesMask = Capability.JS;
@@ -92,7 +145,7 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
     this.#targetInfoInternal = targetInfo;
   }
 
-  createModels(required: Set<new(arg1: Target) => SDKModel>): void {
+  createModels(required: Set<new (arg1: Target) => SDKModel>): void {
     this.#creatingModels = true;
     const registeredModels = Array.from(SDKModel.registeredModels.entries());
     // Create early models.
@@ -110,7 +163,7 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
     this.#creatingModels = false;
   }
 
-  id(): Protocol.Target.TargetID|'main' {
+  id(): Protocol.Target.TargetID | "main" {
     return this.#idInternal;
   }
 
@@ -146,19 +199,24 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
   }
 
   decorateLabel(label: string): string {
-    return (this.#typeInternal === Type.Worker || this.#typeInternal === Type.ServiceWorker) ? '\u2699 ' + label :
-                                                                                               label;
+    return this.#typeInternal === Type.Worker ||
+      this.#typeInternal === Type.ServiceWorker
+      ? "\u2699 " + label
+      : label;
   }
 
-  parentTarget(): Target|null {
+  parentTarget(): Target | null {
     return this.#parentTargetInternal;
   }
 
-  outermostTarget(): Target|null {
-    let lastTarget: Target|null = null;
-    let currentTarget: Target|null = this;
+  outermostTarget(): Target | null {
+    let lastTarget: Target | null = null;
+    let currentTarget: Target | null = this;
     do {
-      if (currentTarget.type() !== Type.Tab && currentTarget.type() !== Type.Browser) {
+      if (
+        currentTarget.type() !== Type.Tab &&
+        currentTarget.type() !== Type.Browser
+      ) {
         lastTarget = currentTarget;
       }
       currentTarget = currentTarget.parentTarget();
@@ -175,24 +233,29 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
     }
   }
 
-  model<T extends SDKModel>(modelClass: new(arg1: Target) => T): T|null {
+  model<T extends SDKModel>(modelClass: new (arg1: Target) => T): T | null {
     if (!this.#modelByConstructor.get(modelClass)) {
       const info = SDKModel.registeredModels.get(modelClass);
       if (info === undefined) {
-        throw 'Model class is not registered @' + new Error().stack;
+        throw "Model class is not registered @" + new Error().stack;
       }
       if ((this.#capabilitiesMask & info.capabilities) === info.capabilities) {
         const model = new modelClass(this);
         this.#modelByConstructor.set(modelClass, model);
         if (!this.#creatingModels) {
-          this.#targetManagerInternal.modelAdded(this, modelClass, model, this.#targetManagerInternal.isInScope(this));
+          this.#targetManagerInternal.modelAdded(
+            this,
+            modelClass,
+            model,
+            this.#targetManagerInternal.isInScope(this)
+          );
         }
       }
     }
     return (this.#modelByConstructor.get(modelClass) as T) || null;
   }
 
-  models(): Map<new(arg1: Target) => SDKModel, SDKModel> {
+  models(): Map<new (arg1: Target) => SDKModel, SDKModel> {
     return this.#modelByConstructor;
   }
 
@@ -203,7 +266,9 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
   setInspectedURL(inspectedURL: Platform.DevToolsPath.UrlString): void {
     this.#inspectedURLInternal = inspectedURL;
     const parsedURL = Common.ParsedURL.ParsedURL.fromString(inspectedURL);
-    this.#inspectedURLName = parsedURL ? parsedURL.lastPathComponentWithFragment() : '#' + this.#idInternal;
+    this.#inspectedURLName = parsedURL
+      ? parsedURL.lastPathComponentWithFragment()
+      : "#" + this.#idInternal;
     this.#targetManagerInternal.onInspectedURLChange(this);
     if (!this.#nameInternal) {
       this.#targetManagerInternal.onNameChange(this);
@@ -216,8 +281,12 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
     }
     this.#isSuspended = true;
 
-    await Promise.all(Array.from(this.models().values(), m => m.preSuspendModel(reason)));
-    await Promise.all(Array.from(this.models().values(), m => m.suspendModel(reason)));
+    await Promise.all(
+      Array.from(this.models().values(), (m) => m.preSuspendModel(reason))
+    );
+    await Promise.all(
+      Array.from(this.models().values(), (m) => m.suspendModel(reason))
+    );
   }
 
   async resume(): Promise<void> {
@@ -226,8 +295,12 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
     }
     this.#isSuspended = false;
 
-    await Promise.all(Array.from(this.models().values(), m => m.resumeModel()));
-    await Promise.all(Array.from(this.models().values(), m => m.postResumeModel()));
+    await Promise.all(
+      Array.from(this.models().values(), (m) => m.resumeModel())
+    );
+    await Promise.all(
+      Array.from(this.models().values(), (m) => m.postResumeModel())
+    );
   }
 
   suspended(): boolean {
@@ -238,7 +311,7 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
     this.#targetInfoInternal = targetInfo;
   }
 
-  targetInfo(): Protocol.Target.TargetInfo|undefined {
+  targetInfo(): Protocol.Target.TargetInfo | undefined {
     return this.#targetInfoInternal;
   }
 }
@@ -246,15 +319,15 @@ export class Target extends ProtocolClient.InspectorBackend.TargetBase {
 // TODO(crbug.com/1167717): Make this a const enum again
 // eslint-disable-next-line rulesdir/const_enum
 export enum Type {
-  Frame = 'frame',
-  ServiceWorker = 'service-worker',
-  Worker = 'worker',
-  SharedWorker = 'shared-worker',
-  SharedStorageWorklet = 'shared-storage-worklet',
-  Node = 'node',
-  Browser = 'browser',
-  AuctionWorklet = 'auction-worklet',
-  Tab = 'tab',
+  Frame = "frame",
+  ServiceWorker = "service-worker",
+  Worker = "worker",
+  SharedWorker = "shared-worker",
+  SharedStorageWorklet = "shared-storage-worklet",
+  Node = "node",
+  Browser = "browser",
+  AuctionWorklet = "auction-worklet",
+  Tab = "tab",
 }
 
 // TODO(crbug.com/1167717): Make this a const enum again
@@ -280,5 +353,6 @@ export enum Capability {
   IO = 1 << 17,
   Media = 1 << 18,
   EventBreakpoints = 1 << 19,
+  State = 1 << 20,
   None = 0,
 }

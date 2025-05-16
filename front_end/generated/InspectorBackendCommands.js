@@ -40,6 +40,11 @@ export let InspectorBackendAPI;
 export function registerCommands(inspectorBackend) {
 
 
+// State.
+inspectorBackend.registerEvent("State.setStateData", ["state"]);
+inspectorBackend.registerCommand("State.enable", [], [], "Enable state panel agent.");
+inspectorBackend.registerCommand("State.disable", [], [], "Disable state panel agent.");
+
 // Accessibility.
 inspectorBackend.registerEnum("Accessibility.AXValueType", {Boolean: "boolean", Tristate: "tristate", BooleanOrUndefined: "booleanOrUndefined", Idref: "idref", IdrefList: "idrefList", Integer: "integer", Node: "node", NodeList: "nodeList", Number: "number", String: "string", ComputedString: "computedString", Token: "token", TokenList: "tokenList", DomRelation: "domRelation", Role: "role", InternalRole: "internalRole", ValueUndefined: "valueUndefined"});
 inspectorBackend.registerEnum("Accessibility.AXValueSourceType", {Attribute: "attribute", Implicit: "implicit", Style: "style", Contents: "contents", Placeholder: "placeholder", RelatedElement: "relatedElement"});
