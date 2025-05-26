@@ -53,3 +53,27 @@ devtools_entrypoint("entrypoint") {
 
   visibility += devtools_entrypoints_visibility
 }
+
+node_action("webpack_bundle") {
+  script = "node_modules/webpack/bin/webpack.js"
+
+  args = [
+    "--config",
+    rebase_path("//scripts/webpack/chii_app.webpack.config.js", root_build_dir),
+  ]
+
+  inputs = [
+    "chii_app.ts",
+    "global.ts",
+    "main.ts",
+    "../../../scripts/webpack/chii_app.webpack.config.js",
+  ]
+
+  deps = [ ":entrypoint" ]
+
+  outputs = [ "$target_gen_dir/chii_app.webpack.js" ]
+
+  metadata = {
+    grd_files = outputs
+  }
+}
