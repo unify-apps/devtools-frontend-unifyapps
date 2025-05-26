@@ -46,10 +46,44 @@ devtools_entrypoint("entrypoint") {
   ]
 
   visibility = [
+    ":*",
     "../../:*",
     "../../legacy_test_runner:*",
     "../inspector:*",
   ]
 
   visibility += devtools_entrypoints_visibility
+}
+
+node_action("bundled_library") {
+  script = "node_modules/rollup/dist/bin/rollup"
+
+  _bundled_entrypoint = target_gen_dir + "/chii_app.js"
+  _output_file_location = target_gen_dir + "/chii_app.generated.js"
+
+  inputs = [
+    _bundled_entrypoint,
+    "rollup.config.js",
+  ]
+
+  deps = [ ":entrypoint" ]
+
+  args = [
+    "--silent",
+    "--config",
+    rebase_path("rollup.config.js", root_build_dir),
+    "--input",
+    rebase_path(_bundled_entrypoint, root_build_dir),
+    "--file",
+    rebase_path(_output_file_location, root_build_dir),
+  ]
+
+  if (is_debug) {
+    args += [ "--environment DEBUG_CHII_APP" ]
+  }
+
+  outputs = [ _output_file_location ]
+  metadata = {
+    grd_files = [ _output_file_location ]
+  }
 }
