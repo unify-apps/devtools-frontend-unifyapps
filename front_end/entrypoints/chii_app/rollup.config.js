@@ -1,12 +1,18 @@
-const {terser} = require('../../../node_modules/rollup-plugin-terser/rollup-plugin-terser.js');
+const {
+	terser,
+} = require("../../../node_modules/rollup-plugin-terser/rollup-plugin-terser.js");
 
 function isEnvVarTrue(envVar) {
-  return envVar === 'true';
+	return envVar === "true";
 }
 
-// eslint-disable-next-line import/no-default-export
 export default {
-  treeshake: false,
-  output: [{format: 'iife'}],
-  plugins: !isEnvVarTrue(process.env.DEBUG_CHII_APP) ? [terser()] : []
+	input: "src/index.js",
+	treeshake: false,
+	output: {
+		file: "dist/chii_app.js",
+		format: "cjs",
+		inlineDynamicImports: true,
+	},
+	plugins: !isEnvVarTrue(process.env.DEBUG_INJECTED) ? [terser()] : [],
 };
