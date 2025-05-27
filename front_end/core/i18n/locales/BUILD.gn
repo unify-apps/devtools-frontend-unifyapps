@@ -46,13 +46,37 @@ minify_json("i18n_locales") {
   deps = [ ":collect_strings" ]
 }
 
+# Copy locales to two folders away
+copy("copy_locales") {
+  # Define the destination directory (two folders up)
+  _dest_dir = target_gen_dir + "/../../../locales"
+
+  sources = []
+
+  # Add all bundled locales as sources
+  foreach(locale, bundled_devtools_locales) {
+    sources += [ "$target_gen_dir/$locale.json" ]
+  }
+
+  # Use source expansion - {{source_file_part}} gets replaced with just the filename
+  outputs = [ "$_dest_dir/{{source_file_part}}" ]
+
+  deps = [ ":i18n_locales" ]
+}
+
 group("locales") {
-  public_deps = [ ":i18n_locales" ]
+  public_deps = [ 
+    ":i18n_locales",
+    ":copy_locales",  # Add dependency on copy action
+  ]
+
+  # Update data to point to the copied files (two folders up)
+  _copied_locales_dir = target_gen_dir + "/../../../locales"
 
   data = []
 
   foreach(locale, bundled_devtools_locales) {
-    data += [ "$target_gen_dir/$locale.json" ]
+    data += [ "$_copied_locales_dir/$locale.json" ]
   }
 
   metadata = {
