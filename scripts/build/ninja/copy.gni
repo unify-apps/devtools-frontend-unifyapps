@@ -39,11 +39,6 @@ template("copy_to_gen") {
       string_join(",", sources),
     ]
 
-    inputs = []
-    foreach(_input, sources) {
-      inputs += [ rebase_path("$_src_dir/$_input", root_build_dir) ]
-    }
-
     outputs = []
     foreach(_input, sources) {
       outputs += [ "$_dest_dir/$_input" ]
