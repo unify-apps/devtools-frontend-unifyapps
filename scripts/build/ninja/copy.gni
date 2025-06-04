@@ -5,10 +5,14 @@
 import("./node.gni")
 import("./vars.gni")
 template("copy_to_gen") {
+  _sources = []
+  if (defined(invoker.sources)) {
+    _sources = invoker.sources
+  }
+
   node_action(target_name) {
     forward_variables_from(invoker,
                            [
-                             "sources",
                              "visibility",
                              "deps",
                              "testonly",
@@ -36,11 +40,12 @@ template("copy_to_gen") {
     args = [
       _copy_src,
       _copy_dest,
-      string_join(",", sources),
+      string_join(",", _sources),
     ]
-
+    inputs = []
     outputs = []
-    foreach(_input, sources) {
+    foreach(_input, _sources) {
+      inputs += [ rebase_path("$_src_dir/$_input", root_build_dir) ]
       outputs += [ "$_dest_dir/$_input" ]
     }
   }
