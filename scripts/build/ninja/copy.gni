@@ -5,48 +5,29 @@
 import("./node.gni")
 import("./vars.gni")
 template("copy_to_gen") {
-  _sources = []
-  if (defined(invoker.sources)) {
-    _sources = invoker.sources
-  }
-
   node_action(target_name) {
     forward_variables_from(invoker,
                            [
+                             "sources",
                              "visibility",
                              "deps",
                              "testonly",
-                             "output_dir",
-                             "source_dir",
                            ])
 
     script = "scripts/build/ninja/copy-files.js"
 
-    if (defined(source_dir)) {
-      _src_dir = source_dir
-    } else {
-      _src_dir = get_path_info(target_name, "dir")
-    }
-
-    _copy_src = rebase_path(_src_dir, root_build_dir)
-
-    if (defined(output_dir)) {
-      _dest_dir = output_dir
-    } else {
-      _dest_dir = target_gen_dir
-    }
-    _copy_dest = rebase_path(_dest_dir, root_build_dir)
+    _copy_src = rebase_path(get_path_info(target_name, "dir"), root_build_dir)
+    _copy_dest = rebase_path(target_gen_dir, root_build_dir)
 
     args = [
       _copy_src,
       _copy_dest,
-      string_join(",", _sources),
+      string_join(",", sources),
     ]
-    inputs = []
+
     outputs = []
-    foreach(_input, _sources) {
-      inputs += [ rebase_path("$_src_dir/$_input", root_build_dir) ]
-      outputs += [ "$_dest_dir/$_input" ]
+    foreach(_input, sources) {
+      outputs += [ "$target_gen_dir/$_input" ]
     }
   }
 }

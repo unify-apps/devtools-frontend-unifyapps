@@ -10,7 +10,6 @@ template("devtools_pre_built") {
                            [
                              "sources",
                              "deps",
-                             "output_dir",
                            ])
 
     script = "scripts/build/ninja/copy-files.js"
@@ -18,12 +17,7 @@ template("devtools_pre_built") {
     public_deps = invoker.deps
 
     _copy_src = rebase_path(get_path_info(target_name, "dir"), root_build_dir)
-    if (defined(output_dir)) {
-      _output_dir = output_dir
-    } else {
-      _output_dir = target_gen_dir
-    }
-    _copy_dest = rebase_path(_output_dir, root_build_dir)
+    _copy_dest = rebase_path(target_gen_dir, root_build_dir)
 
     args = [
       _copy_src,
@@ -33,7 +27,7 @@ template("devtools_pre_built") {
 
     outputs = []
     foreach(_source, sources) {
-      outputs += [ "$_output_dir/$_source" ]
+      outputs += [ "$target_gen_dir/$_source" ]
     }
 
     _javascript_implementation_files = invoker.data + filter_include(outputs,
