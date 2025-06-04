@@ -5,6 +5,7 @@
 import("//build/timestamp.gni")
 import("../../config/gni/devtools_image_files.gni")
 import("../../scripts/build/ninja/devtools_pre_built.gni")
+import("../../scripts/build/ninja/copy.gni")
 import("../../scripts/build/ninja/node.gni")
 import("../../scripts/build/ninja/vars.gni")
 
