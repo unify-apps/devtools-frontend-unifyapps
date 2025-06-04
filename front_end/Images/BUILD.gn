@@ -8,6 +8,8 @@ import("../../scripts/build/ninja/devtools_pre_built.gni")
 import("../../scripts/build/ninja/node.gni")
 import("../../scripts/build/ninja/vars.gni")
 
+image_output_dir = get_path_info(target_gen_dir, "dir")
+
 devtools_pre_built("Images") {
   sources = devtools_image_files + devtools_src_svg_files
 }
@@ -71,5 +73,31 @@ node_action("optimize_images") {
     foreach(_image_file, devtools_image_files) {
       grd_files += [ "$target_gen_dir/$_image_file" ]
     }
+  }
+}
+
+node_action("images_to_frontend") {
+  script = "scripts/build/ninja/copy-files.js"
+  deps = [ ":optimize_images" ]
+
+  _src = rebase_path(target_gen_dir, root_build_dir)
+  _dest = rebase_path(image_output_dir, root_build_dir)
+
+  _files = []
+  foreach(_image_file, devtools_image_files) {
+    _files += [ _image_file ]
+  }
+  foreach(_svg_image, devtools_svg_sources) {
+    _files += [ _svg_image ]
+  }
+  _files += [ "Images.js" ]
+
+  args = [ _src, _dest, string_join(",", _files) ]
+
+  inputs = []
+  outputs = []
+  foreach(_file, _files) {
+    inputs += [ "$target_gen_dir/$_file" ]
+    outputs += [ "$image_output_dir/$_file" ]
   }
 }

@@ -9,7 +9,7 @@ devtools_module("chii_app") {
   sources = [ "global.ts", "main.ts" ]
 }
 
-devtools_entrypoint("entrypoint") {
+devtools_entrypoint("bundle") {
   entrypoint = "chii_app.ts"
 
   deps = [
@@ -46,6 +46,7 @@ devtools_entrypoint("entrypoint") {
   ]
 
   visibility = [
+    ":*",
     "../../:*",
     "../../legacy_test_runner:*",
     "../inspector:*",
@@ -53,3 +54,39 @@ devtools_entrypoint("entrypoint") {
 
   visibility += devtools_entrypoints_visibility
 }
+
+node_action("bundled_library") {
+  script = "node_modules/rollup/dist/bin/rollup"
+
+  _bundled_entrypoint = target_gen_dir + "/chii_app.js"
+ _output_file_location = target_gen_dir + "/../../chii_app.generated.js"
+
+
+  inputs = [
+    _bundled_entrypoint,
+    "rollup.config.js",
+  ]
+
+  deps = [ ":bundle" ]
+
+  args = [
+    # TODO(crbug.com/1098074): We need to hide warnings that are written stderr,
+    # as Chromium does not process the returncode of the subprocess correctly
+    # and instead looks if `stderr` is empty.
+    "--silent",
+    "--config",
+    rebase_path("rollup.config.js", root_build_dir),
+    "--input",
+    rebase_path(_bundled_entrypoint, root_build_dir),
+    "--file",
+    rebase_path(_output_file_location, root_build_dir),
+  ]
+
+
+  outputs = [ _output_file_location ]
+  metadata = {
+    grd_files = [ _output_file_location ]
+  }
+}
+
+
