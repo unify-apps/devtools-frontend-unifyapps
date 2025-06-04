@@ -19,10 +19,12 @@ template("copy_to_gen") {
     script = "scripts/build/ninja/copy-files.js"
 
     if (defined(source_dir)) {
-      _copy_src = rebase_path(source_dir, root_build_dir)
+      _src_dir = source_dir
     } else {
-      _copy_src = rebase_path(get_path_info(target_name, "dir"), root_build_dir)
+      _src_dir = get_path_info(target_name, "dir")
     }
+
+    _copy_src = rebase_path(_src_dir, root_build_dir)
 
     if (defined(output_dir)) {
       _dest_dir = output_dir
@@ -36,6 +38,11 @@ template("copy_to_gen") {
       _copy_dest,
       string_join(",", sources),
     ]
+
+    inputs = []
+    foreach(_input, sources) {
+      inputs += [ rebase_path("$_src_dir/$_input", root_build_dir) ]
+    }
 
     outputs = []
     foreach(_input, sources) {
