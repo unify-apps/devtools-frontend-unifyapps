@@ -11,7 +11,6 @@ import("../../scripts/build/ninja/vars.gni")
 image_output_dir = get_path_info(target_gen_dir, "dir")
 
 devtools_pre_built("Images") {
-  output_dir = image_output_dir
   sources = devtools_image_files + devtools_src_svg_files
 }
 
@@ -20,21 +19,21 @@ node_action("generate_css_vars") {
 
   args = [
            build_timestamp,
-           rebase_path(image_output_dir, root_build_dir),
+           rebase_path(target_gen_dir, root_build_dir),
            "optimize_images",
          ] + devtools_image_files + devtools_src_svg_files
 
   outputs = [
-    "$image_output_dir/Images.prebundle.js",
-    "$image_output_dir/optimize_images-tsconfig.json",
+    "$target_gen_dir/Images.prebundle.js",
+    "$target_gen_dir/optimize_images-tsconfig.json",
   ]
 }
 
 node_action("optimize_images") {
   script = "node_modules/rollup/dist/bin/rollup"
 
-  _bundled_entrypoint = image_output_dir + "/Images.prebundle.js"
-  _output_file_location = image_output_dir + "/Images.js"
+  _bundled_entrypoint = target_gen_dir + "/Images.prebundle.js"
+  _output_file_location = target_gen_dir + "/Images.js"
 
   inputs = [
     _bundled_entrypoint,
@@ -42,7 +41,7 @@ node_action("optimize_images") {
     devtools_location_prepend + "node_modules/svgo/package.json",
   ]
   foreach(svg_image, devtools_src_svg_files) {
-    inputs += [ "$image_output_dir/$svg_image" ]
+    inputs += [ "$target_gen_dir/$svg_image" ]
   }
 
   public_deps = [
@@ -65,14 +64,29 @@ node_action("optimize_images") {
 
   outputs = [ _output_file_location ]
   foreach(svg_image, devtools_svg_sources) {
-    outputs += [ "$image_output_dir/$svg_image" ]
+    outputs += [ "$target_gen_dir/$svg_image" ]
   }
   data = outputs
 
   metadata = {
     grd_files = outputs
     foreach(_image_file, devtools_image_files) {
-      grd_files += [ "$image_output_dir/$_image_file" ]
+      grd_files += [ "$target_gen_dir/$_image_file" ]
     }
   }
+}
+
+copy_to_gen("images_to_frontend") {
+  source_dir = target_gen_dir
+  output_dir = image_output_dir
+  deps = [ ":optimize_images" ]
+
+  sources = []
+  foreach(_image_file, devtools_image_files) {
+    sources += [ _image_file ]
+  }
+  foreach(_svg_image, devtools_svg_sources) {
+    sources += [ _svg_image ]
+  }
+  sources += [ "Images.js" ]
 }

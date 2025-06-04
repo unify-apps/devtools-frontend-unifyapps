@@ -12,12 +12,24 @@ template("copy_to_gen") {
                              "visibility",
                              "deps",
                              "testonly",
+                             "output_dir",
+                             "source_dir",
                            ])
 
     script = "scripts/build/ninja/copy-files.js"
 
-    _copy_src = rebase_path(get_path_info(target_name, "dir"), root_build_dir)
-    _copy_dest = rebase_path(target_gen_dir, root_build_dir)
+    if (defined(source_dir)) {
+      _copy_src = rebase_path(source_dir, root_build_dir)
+    } else {
+      _copy_src = rebase_path(get_path_info(target_name, "dir"), root_build_dir)
+    }
+
+    if (defined(output_dir)) {
+      _dest_dir = output_dir
+    } else {
+      _dest_dir = target_gen_dir
+    }
+    _copy_dest = rebase_path(_dest_dir, root_build_dir)
 
     args = [
       _copy_src,
@@ -27,7 +39,7 @@ template("copy_to_gen") {
 
     outputs = []
     foreach(_input, sources) {
-      outputs += [ "$target_gen_dir/$_input" ]
+      outputs += [ "$_dest_dir/$_input" ]
     }
   }
 }
