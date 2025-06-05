@@ -1148,7 +1148,7 @@ export class NetworkRequestNode extends NetworkNode {
     iconElement.style.setProperty(
         '-webkit-mask',
         `url('${
-            new URL(`../../Images/${iconData.iconName}.svg`, import.meta.url).toString()}')  no-repeat center /99%`);
+            new URL(`./Images/${iconData.iconName}.svg`, import.meta.url).toString()}')  no-repeat center /99%`);
     iconElement.style.setProperty('background-color', iconData.color);
     return iconElement;
   }

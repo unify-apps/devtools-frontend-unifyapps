@@ -31,8 +31,8 @@ import "../inspector_main/inspector_main-meta.js";
 import "../../panels/issues/issues-meta.js";
 import "../../panels/mobile_throttling/mobile_throttling-meta.js";
 import "../../panels/layer_viewer/layer_viewer-meta.js";
-// import "../../panels/state/state-meta.js";
-// import "../../panels/state/state.js";
+import "../../panels/state/state-meta.js";
+import "../../panels/state/state.js";
 
 import * as Root from "../../core/root/root.js";
 import * as Main from "../main/main.js";
