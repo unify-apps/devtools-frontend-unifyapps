@@ -4,6 +4,18 @@
  * found in the LICENSE file.
  */
 
+/* UnifyApps: chii hosts only Console + Network and the host app (UnifyApps
+   devtools popup) renders its own tab strip. This stylesheet is registered
+   ONLY on the InspectorView main tabbed pane (see InspectorView.ts), so hiding
+   the header here removes chii's top tab bar + side toolbars and lets the
+   active panel fill the iframe edge-to-edge — without touching nested tabbed
+   panes (e.g. Network's request/response sub-tabs live in their own shadow
+   roots). Panel switching is driven from the host via InspectorFrontendAPI
+   .showPanel('console'|'network'). */
+.tabbed-pane-header {
+  display: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
 .tabbed-pane-header-tab,
 .tabbed-pane-header-tab.selected {
   height: 26px;

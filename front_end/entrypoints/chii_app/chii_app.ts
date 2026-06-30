@@ -31,8 +31,12 @@ import "../inspector_main/inspector_main-meta.js";
 import "../../panels/issues/issues-meta.js";
 import "../../panels/mobile_throttling/mobile_throttling-meta.js";
 import "../../panels/layer_viewer/layer_viewer-meta.js";
-import "../../panels/state/state-meta.js";
-import "../../panels/state/state.js";
+// UnifyApps: the State panel is no longer hosted inside chii. State is rendered
+// natively in the UnifyApps devtools popup (a React panel reading the interface
+// entities state directly), so the chii bundle drops the State view + its
+// loader here. The custom `State` CDP domain remains in the generated protocol
+// files as dead code — reverting generated protocol/grd is high-risk regen
+// churn and unnecessary, since not importing the meta deregisters the tab.
 
 import * as Root from "../../core/root/root.js";
 import * as Main from "../main/main.js";
