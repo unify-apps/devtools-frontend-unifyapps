@@ -173,6 +173,12 @@ div[aria-label="Panels"] .tabbed-pane-header-tab:hover {
 div[aria-label="Panels"] {
 	display: flex;
 	gap: 8px;
+	/* match InterfaceBuilderHeader's dark chrome: gray-950 surface + gray-700 divider — the same
+	   palette values the builder header remaps --bg-primary / --border-tertiary to. overrides the
+	   base .tabbed-pane-header (--utility-brand-100). the Panels tabs already use white text
+	   (--palette-gray-dark-alpha-300 = #ffffffcc) + alpha-white hover, i.e. built for a dark bar. */
+	background-color: var(--palette-gray-950);
+	border-bottom: 1px solid var(--palette-gray-700);
 }
 
 div[aria-label="Panels"] .tabbed-pane-header-tab.selected {
